@@ -109,26 +109,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </section>
 
                 <section className={styles.grid}>
-                    <div className={styles.card}>
-                        <h3>{t.cards.O.title}</h3>
-                        <p>{t.cards.O.desc}</p>
+                    <div className={styles.card} style={{ borderTop: '4px solid #48bb78' }}>
+                        <h3>{t.cards.science.title}</h3>
+                        <p>{t.cards.science.desc}</p>
                     </div>
-                    <div className={styles.card}>
-                        <h3>{t.cards.C.title}</h3>
-                        <p>{t.cards.C.desc}</p>
+                    <div className={styles.card} style={{ borderTop: '4px solid #4299e1' }}>
+                        <h3>{t.cards.career.title}</h3>
+                        <p>{t.cards.career.desc}</p>
                     </div>
-                    <div className={styles.card}>
-                        <h3>{t.cards.E.title}</h3>
-                        <p>{t.cards.E.desc}</p>
+                    <div className={styles.card} style={{ borderTop: '4px solid #ed8936' }}>
+                        <h3>{t.cards.growth.title}</h3>
+                        <p>{t.cards.growth.desc}</p>
                     </div>
-                    <div className={styles.card}>
-                        <h3>{t.cards.A.title}</h3>
-                        <p>{t.cards.A.desc}</p>
+                    <div className={styles.card} style={{ borderTop: '4px solid #9f7aea' }}>
+                        <h3>{t.cards.cognition.title}</h3>
+                        <p>{t.cards.cognition.desc}</p>
                     </div>
-                    <div className={styles.card}>
-                        <h3>{t.cards.N.title}</h3>
-                        <p>{t.cards.N.desc}</p>
-                    </div>
+                </section>
+
+                <section className={styles.section} style={{ background: '#ebf8ff', padding: '2rem', borderRadius: '12px', marginTop: '2rem' }}>
+                    <h2 style={{ color: '#2b6cb0' }}>{t.why_alignment.title}</h2>
+                    <p style={{ fontSize: '1.1rem', color: '#2c5282' }}>
+                        {t.why_alignment.desc}
+                    </p>
                 </section>
 
                 <section className={styles.section}>

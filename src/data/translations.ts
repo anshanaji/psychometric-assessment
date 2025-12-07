@@ -3,16 +3,19 @@ export const translations = {
         title: "Discover Your True Self",
         subtitle: "A scientifically validated personality assessment based on the Five Factor Model.",
         start: "Begin Assessment",
-        science_title: "The Science Behind It",
-        science_desc: "This assessment utilizes the IPIP-NEO-120, a highly respected inventory measuring the \"Big Five\" personality traits. Unlike casual quizzes, this tool is derived from decades of psychological research.",
+        science_title: "The Science of Psychometrics",
+        science_desc: "This platform integrates world-class psychometric models like the Big Five (IPIP-NEO) and Jungian Typology (MBTI). By combining trait-based and type-based approaches, we provide a holistic view of your cognitive architecture.",
         cards: {
-            O: { title: "Openness", desc: "Creativity, curiosity, and willingness to try new things." },
-            C: { title: "Conscientiousness", desc: "Organization, dependability, and discipline." },
-            E: { title: "Extraversion", desc: "Social energy, assertiveness, and enthusiasm." },
-            A: { title: "Agreeableness", desc: "Compassion, cooperation, and trust in others." },
-            N: { title: "Neuroticism", desc: "Emotional sensitivity and reaction to stress." }
+            science: { title: "Validated Research", desc: "Built on decades of psychological research and statistical validation." },
+            career: { title: "Career Clarity", desc: "Discover roles where your natural strengths become your competitive advantage." },
+            growth: { title: "Personal Growth", desc: "Understand your blind spots and leverage your innate talents." },
+            cognition: { title: "Cognitive Insight", desc: "Learn how you process information, make decisions, and interact with the world." }
         },
-        career_title: "Career Mapping",
+        why_alignment: {
+            title: "Why Personality-Career Fit Matters",
+            desc: "Choosing a career aligned with your natural personality is crucial for long-term success. Research in 'Trait-Role Fit' shows that high alignment leads to greater job satisfaction, reduced burnout, and frequent states of 'flow'—where work feels effortless and engaging."
+        },
+        career_title: "Data-Driven Career Mapping",
         career_desc: "Beyond personality, we analyze your traits to derive your Holland Code (RIASEC), providing data-driven career recommendations that align with your natural inclinations.",
         wizard: {
             progress: "Progress",
@@ -102,13 +105,16 @@ export const translations = {
         subtitle: "ഫൈവ് ഫാക്ടർ മോഡലിനെ (Big Five) അടിസ്ഥാനമാക്കിയുള്ള ശാസ്ത്രീയമായ വ്യക്തിത്വ പരിശോധന.",
         start: "വിലയിരുത്തൽ ആരംഭിക്കുക",
         science_title: "ഇതിന് പിന്നിലെ ശാസ്ത്രം",
-        science_desc: "ഈ അസസ്സ്‌മെന്റ് IPIP-NEO-120 ഉപയോഗിക്കുന്നു. ഇത് 'ബിഗ് ഫൈവ്' വ്യക്തിത്വ സവിശേഷതകൾ അളക്കുന്നതിനുള്ള ആഗോളതലത്തിൽ അംഗീകരിക്കപ്പെട്ട രീതിയാണ്. സാധാരണ ക്വിസുകളിൽ നിന്ന് വ്യത്യസ്തമായി, ഇത് പതിറ്റാണ്ടുകളായുള്ള ഗവേഷണങ്ങളിൽ നിന്ന് രൂപപ്പെടുത്തിയതാണ്.",
+        science_desc: "ഈ പ്ലാറ്റ്‌ഫോം ബിഗ് ഫൈവ് (Big Five), എംബിടിഐ (MBTI) തുടങ്ങിയ ലോകോത്തര നിലവാരമുള്ള ശാസ്ത്രീയ രീതികൾ ഉപയോഗിക്കുന്നു. നിങ്ങളുടെ സ്വഭാവത്തെയും ചിന്താരീതിയെയും കുറിച്ച് സമഗ്രമായ അറിവ് ഇത് നൽകുന്നു.",
         cards: {
-            O: { title: "തുറന്ന മനോഭാവം (Openness)", desc: "സർഗ്ഗാത്മകത, കൗതുകം, പുതിയ കാര്യങ്ങൾ പരീക്ഷിക്കാനുള്ള മനസ്സ്." },
-            C: { title: "ഉത്തരവാദിത്തം (Conscientiousness)", desc: "ചിട്ടയായ ശീലം, വിശ്വാസ്യത, അച്ചടക്കം." },
-            E: { title: "ബഹിർമുഖത്വം (Extraversion)", desc: "സാമൂഹികമായ ഊർജ്ജസ്വലത, ആത്മവിശ്വാസം, ഉത്സാഹം." },
-            A: { title: "സൗഹാർദ്ദം (Agreeableness)", desc: "കരുതൽ, സഹകരണം, മറ്റുള്ളവരെ വിശ്വസിക്കാനുള്ള കഴിവ്." },
-            N: { title: "വികാരധീനത (Neuroticism)", desc: "വൈകാരികമായ ഉത്കണ്ഠ, സമ്മർദ്ദത്തോടുള്ള പ്രതികരണം." }
+            science: { title: "ശാസ്ത്രീയ അടിത്തറ", desc: "പതിറ്റാണ്ടുകളായുള്ള മനഃശാസ്ത്ര ഗവേഷണങ്ങളെ അടിസ്ഥാനമാക്കിയുള്ളത്." },
+            career: { title: "കൃത്യമായ കരിയർ", desc: "നിങ്ങളുടെ കഴിവുകൾക്ക് ഏറ്റവും അനുയോജ്യമായ തൊഴിലുകൾ കണ്ടെത്താം." },
+            growth: { title: "വ്യക്തിത്വ വികസനം", desc: "സ്വന്തം കഴിവുകളും പരിമിതികളും തിരിച്ചറിഞ്ഞ് മുന്നേറാം." },
+            cognition: { title: "ചിന്താശേഷി", desc: "നിങ്ങൾ എങ്ങനെ ചിന്തിക്കുന്നു എന്നും തീരുമാനങ്ങൾ എടുക്കുന്നു എന്നും മനസ്സിലാക്കാം." }
+        },
+        why_alignment: {
+            title: "എന്തുകൊണ്ട് ഇത് പ്രധാനമാണ്?",
+            desc: "സ്വന്തം വ്യക്തിത്വത്തിന് ഇണങ്ങുന്ന ജോലി തിരഞ്ഞെടുക്കുന്നത് വിജയത്തിന് അനിവാര്യമാണ്. ഗവേഷണങ്ങൾ തെളിയിക്കുന്നത്, വ്യക്തിത്വത്തിന് അനുയോജ്യമായ ജോലി ചെയ്യുന്നവർക്ക് ജോലിയിൽ സംതൃപ്തിയും മാനസിക ഉല്ലാസവും കൂടുതലായിരിക്കും എന്നാണ്."
         },
         career_title: "കരിയർ മാപ്പിംഗ്",
         career_desc: "നിങ്ങളുടെ വ്യക്തിത്വത്തിന് അനുയോജ്യമായ ജോലികൾ കണ്ടെത്തുന്നതിന് ഞങ്ങൾ ഹോളണ്ട് കോഡ് (RIASEC) വിശകലനം ഉപയോഗിക്കുന്നു.",
