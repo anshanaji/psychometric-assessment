@@ -22,7 +22,7 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 
 const ResultsDashboard: React.FC = () => {
-    const { results, resetAssessment, currentCareer, isGenerating, language } = useAssessment();
+    const { results, resetAssessment, currentCareer, setCurrentCareer, isGenerating, language } = useAssessment();
     const { currentUser } = useAuth(); // Add auth context
     const [isSaving, setIsSaving] = useState(false);
     const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle');
@@ -553,12 +553,17 @@ const ResultsDashboard: React.FC = () => {
                         <h3 style={{ marginBottom: '1.5rem', color: '#1e293b' }}>{t.career_intelligence.top_matches_title}</h3>
                         <div className={styles.careerList}>
                             {topMatches.map((career, index) => (
-                                <div key={index} className={styles.careerCard}>
+                                <div
+                                    key={index}
+                                    className={`${styles.careerCard} ${currentCareer === career.title ? styles.selectedCareer : ''}`}
+                                    onClick={() => setCurrentCareer(career.title)}
+                                    style={{ cursor: 'pointer', border: currentCareer === career.title ? '2px solid #4f46e5' : '1px solid #e2e8f0' }}
+                                >
                                     <div className={styles.careerIcon}>
                                         {career.title.charAt(0)}
                                     </div>
                                     <div className={styles.careerInfo}>
-                                        <h4>{career.title}</h4>
+                                        <h4 style={{ color: currentCareer === career.title ? '#4f46e5' : 'inherit' }}>{career.title}</h4>
                                         <div className={styles.progressBarContainer}>
                                             <div className={styles.progressBar} style={{ width: `${career.matchScore}%` }}></div>
                                         </div>
