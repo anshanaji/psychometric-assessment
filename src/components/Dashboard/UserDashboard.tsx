@@ -3,16 +3,22 @@ import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase';
 import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import styles from './UserDashboard.module.css';
+import { useAssessment } from '../../context/AssessmentContext';
+import { useNavigate } from 'react-router-dom';
 
 interface SavedReport {
     id: string;
     type: 'big5' | 'mbti';
     timestamp: any;
-    resultSummary: any; // Simplified result
+    resultSummary: any;
+    results: any; // Full results for loading
 }
 
 const UserDashboard: React.FC = () => {
     const { currentUser, logout } = useAuth();
+    const { setResults, setAssessmentType } = useAssessment();
+    const navigate = useNavigate();
+
     const [reports, setReports] = useState<SavedReport[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -39,6 +45,15 @@ const UserDashboard: React.FC = () => {
 
         fetchReports();
     }, [currentUser]);
+
+    const loadReport = (report: SavedReport) => {
+        // Load data into context
+        setAssessmentType(report.type);
+        setResults(report.results);
+
+        // Navigate to result view (which is currently at root if results exist)
+        navigate('/');
+    };
 
     if (!currentUser) return <div>Please Log In</div>;
 
@@ -77,11 +92,16 @@ const UserDashboard: React.FC = () => {
                                 </div>
                                 <div className={styles.cardBody}>
                                     {report.type === 'mbti' ? (
-                                        <h3>Result: {report.resultSummary.type}</h3>
+                                        <h3>Result: {report.resultSummary?.type || 'MBTI'}</h3>
                                     ) : (
                                         <h3>Big Five Profile</h3>
                                     )}
-                                    <button className={styles.viewBtn}>View Report (Coming Soon)</button>
+                                    <button
+                                        className={styles.viewBtn}
+                                        onClick={() => loadReport(report)}
+                                    >
+                                        View Report
+                                    </button>
                                 </div>
                             </div>
                         ))}

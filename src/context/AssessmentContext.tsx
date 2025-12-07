@@ -22,6 +22,7 @@ interface AssessmentContextType {
     isGenerating: boolean;
     language: 'en' | 'ml';
     setLanguage: (lang: 'en' | 'ml') => void;
+    setResults: (results: AssessmentResult | null) => void; // Add setResults
     fillRandomAnswers: () => void;
     finishAssessment: () => void;
     resetAssessment: () => void;
@@ -211,7 +212,8 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             currentCareer,
             setCurrentCareer,
             assessmentType,
-            setAssessmentType
+            setAssessmentType,
+            setResults
         }}>
             {children}
         </AssessmentContext.Provider>
