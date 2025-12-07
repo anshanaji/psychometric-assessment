@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.css';
 import { useAssessment } from '../../context/AssessmentContext';
+import { useAuth } from '../../context/AuthContext';
 import { translations } from '../../data/translations';
 
 interface LandingPageProps {
@@ -10,6 +10,7 @@ interface LandingPageProps {
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
     const { language, setLanguage, setAssessmentType } = useAssessment();
+    const { currentUser, logout } = useAuth();
     const t = translations[language];
 
     const isMal = language === 'ml';
@@ -38,7 +39,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    <Link to="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</Link>
+                    {currentUser ? (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            <Link to="/dashboard" style={{ color: '#4a5568', textDecoration: 'none', fontWeight: '600' }}>
+                                {currentUser.displayName || 'User'}
+                            </Link>
+                            <button
+                                onClick={logout}
+                                style={{
+                                    background: 'transparent',
+                                    border: '1px solid #cbd5e0',
+                                    padding: '5px 12px',
+                                    borderRadius: '6px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.9rem',
+                                    color: '#718096'
+                                }}
+                            >
+                                Sign Out
+                            </button>
+                        </div>
+                    ) : (
+                        <Link to="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</Link>
+                    )}
+
+                    <div style={{ width: '1px', height: '20px', background: '#cbd5e0', margin: '0 5px' }}></div>
+
                     <button onClick={() => setLanguage('en')} className={!isMal ? styles.activeLang : styles.inactiveLang}>EN</button>
                     <button onClick={() => setLanguage('ml')} className={isMal ? styles.activeLang : styles.inactiveLang}>ML</button>
                 </div>
