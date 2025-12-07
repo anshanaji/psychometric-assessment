@@ -189,7 +189,7 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             newAnswers[item.id] = Math.floor(Math.random() * 5) + 1;
         });
         setAnswers(newAnswers);
-        // We don't advance step here since we might want to manually submit or verify
+        setCurrentStep(totalSteps - 1); // Jump to last step so user can finish immediately
     };
 
     return (
