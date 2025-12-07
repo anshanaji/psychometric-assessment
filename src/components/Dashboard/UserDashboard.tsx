@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, doc, getDoc } from 'firebase/firestore';
 import styles from './UserDashboard.module.css';
 import { useAssessment } from '../../context/AssessmentContext';
 import { useNavigate } from 'react-router-dom';
@@ -22,11 +22,21 @@ const UserDashboard: React.FC = () => {
 
     const [reports, setReports] = useState<SavedReport[]>([]);
     const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState<any>(null);
+    const [copyStatus, setCopyStatus] = useState('Copy Link');
 
     useEffect(() => {
-        const fetchReports = async () => {
+        const fetchData = async () => {
             if (!currentUser) return;
             try {
+                // Fetch User Details (Wallet, RefCode)
+                const userDocRef = doc(db, 'users', currentUser.uid);
+                const userDocSnap = await getDoc(userDocRef);
+                if (userDocSnap.exists()) {
+                    setUserData(userDocSnap.data());
+                }
+
+                // Fetch Reports
                 const q = query(
                     collection(db, `users/${currentUser.uid}/reports`),
                     orderBy('timestamp', 'desc')
@@ -38,14 +48,22 @@ const UserDashboard: React.FC = () => {
                 });
                 setReports(fetchedReports);
             } catch (error) {
-                console.error("Error fetching reports:", error);
+                console.error("Error fetching data:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchReports();
+        fetchData();
     }, [currentUser]);
+
+    const copyToClipboard = () => {
+        if (!userData?.referralCode) return;
+        const link = `${window.location.origin}/login?ref=${userData.referralCode}`;
+        navigator.clipboard.writeText(link);
+        setCopyStatus('Copied!');
+        setTimeout(() => setCopyStatus('Copy Link'), 2000);
+    };
 
     const loadReport = (report: SavedReport) => {
         // Load data into context
@@ -61,11 +79,58 @@ const UserDashboard: React.FC = () => {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <div>
-                    <h1>{currentUser.displayName}</h1>
-                    <p>{currentUser.email}</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                        <div>
+                            <h1>{currentUser.displayName}</h1>
+                            <p>{currentUser.email}</p>
+                        </div>
+                        <nav>
+                            <a href="/" style={{ color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Home</a>
+                        </nav>
+                    </div>
+
+                    {/* Wallet & Referral Widget */}
+                    {userData && (
+                        <div style={{
+                            background: 'white',
+                            padding: '1rem',
+                            borderRadius: '12px',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                            display: 'flex',
+                            gap: '2rem',
+                            alignItems: 'center'
+                        }}>
+                            <div>
+                                <p style={{ fontSize: '0.85rem', color: '#718096', marginBottom: '0.25rem' }}>Wallet Balance</p>
+                                <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#48bb78', margin: 0 }}>
+                                    ₹{userData.walletBalance || 0}
+                                </p>
+                            </div>
+                            <div style={{ paddingLeft: '2rem', borderLeft: '1px solid #e2e8f0' }}>
+                                <p style={{ fontSize: '0.85rem', color: '#718096', marginBottom: '0.25rem' }}>Refer & Earn ₹50</p>
+                                <button
+                                    onClick={copyToClipboard}
+                                    style={{
+                                        background: '#ebf8ff',
+                                        color: '#3182ce',
+                                        border: 'none',
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '6px',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        fontSize: '0.9rem',
+                                        transition: 'all 0.2s'
+                                    }}
+                                >
+                                    {copyStatus}
+                                </button>
+                            </div>
+                            <button onClick={logout} className={styles.logoutBtn} style={{ marginLeft: '1rem' }}>Sign Out</button>
+                        </div>
+                    )}
+                    {!userData && <button onClick={logout} className={styles.logoutBtn}>Sign Out</button>}
                 </div>
-                <button onClick={logout} className={styles.logoutBtn}>Sign Out</button>
             </header>
 
             <main className={styles.main}>
