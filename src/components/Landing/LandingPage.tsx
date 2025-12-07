@@ -1,12 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './LandingPage.module.css';
+import { useAssessment } from '../../context/AssessmentContext';
+import { translations } from '../../data/translations';
 
 interface LandingPageProps {
     onStart: () => void;
 }
-
-import { useAssessment } from '../../context/AssessmentContext';
-import { translations } from '../../data/translations';
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
     const { language, setLanguage, setAssessmentType } = useAssessment();
@@ -38,7 +38,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    <a href="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</a>
+                    <Link to="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</Link>
                     <button onClick={() => setLanguage('en')} className={!isMal ? styles.activeLang : styles.inactiveLang}>EN</button>
                     <button onClick={() => setLanguage('ml')} className={isMal ? styles.activeLang : styles.inactiveLang}>ML</button>
                 </div>
