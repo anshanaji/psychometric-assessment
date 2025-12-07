@@ -52,7 +52,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error: any) {
+            console.error("Error signing in with Google", error);
+            // Temporary alert to help the user debug
+            alert(`Login Failed: ${error.message}\nCheck your Firebase Console > Authentication > Settings > Authorized Domains.`);
+        }
     };
 
     const logout = async () => {
