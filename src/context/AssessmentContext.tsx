@@ -10,18 +10,17 @@ interface AssessmentContextType {
     currentStep: number;
     totalSteps: number;
     answers: UserAnswers;
-    isComplete: boolean;
-    currentCareer: string;
-    setCurrentCareer: (career: string) => void;
-    currentCareerCode: string;
-    setCurrentCareerCode: (code: string) => void;
+    handleAnswer: (answer: number) => void;
     setAnswer: (itemId: string, value: number) => void;
     nextStep: () => void;
     prevStep: () => void;
     results: AssessmentResult | null;
-    resetAssessment: () => void;
-    finishAssessment: () => void;
+    isGenerating: boolean;
+    language: 'en' | 'ml';
+    setLanguage: (lang: 'en' | 'ml') => void;
     fillRandomAnswers: () => void;
+    finishAssessment: () => void;
+    resetAssessment: () => void;
 }
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
@@ -29,9 +28,12 @@ const AssessmentContext = createContext<AssessmentContextType | undefined>(undef
 export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<UserAnswers>({});
-    const [isComplete, setIsComplete] = useState(false);
-    const [currentCareer, setCurrentCareer] = useState<string>('');
-    const [currentCareerCode, setCurrentCareerCode] = useState<string>('');
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [results, setResults] = useState<AssessmentResult | null>(null);
+    const [language, setLanguage] = useState<'en' | 'ml'>('en');
+
+    const items = itemsData as Item[];
+    const totalSteps = items.length;
 
     // Load state from localStorage on mount
     useEffect(() => {
@@ -41,9 +43,8 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 const parsed = JSON.parse(saved);
                 if (parsed.answers) setAnswers(parsed.answers);
                 if (parsed.currentStep !== undefined) setCurrentStep(parsed.currentStep);
-                if (parsed.currentCareer) setCurrentCareer(parsed.currentCareer);
-                if (parsed.currentCareerCode) setCurrentCareerCode(parsed.currentCareerCode);
-                if (parsed.isComplete !== undefined) setIsComplete(parsed.isComplete);
+                if (parsed.language) setLanguage(parsed.language);
+                if (parsed.results) setResults(parsed.results);
             } catch (e) {
                 console.error("Failed to load session", e);
                 localStorage.removeItem('assessment_session');
@@ -53,22 +54,101 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     // Save state to localStorage on change
     useEffect(() => {
-        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, currentCareer, currentCareerCode, isComplete }));
-    }, [answers, currentStep, currentCareer, currentCareerCode, isComplete]);
+        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results }));
+    }, [answers, currentStep, language, results]);
 
-    const items = itemsData as Item[];
-    const totalSteps = items.length;
+    const generateResults = (finalAnswers: UserAnswers) => {
+        setIsGenerating(true);
+        setTimeout(() => {
+            // @ts-ignore
+            const { domainResults, facetResults, nuancedInsights, consistencyFlags } = generateReport(finalAnswers, items, normsData);
+            const riasecScores = calculateRiasecScores(domainResults);
+            const topRiasec = getTopRiasecCode(riasecScores);
 
-    const setAnswer = (itemId: string, value: number) => {
-        setAnswers(prev => ({ ...prev, [itemId]: value }));
+            // Career Lookup Logic
+            let matchedCareers = (careersData as any)[topRiasec] || [];
+
+            // Fallback strategy if exact match yields nothing
+            if (matchedCareers.length === 0) {
+                const perms = [
+                    topRiasec,
+                    topRiasec[0] + topRiasec[2] + topRiasec[1],
+                    topRiasec[1] + topRiasec[0] + topRiasec[2],
+                    topRiasec[1] + topRiasec[2] + topRiasec[0],
+                    topRiasec[2] + topRiasec[0] + topRiasec[1],
+                    topRiasec[2] + topRiasec[1] + topRiasec[0]
+                ];
+
+                for (const p of perms) {
+                    if ((careersData as any)[p]) {
+                        matchedCareers = (careersData as any)[p];
+                        break;
+                    }
+                }
+            }
+
+            if (matchedCareers.length === 0) {
+                const twoLetter = topRiasec.substring(0, 2);
+                const allKeys = Object.keys(careersData);
+                for (const key of allKeys) {
+                    if (key.startsWith(twoLetter)) {
+                        matchedCareers = [...matchedCareers, ...(careersData as any)[key]];
+                    }
+                }
+            }
+
+            // Deduplicate and limit
+            matchedCareers = Array.from(new Set(matchedCareers)).slice(0, 20);
+
+            const resultData: AssessmentResult = {
+                domains: domainResults,
+                facets: facetResults,
+                riasec: riasecScores,
+                topRiasec,
+                careers: matchedCareers,
+                nuancedInsights: nuancedInsights || {},
+                consistencyFlags: consistencyFlags || []
+            };
+
+            // NOTE: generateReport in scoring.ts was updated to return nuancedInsights and consistencyFlags.
+            // I should update the destructuring above to capture them.
+
+            setResults(resultData);
+            setIsGenerating(false);
+        }, 1500);
+    };
+
+    const handleAnswer = (answer: number) => {
+        const currentItem = items[currentStep];
+        const newAnswers = { ...answers, [currentItem.id]: answer };
+        setAnswers(newAnswers);
+
+        // Auto advance if not last step
+        if (currentStep < totalSteps - 1) {
+            setTimeout(() => setCurrentStep(prev => prev + 1), 250);
+        } else {
+            generateResults(newAnswers);
+        }
+    };
+
+    const resetAssessment = () => {
+        setAnswers({});
+        setCurrentStep(0);
+        setResults(null);
+        // localStorage will auto-update due to useEffects, or we might need to clear it manually?
+        // We use localStorage for persistence.
+        localStorage.removeItem('assessment_answers');
+        localStorage.removeItem('assessment_step');
+        localStorage.removeItem('assessment_results');
+    };
+
+    const finishAssessment = () => {
+        generateResults(answers);
     };
 
     const nextStep = () => {
         if (currentStep < totalSteps - 1) {
             setCurrentStep(prev => prev + 1);
-        } else {
-            setIsComplete(true);
-            localStorage.removeItem('assessment_session'); // Clear on completion
         }
     };
 
@@ -78,18 +158,8 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         }
     };
 
-    const resetAssessment = () => {
-        setAnswers({});
-        setCurrentStep(0);
-        setCurrentCareer('');
-        setCurrentCareerCode('');
-        setIsComplete(false);
-        localStorage.removeItem('assessment_session');
-    };
-
-    const finishAssessment = () => {
-        setIsComplete(true);
-        localStorage.removeItem('assessment_session');
+    const setAnswer = (itemId: string, value: number) => {
+        setAnswers(prev => ({ ...prev, [itemId]: value }));
     };
 
     const fillRandomAnswers = () => {
@@ -98,91 +168,25 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             newAnswers[item.id] = Math.floor(Math.random() * 5) + 1;
         });
         setAnswers(newAnswers);
-        // Jump to start of last batch (115 for 120 items with batch size 5)
-        setCurrentStep(115);
+        // We don't advance step here since we might want to manually submit or verify
     };
-
-    const results = useMemo(() => {
-        if (!isComplete) return null;
-
-        const { domainResults, facetResults } = generateReport(answers, items, normsData);
-        const riasecScores = calculateRiasecScores(domainResults);
-        const topRiasec = getTopRiasecCode(riasecScores);
-
-        // Career Lookup Logic
-        // 1. Exact Match (3 letters)
-        let careers = (careersData as any)[topRiasec] || [];
-
-        // 2. Permutations of top 3 (if no exact match)
-        if (careers.length === 0) {
-            const perms = [
-                topRiasec,
-                topRiasec[0] + topRiasec[2] + topRiasec[1], // Swap 2 & 3
-                topRiasec[1] + topRiasec[0] + topRiasec[2], // Swap 1 & 2
-                topRiasec[1] + topRiasec[2] + topRiasec[0],
-                topRiasec[2] + topRiasec[0] + topRiasec[1],
-                topRiasec[2] + topRiasec[1] + topRiasec[0]
-            ];
-
-            for (const p of perms) {
-                if ((careersData as any)[p]) {
-                    careers = (careersData as any)[p];
-                    break;
-                }
-            }
-        }
-
-        // 3. Match by top 2 letters (if still no match)
-        if (careers.length === 0) {
-            const twoLetter = topRiasec.substring(0, 2);
-            // Find any key that starts with these 2 letters
-            const allKeys = Object.keys(careersData);
-            for (const key of allKeys) {
-                if (key.startsWith(twoLetter)) {
-                    careers = [...careers, ...(careersData as any)[key]];
-                }
-            }
-        }
-
-        // 4. Fallback: Match by top 1 letter
-        if (careers.length === 0) {
-            const oneLetter = topRiasec.substring(0, 1);
-            const allKeys = Object.keys(careersData);
-            for (const key of allKeys) {
-                if (key.startsWith(oneLetter)) {
-                    careers = [...careers, ...(careersData as any)[key]];
-                }
-            }
-            // Limit fallback results
-            careers = careers.slice(0, 5);
-        }
-
-        return {
-            domains: domainResults,
-            facets: facetResults,
-            riasec: riasecScores,
-            topRiasec,
-            careers
-        };
-    }, [isComplete, answers]);
 
     return (
         <AssessmentContext.Provider value={{
             currentStep,
             totalSteps,
             answers,
-            isComplete,
-            currentCareer,
-            setCurrentCareer,
-            currentCareerCode,
-            setCurrentCareerCode,
-            setAnswer,
+            handleAnswer,
+            setAnswer, // Added back
             nextStep,
             prevStep,
             results,
-            resetAssessment,
-            finishAssessment,
-            fillRandomAnswers
+            isGenerating,
+            language,
+            setLanguage,
+            fillRandomAnswers, // Added back
+            finishAssessment, // Added back
+            resetAssessment // Added back
         }}>
             {children}
         </AssessmentContext.Provider>

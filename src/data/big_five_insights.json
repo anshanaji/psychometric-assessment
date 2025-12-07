@@ -1,32 +1,54 @@
+```json
 {
     "N": {
         "name": "Neuroticism",
+        "name_ml": "വികാരധീനത (Neuroticism)",
         "low": "You are generally calm, resilient, and able to handle stress well. You don't worry much and are emotionally stable.",
+        "low_ml": "നിങ്ങൾ പൊതുവെ ശാന്തനും സമ്മർദ്ദത്തെ അതിജീവിക്കാൻ കഴിവുള്ളയാളുമാണ്. നിങ്ങൾ അധികം ഉത്കണ്ഠപ്പെടാറില്ല.",
         "average": "You are generally calm but can feel stressed or anxious in demanding situations. Your emotional reactions are typical of most people.",
-        "high": "You are sensitive and emotional. You may experience feelings of anxiety, worry, or sadness more often than others. You are likely very passionate but may need to manage stress carefully."
+        "average_ml": "നിങ്ങൾ പൊതുവെ ശാന്തനാണ്, എന്നാൽ ബുദ്ധിമുട്ടുള്ള സാഹചര്യങ്ങളിൽ നിങ്ങൾക്ക് സമ്മർദ്ദമോ ഉത്കണ്ഠയോ അനുഭവപ്പെടാം.",
+        "high": "You are sensitive and emotional. You may experience feelings of anxiety, worry, or sadness more often than others. You are likely very passionate but may need to manage stress carefully.",
+        "high_ml": "നിങ്ങൾ പെട്ടെന്ന് വികാരധീനനാകുന്ന ആളാണ്. മറ്റുള്ളവരെ അപേക്ഷിച്ച് നിങ്ങൾക്ക് ഉത്കണ്ഠയോ സങ്കടമോ കൂടുതലായി അനുഭവപ്പെടാം."
     },
     "E": {
         "name": "Extraversion",
+        "name_ml": "ബഹിർമുഖത്വം (Extraversion)",
         "low": "You are introverted, preferring solitary activities or small groups. You find social events draining and value your privacy and inner world.",
+        "low_ml": "നിങ്ങൾ അന്തർമുഖനാണ് (Introvert). ഒറ്റയ്ക്കുള്ള പ്രവർത്തനങ്ങളോ ചെറിയ സൗഹൃദങ്ങളോ ആണ് നിങ്ങൾ ഇഷ്ടപ്പെടുന്നത്. വലിയ ആൾക്കൂട്ടങ്ങൾ നിങ്ങൾക്ക് ക്ഷീണമുണ്ടാക്കാം.",
         "average": "You enjoy social situations but also need time alone to recharge. You strike a balance between engaging with others and solitary reflection.",
-        "high": "You are extroverted, outgoing, and energetic. You love being around people, seek excitement, and often take the lead in social situations."
+        "average_ml": "നിങ്ങൾ സാമൂഹികമായി ഇടപഴകാൻ ഇഷ്ടപ്പെടുന്നു, എങ്കിലും റീചാർജ് ചെയ്യാൻ നിങ്ങൾക്ക് ഏകാന്തത ആവശ്യമാണ്.",
+        "high": "You are extroverted, outgoing, and energetic. You love being around people, seek excitement, and often take the lead in social situations.",
+        "high_ml": "നിങ്ങൾ ബഹിർമുഖനാണ് (Extrovert). ആളുകളുമായി ഇടപഴകുന്നതും, ആവേശം തേടുന്നതും നിങ്ങൾ ഇഷ്ടപ്പെടുന്നു. പലപ്പോഴും നേതൃപരമായ റോളുകൾ ഏറ്റെടുക്കുന്നു."
     },
     "O": {
         "name": "Openness",
+        "name_ml": "തുറന്ന മനോഭാവം (Openness)",
         "low": "You are practical, conventional, and prefer routine. You value facts over abstract ideas and prefer the tried-and-true methods.",
+        "low_ml": "നിങ്ങൾ പ്രായോഗിക ബുദ്ധിയുള്ളയാളാണ്. പഴയ രീതികളും ചിട്ടകളും പിന്തുടരാൻ ഇഷ്ടപ്പെടുന്നു. അമൂർത്തമായ ആശയങ്ങളേക്കാൾ വ്യക്തമായ വസ്തുതകൾക്കാണ് നിങ്ങൾ വിലനൽകുന്നത്.",
         "average": "You appreciate a balance between the new and the familiar. You are open to some new experiences but also value tradition and stability.",
-        "high": "You are creative, curious, and open to new experiences. You enjoy abstract thinking, art, and exploring new ideas and cultures."
+        "average_ml": "പുതിയ കാര്യങ്ങളും പഴയ ശീലങ്ങളും ഒരുപോലെ കൊണ്ടുപോകാൻ നിങ്ങൾ ശ്രമിക്കുന്നു.",
+        "high": "You are creative, curious, and open to new experiences. You enjoy abstract thinking, art, and exploring new ideas and cultures.",
+        "high_ml": "നിങ്ങൾ സർഗ്ഗാത്മകതയുള്ളവരും പുതിയ കാര്യങ്ങൾ അറിയാൻ ആഗ്രഹിക്കുന്നവരുമാണ്. കലയും പുതിയ ആശയങ്ങളും നിങ്ങൾ ആസ്വദിക്കുന്നു."
     },
     "A": {
         "name": "Agreeableness",
+        "name_ml": "സൗഹാർദ്ദം (Agreeableness)",
         "low": "You are competitive, skeptical, and direct. You prioritize your own interests and may challenge others. You value toughness and objectivity.",
+        "low_ml": "നിങ്ങൾ കാര്യങ്ങളെ സംശയത്തോടെ കാണുന്നവരും മത്സരബുദ്ധിയുള്ളവരുമാണ്. മറ്റുള്ളവരുടെ വികാരങ്ങളേക്കാൾ യുക്തിക്ക് നിങ്ങൾ പ്രാധാന്യം നൽകുന്നു.",
         "average": "You are generally warm and trusting but can be firm when necessary. You balance a concern for others with your own needs.",
-        "high": "You are compassionate, cooperative, and trusting. You value harmony and are always willing to help others. You may find it hard to say no."
+        "average_ml": "നിങ്ങൾ പൊതുവെ മാന്യമായി പെരുമാറുന്നയാളാണ്, എന്നാൽ ആവശ്യമുള്ളപ്പോൾ കർക്കശ നിലപാടും സ്വീകരിക്കും.",
+        "high": "You are compassionate, cooperative, and trusting. You value harmony and are always willing to help others. You may find it hard to say no.",
+        "high_ml": "നിങ്ങൾ കരുണയുള്ളവരും സഹകരിക്കുന്നവരുമാണ്. മറ്റുള്ളവരെ സഹായിക്കാനും തർക്കങ്ങൾ ഒഴിവാക്കാനും നിങ്ങൾ ആഗ്രഹിക്കുന്നു."
     },
     "C": {
         "name": "Conscientiousness",
+        "name_ml": "ഉത്തരവാദിത്തം (Conscientiousness)",
         "low": "You are spontaneous, flexible, and relaxed. You prefer not to make strict plans and may be disorganized. You value freedom over structure.",
+        "low_ml": "നിങ്ങൾ മുൻകൂട്ടി പ്ലാൻ ചെയ്യാതെ കാര്യങ്ങൾ ചെയ്യുന്നയാളാണ്. ചിട്ടയായ പ്ലാനിംഗ് നിങ്ങൾക്ക് ബുദ്ധിമുട്ടായിരിക്കാം, എന്നാൽ മാറ്റങ്ങളോട് പെട്ടെന്ന് പൊരുത്തപ്പെടും.",
         "average": "You are dependable and organized but not obsessive. You can work hard when needed but also know how to relax and be flexible.",
-        "high": "You are disciplined, organized, and goal-oriented. You plan ahead, pay attention to detail, and always strive for excellence."
+        "average_ml": "നിങ്ങൾ കാര്യങ്ങൾ ചിട്ടയോടെ ചെയ്യുന്നവരാണ്. നിങ്ങൾക്ക് വ്യക്തമായ ലക്ഷ്യങ്ങളുണ്ട്.",
+        "high": "You are disciplined, organized, and goal-oriented. You plan ahead, pay attention to detail, and always strive for excellence.",
+        "high_ml": "നിങ്ങൾ തികഞ്ഞ അച്ചടക്കമുള്ളവരും ചിട്ടയുള്ളവരുമാണ്. കാര്യങ്ങൾ കൃത്യമായി പ്ലാൻ ചെയ്യുകയും ഉത്തരവാദിത്തത്തോടെ പൂർത്തിയാക്കുകയും ചെയ്യുന്നു."
     }
 }
+```

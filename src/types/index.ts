@@ -4,6 +4,7 @@ export type RiasecType = 'R' | 'I' | 'A' | 'S' | 'E' | 'C';
 export interface Item {
   id: string;
   text: string;
+  text_ml?: string;
   domain: Domain;
   facet: number | string;
   keyed: 1 | -1;

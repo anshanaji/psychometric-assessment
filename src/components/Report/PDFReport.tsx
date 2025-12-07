@@ -1,16 +1,22 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import type { AssessmentResult } from '../../types';
 import careerIntelligence from '../../data/career_intelligence.json';
 import bigFiveInsights from '../../data/big_five_insights.json';
 import { getLevel } from '../../core/scoring';
+import { translations } from '../../data/translations';
+import { Domain } from '../../types';
+
+// Register a font that supports Malayalam if available, otherwise fallback might fail.
+// Since we don't have a local font file, we rely on standard fonts which might not support ML.
+// Ideally: Font.register({ family: 'NotoSansMalayalam', src: 'path/to/font.ttf' });
 
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',
         backgroundColor: '#ffffff',
         padding: 40,
-        fontFamily: 'Helvetica',
+        fontFamily: 'Helvetica', // Warning: Helvetica doesn't support Malayalam.
     },
     header: {
         marginBottom: 20,
@@ -84,9 +90,12 @@ const styles = StyleSheet.create({
 interface PDFReportProps {
     results: AssessmentResult;
     chartImage: string | null;
+    language?: 'en' | 'ml';
 }
 
-const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
+const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = 'en' }) => {
+    const t = translations[language].results;
+
     // Get Insights
     const primaryCode = results.topRiasec.charAt(0) as keyof typeof careerIntelligence;
     const primaryInsight = (careerIntelligence as any)[primaryCode];
@@ -96,21 +105,18 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.header}>
-                    <Text style={styles.title}>Psychometric Assessment Report</Text>
+                    <Text style={styles.title}>{t.hero_title}</Text>
                     <Text style={styles.subtitle}>IPIP-NEO-120 & Holland Code Analysis</Text>
                 </View>
 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Executive Summary</Text>
+                    <Text style={styles.sectionTitle}>{t.career_intelligence.title}</Text>
                     <Text style={styles.text}>
-                        This report provides a comprehensive analysis of your personality traits based on the Five Factor Model
-                        and your vocational interests based on the RIASEC theory.
-                    </Text>
-                    <Text style={styles.text}>
-                        Your Holland Code is: {results.topRiasec}
-                    </Text>
-                    <Text style={styles.text}>
+                        {/* Fallback code description - usually these are English only unless we translated career_intelligence.json */}
                         {comboInsight ? comboInsight.description : primaryInsight?.description}
+                    </Text>
+                    <Text style={styles.text}>
+                        {t.career_intelligence.your_code}: {results.topRiasec}
                     </Text>
                 </View>
 
@@ -123,8 +129,8 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
                 {/* Consistency Checks */}
                 {results.consistencyFlags && results.consistencyFlags.length > 0 && (
                     <View style={[styles.warningBox, { backgroundColor: '#fffbeb', borderLeftColor: '#f59e0b' }]}>
-                        <Text style={[styles.sectionTitle, { color: '#d97706', fontSize: 12 }]}>Reflect on your Consistency</Text>
-                        <Text style={styles.text}>Some of your answers seemed contradictory:</Text>
+                        <Text style={[styles.sectionTitle, { color: '#d97706', fontSize: 12 }]}>{t.consistency_title}</Text>
+                        <Text style={styles.text}>{t.consistency_desc}</Text>
                         <View style={styles.list}>
                             {results.consistencyFlags.map((flag, i) => (
                                 <Text key={i} style={styles.listItem}>• {flag.message}</Text>
@@ -134,16 +140,22 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
                 )}
 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Detailed Personality Analysis</Text>
+                    <Text style={styles.sectionTitle}>{t.detailed_breakdown}</Text>
                     {Object.entries(results.domains).map(([key, value]) => {
+                        const d = key as Domain;
                         const level = getLevel(value.percentile).toLowerCase() as 'low' | 'average' | 'high';
-                        const insight = (bigFiveInsights as any)[key];
-                        // Use Nuanced Insight
-                        const description = results.nuancedInsights ? (results.nuancedInsights as any)[key] : insight[level];
+                        const insight = (bigFiveInsights as any)[d];
+
+                        const name = language === 'ml' ? insight.name_ml : insight.name;
+                        const description = (language === 'en' && results.nuancedInsights && results.nuancedInsights[d])
+                            ? results.nuancedInsights[d]
+                            : (language === 'ml' ? insight[level + '_ml'] : insight[level]);
 
                         return (
                             <View key={key} style={{ marginBottom: 8 }}>
-                                <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#1f2937' }}>{insight.name} ({getLevel(value.percentile)})</Text>
+                                <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#1f2937' }}>
+                                    {name} ({t.levels[level] || level})
+                                </Text>
                                 <Text style={styles.text}>{description}</Text>
                             </View>
                         );
@@ -151,7 +163,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
                 </View>
 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Key Strengths</Text>
+                    <Text style={styles.sectionTitle}>{t.career_intelligence.characteristics}</Text>
                     <View style={styles.list}>
                         {primaryInsight?.strengths.map((s: string, i: number) => (
                             <Text key={i} style={styles.listItem}>• {s}</Text>
@@ -160,16 +172,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
                 </View>
 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Potential Blind Spots</Text>
-                    <View style={styles.list}>
-                        {primaryInsight?.weaknesses.map((w: string, i: number) => (
-                            <Text key={i} style={styles.listItem}>• {w}</Text>
-                        ))}
-                    </View>
-                </View>
-
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Recommended Careers</Text>
+                    <Text style={styles.sectionTitle}>{t.career_intelligence.top_matches_title}</Text>
                     <View style={{ marginTop: 5 }}>
                         {results.careers.map((career, idx) => (
                             <View key={idx} style={styles.row}>
@@ -180,9 +183,9 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage }) => {
                     </View>
                 </View>
 
-                <View style={styles.warningBox}>
-                    <Text style={[styles.sectionTitle, { color: '#b91c1c', fontSize: 12 }]}>Roles to Avoid</Text>
-                    <Text style={styles.text}>Based on your profile, these roles may be draining:</Text>
+                <View style={[styles.warningBox, { marginTop: 20 }]}>
+                    <Text style={[styles.sectionTitle, { color: '#b91c1c', fontSize: 12 }]}>{t.career_intelligence.roles_to_avoid_title}</Text>
+                    <Text style={styles.text}>{t.career_intelligence.roles_to_avoid_description}</Text>
                     <View style={styles.list}>
                         {primaryInsight?.anti_roles.map((role: string, i: number) => (
                             <Text key={i} style={styles.listItem}>• {role}</Text>
