@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 import type { User } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, increment } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc, increment } from 'firebase/firestore';
 
 interface AuthContextType {
     currentUser: User | null;
@@ -53,17 +53,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     // If referred, credit the referrer
                     if (savedRefCode) {
                         try {
-                            const referrerQuery = query(collection(db, 'users'), where('referralCode', '==', savedRefCode));
-                            const referrerSnap = await getDocs(referrerQuery);
+                            // Treat savedRefCode as the Referrer's UID directly
+                            const referrerRef = doc(db, 'users', savedRefCode);
+                            const referrerSnap = await getDoc(referrerRef);
 
-                            if (!referrerSnap.empty) {
-                                const referrerDoc = referrerSnap.docs[0];
-                                referredBy = referrerDoc.id;
-
+                            if (referrerSnap.exists()) {
                                 // Credit ₹50 to referrer
-                                await updateDoc(doc(db, 'users', referrerDoc.id), {
+                                await updateDoc(referrerRef, {
                                     walletBalance: increment(50)
                                 });
+                                referredBy = savedRefCode;
                             }
                         } catch (e) {
                             console.error("Error processing referral:", e);
@@ -76,7 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                         displayName: user.displayName,
                         createdAt: new Date().toISOString(),
                         walletBalance: 0,
-                        referralCode: user.uid.slice(0, 8), // Simple unique code
+                        referralCode: user.uid, // Store UID as referral code for consistency
                         referredBy
                     });
                 }

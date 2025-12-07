@@ -58,7 +58,8 @@ const UserDashboard: React.FC = () => {
     }, [currentUser]);
 
     const copyToClipboard = async () => {
-        const code = userData?.referralCode || currentUser?.uid.slice(0, 8);
+        // Use full UID as the referral code for reliability
+        const code = currentUser?.uid;
         if (!code) return;
 
         const link = `${window.location.origin}/login?ref=${code}`;
