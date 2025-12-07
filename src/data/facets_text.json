@@ -1,0 +1,182 @@
+{
+    "N1": {
+        "name": "Anxiety",
+        "High": "You often feel tense, jittery, and fearful. You may worry about things that might go wrong.",
+        "Average": "You generally feel calm, but can experience anxiety in stressful situations.",
+        "Low": "You are calm, fearless, and not easily rattled. You rarely worry about the future."
+    },
+    "N2": {
+        "name": "Anger",
+        "High": "You have a tendency to feel angry or bitter. You may be quick to take offense.",
+        "Average": "You get angry occasionally when provoked, but it passes relatively quickly.",
+        "Low": "You are slow to anger and rarely hold grudges. You are generally easygoing."
+    },
+    "N3": {
+        "name": "Depression",
+        "High": "You tend to feel sad, dejected, and discouraged. You may lack energy and motivation.",
+        "Average": "You have ups and downs in mood, but generally feel content.",
+        "Low": "You are generally cheerful, optimistic, and free from depressive feelings."
+    },
+    "N4": {
+        "name": "Self-Consciousness",
+        "High": "You are sensitive about what others think of you. You may feel awkward in social situations.",
+        "Average": "You are reasonably comfortable in social situations, though you may feel shy occasionally.",
+        "Low": "You are confident and not easily embarrassed. You don't worry much about social judgment."
+    },
+    "N5": {
+        "name": "Immoderation",
+        "High": "You may have difficulty resisting temptations and cravings. You might overindulge at times.",
+        "Average": "You can resist temptations most of the time, but may give in occasionally.",
+        "Low": "You have high self-control and can easily resist temptations and cravings."
+    },
+    "N6": {
+        "name": "Vulnerability",
+        "High": "You feel overwhelmed by stress and pressure. You may panic in emergency situations.",
+        "Average": "You handle stress reasonably well, though major crises can be difficult.",
+        "Low": "You are resilient and handle stress and pressure with grace. You are 'cool under fire'."
+    },
+    "E1": {
+        "name": "Friendliness",
+        "High": "You are genuinely interested in others and make friends easily. You are warm and affectionate.",
+        "Average": "You are friendly but not overly demonstrative. You have a few close friends.",
+        "Low": "You are reserved and distant. You may not seek out close relationships."
+    },
+    "E2": {
+        "name": "Gregariousness",
+        "High": "You love the company of others and find social gatherings stimulating.",
+        "Average": "You enjoy social occasions but also value your privacy and alone time.",
+        "Low": "You prefer to be alone or with a few close friends. You find crowds draining."
+    },
+    "E3": {
+        "name": "Assertiveness",
+        "High": "You are dominant, forceful, and comfortable taking charge. You are a natural leader.",
+        "Average": "You can take charge when necessary, but don't constantly seek leadership roles.",
+        "Low": "You prefer to stay in the background and let others lead. You are quiet and unassuming."
+    },
+    "E4": {
+        "name": "Activity Level",
+        "High": "You lead a fast-paced, busy life. You are energetic and always on the go.",
+        "Average": "You have a moderate energy level. You can be busy but also enjoy relaxing.",
+        "Low": "You prefer a slower, more leisurely pace. You are not hurried or energetic."
+    },
+    "E5": {
+        "name": "Excitement-Seeking",
+        "High": "You crave excitement, adventure, and stimulation. You may take risks for the thrill.",
+        "Average": "You enjoy some excitement but also appreciate safety and stability.",
+        "Low": "You prefer a safe, predictable life. You avoid risks and loud, thrilling activities."
+    },
+    "E6": {
+        "name": "Cheerfulness",
+        "High": "You are typically full of joy, happiness, and positive energy.",
+        "Average": "You are generally in a good mood, but not constantly exuberant.",
+        "Low": "You are not typically exuberant or high-spirited. You may be serious or reserved."
+    },
+    "O1": {
+        "name": "Imagination",
+        "High": "You have a vivid imagination and enjoy fantasy. You are creative and original.",
+        "Average": "You have a normal imagination but prefer the real world to fantasy.",
+        "Low": "You are practical and down-to-earth. You prefer facts to fantasy."
+    },
+    "O2": {
+        "name": "Artistic Interests",
+        "High": "You love beauty in art and nature. You are easily moved by poetry, music, or art.",
+        "Average": "You appreciate art and beauty but are not deeply absorbed by it.",
+        "Low": "You are not particularly interested in art or aesthetic experiences."
+    },
+    "O3": {
+        "name": "Emotionality",
+        "High": "You are aware of your own feelings and experience emotions intensely.",
+        "Average": "You experience a normal range of emotions but are not overwhelmed by them.",
+        "Low": "You do not pay much attention to your feelings. Your emotions are somewhat blunted."
+    },
+    "O4": {
+        "name": "Adventurousness",
+        "High": "You are eager to try new activities, travel to new places, and experience different things.",
+        "Average": "You enjoy some variety but also like your familiar routines.",
+        "Low": "You prefer the familiar and predictable. You are uncomfortable with change."
+    },
+    "O5": {
+        "name": "Intellect",
+        "High": "You love to play with ideas. You are open-minded and enjoy intellectual challenges.",
+        "Average": "You are intellectually curious but not constantly seeking complex puzzles.",
+        "Low": "You prefer dealing with people or things rather than abstract ideas."
+    },
+    "O6": {
+        "name": "Liberalism",
+        "High": "You are ready to challenge authority and convention. You value freedom and diversity.",
+        "Average": "You hold a mix of traditional and progressive views.",
+        "Low": "You are conservative and value tradition. You prefer established ways of doing things."
+    },
+    "A1": {
+        "name": "Trust",
+        "High": "You believe that most people are honest and well-intentioned.",
+        "Average": "You are generally trusting but not naive. You are cautious when necessary.",
+        "Low": "You are cynical and skeptical. You assume people may be dishonest or dangerous."
+    },
+    "A2": {
+        "name": "Morality",
+        "High": "You are frank, sincere, and candid. You would never use deception.",
+        "Average": "You are generally honest, but may be guarded or diplomatic when needed.",
+        "Low": "You are willing to use deception or manipulation if it serves your purpose."
+    },
+    "A3": {
+        "name": "Altruism",
+        "High": "You find helping others genuinely rewarding. You are generous and considerate.",
+        "Average": "You are willing to help others, but not at the expense of your own needs.",
+        "Low": "You are somewhat self-centered and reluctant to get involved in others' problems."
+    },
+    "A4": {
+        "name": "Cooperation",
+        "High": "You dislike confrontation. You are willing to compromise to get along with others.",
+        "Average": "You can compromise, but will stand up for your needs if pushed.",
+        "Low": "You are aggressive and competitive. You prefer to win rather than compromise."
+    },
+    "A5": {
+        "name": "Modesty",
+        "High": "You are humble and self-effacing. You do not like to brag.",
+        "Average": "You have a healthy self-esteem but are not arrogant.",
+        "Low": "You think highly of yourself and may be seen as arrogant or conceited."
+    },
+    "A6": {
+        "name": "Sympathy",
+        "High": "You are tender-hearted and compassionate. You feel others' pain.",
+        "Average": "You are sympathetic but try to remain objective.",
+        "Low": "You are hard-headed and tough-minded. You are not easily moved by pity."
+    },
+    "C1": {
+        "name": "Self-Efficacy",
+        "High": "You feel prepared to deal with life. You are confident in your ability to succeed.",
+        "Average": "You feel reasonably capable, though you may doubt yourself at times.",
+        "Low": "You feel ineffective and unprepared. You may lack confidence in your abilities."
+    },
+    "C2": {
+        "name": "Orderliness",
+        "High": "You are extremely well-organized, neat, and tidy. You live by schedules.",
+        "Average": "You are generally organized but can be messy at times.",
+        "Low": "You are unorganized and unmethodical. You may leave things in a mess."
+    },
+    "C3": {
+        "name": "Dutifulness",
+        "High": "You have a strong sense of moral obligation. You always keep your promises.",
+        "Average": "You are dependable and reliable, but not rigidly so.",
+        "Low": "You find rules and regulations confining. You may be unreliable at times."
+    },
+    "C4": {
+        "name": "Achievement-Striving",
+        "High": "You strive hard to achieve excellence. You have high aspirations.",
+        "Average": "You work hard but are not a workaholic. You have a balanced approach.",
+        "Low": "You are content with getting by. You are not driven by ambition."
+    },
+    "C5": {
+        "name": "Self-Discipline",
+        "High": "You have the willpower to persist at difficult or unpleasant tasks.",
+        "Average": "You can get work done, but may procrastinate on difficult tasks.",
+        "Low": "You tend to procrastinate and have poor follow-through. You are easily distracted."
+    },
+    "C6": {
+        "name": "Cautiousness",
+        "High": "You are deliberate and think carefully before acting. You avoid mistakes.",
+        "Average": "You usually think before acting, but can be spontaneous.",
+        "Low": "You are hasty and impulsive. You often act without thinking of the consequences."
+    }
+}

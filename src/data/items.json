@@ -1,0 +1,842 @@
+[
+  {
+    "id": "1",
+    "text": "Worry about things",
+    "domain": "N",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "2",
+    "text": "Make friends easily",
+    "domain": "E",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "3",
+    "text": "Have a vivid imagination",
+    "domain": "O",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "4",
+    "text": "Trust others",
+    "domain": "A",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "5",
+    "text": "Complete tasks successfully",
+    "domain": "C",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "6",
+    "text": "Get angry easily",
+    "domain": "N",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "7",
+    "text": "Love large parties",
+    "domain": "E",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "8",
+    "text": "Believe in the importance of art",
+    "domain": "O",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "9",
+    "text": "Use others for my own ends",
+    "domain": "A",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "10",
+    "text": "Like to tidy up",
+    "domain": "C",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "11",
+    "text": "Often feel blue",
+    "domain": "N",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "12",
+    "text": "Take charge",
+    "domain": "E",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "13",
+    "text": "Experience my emotions intensely",
+    "domain": "O",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "14",
+    "text": "Love to help others",
+    "domain": "A",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "15",
+    "text": "Keep my promises",
+    "domain": "C",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "16",
+    "text": "Find it difficult to approach others",
+    "domain": "N",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "17",
+    "text": "Am always busy",
+    "domain": "E",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "18",
+    "text": "Prefer variety to routine",
+    "domain": "O",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "19",
+    "text": "Love a good fight",
+    "domain": "A",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "20",
+    "text": "Work hard",
+    "domain": "C",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "21",
+    "text": "Go on binges",
+    "domain": "N",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "22",
+    "text": "Love excitement",
+    "domain": "E",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "23",
+    "text": "Love to read challenging material",
+    "domain": "O",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "24",
+    "text": "Believe that I am better than others",
+    "domain": "A",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "25",
+    "text": "Am always prepared",
+    "domain": "C",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "26",
+    "text": "Panic easily",
+    "domain": "N",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "27",
+    "text": "Radiate joy",
+    "domain": "E",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "28",
+    "text": "Tend to vote for liberal candidates",
+    "domain": "O",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "29",
+    "text": "Sympathize with the homeless",
+    "domain": "A",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "30",
+    "text": "Jump into things without thinking",
+    "domain": "C",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "31",
+    "text": "Fear for the worst",
+    "domain": "N",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "32",
+    "text": "Feel comfortable around people",
+    "domain": "E",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "33",
+    "text": "Enjoy wild flights of fantasy",
+    "domain": "O",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "34",
+    "text": "Believe that others have good intentions",
+    "domain": "A",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "35",
+    "text": "Excel in what I do",
+    "domain": "C",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "36",
+    "text": "Get irritated easily",
+    "domain": "N",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "37",
+    "text": "Talk to a lot of different people at parties",
+    "domain": "E",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "38",
+    "text": "See beauty in things that others might not notice",
+    "domain": "O",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "39",
+    "text": "Cheat to get ahead",
+    "domain": "A",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "40",
+    "text": "Often forget to put things back in their proper place",
+    "domain": "C",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "41",
+    "text": "Dislike myself",
+    "domain": "N",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "42",
+    "text": "Try to lead others",
+    "domain": "E",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "43",
+    "text": "Feel others' emotions",
+    "domain": "O",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "44",
+    "text": "Am concerned about others",
+    "domain": "A",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "45",
+    "text": "Tell the truth",
+    "domain": "C",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "46",
+    "text": "Am afraid to draw attention to myself",
+    "domain": "N",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "47",
+    "text": "Am always on the go",
+    "domain": "E",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "48",
+    "text": "Prefer to stick with things that I know",
+    "domain": "O",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "49",
+    "text": "Yell at people",
+    "domain": "A",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "50",
+    "text": "Do more than what's expected of me",
+    "domain": "C",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "51",
+    "text": "Rarely overindulge",
+    "domain": "N",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "52",
+    "text": "Seek adventure",
+    "domain": "E",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "53",
+    "text": "Avoid philosophical discussions",
+    "domain": "O",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "54",
+    "text": "Think highly of myself",
+    "domain": "A",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "55",
+    "text": "Carry out my plans",
+    "domain": "C",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "56",
+    "text": "Become overwhelmed by events",
+    "domain": "N",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "57",
+    "text": "Have a lot of fun",
+    "domain": "E",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "58",
+    "text": "Believe that there is no absolute right and wrong",
+    "domain": "O",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "59",
+    "text": "Feel sympathy for those who are worse off than myself",
+    "domain": "A",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "60",
+    "text": "Make rash decisions",
+    "domain": "C",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "61",
+    "text": "Am afraid of many things",
+    "domain": "N",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "62",
+    "text": "Warm up quickly to others",
+    "domain": "E",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "63",
+    "text": "Daydream",
+    "domain": "O",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "64",
+    "text": "Trust what people say",
+    "domain": "A",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "65",
+    "text": "Handle tasks smoothly",
+    "domain": "C",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "66",
+    "text": "Lose my temper",
+    "domain": "N",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "67",
+    "text": "Enjoy being part of a group",
+    "domain": "E",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "68",
+    "text": "Appreciate art",
+    "domain": "O",
+    "facet": "2",
+    "keyed": 1
+  },
+  {
+    "id": "69",
+    "text": "Obstruct others' plans",
+    "domain": "A",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "70",
+    "text": "Leave a mess in my room",
+    "domain": "C",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "71",
+    "text": "Am often down in the dumps",
+    "domain": "N",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "72",
+    "text": "Take control of things",
+    "domain": "E",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "73",
+    "text": "Rarely notice my emotional reactions",
+    "domain": "O",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "74",
+    "text": "Indifferent to the feelings of others",
+    "domain": "A",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "75",
+    "text": "Break my rules",
+    "domain": "C",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "76",
+    "text": "Only feel comfortable with friends",
+    "domain": "N",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "77",
+    "text": "Do a lot in my spare time",
+    "domain": "E",
+    "facet": "4",
+    "keyed": 1
+  },
+  {
+    "id": "78",
+    "text": "Dislike changes",
+    "domain": "O",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "79",
+    "text": "Insult people",
+    "domain": "A",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "80",
+    "text": "Do just enough work to get by",
+    "domain": "C",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "81",
+    "text": "Easily resist temptations",
+    "domain": "N",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "82",
+    "text": "Enjoy being reckless",
+    "domain": "E",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "83",
+    "text": "Have a rich vocabulary",
+    "domain": "O",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "84",
+    "text": "Boast about my virtues",
+    "domain": "A",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "85",
+    "text": "Waste my time",
+    "domain": "C",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "86",
+    "text": "Feel that I'm unable to deal with things",
+    "domain": "N",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "87",
+    "text": "Love life",
+    "domain": "E",
+    "facet": "6",
+    "keyed": 1
+  },
+  {
+    "id": "88",
+    "text": "Believe that we should be tough on crime",
+    "domain": "O",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "89",
+    "text": "Try not to think about the needy",
+    "domain": "A",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "90",
+    "text": "Rush into things",
+    "domain": "C",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "91",
+    "text": "Get stressed out easily",
+    "domain": "N",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "92",
+    "text": "Keep in the background",
+    "domain": "E",
+    "facet": "1",
+    "keyed": -1
+  },
+  {
+    "id": "93",
+    "text": "Have a poor imagination",
+    "domain": "O",
+    "facet": "1",
+    "keyed": -1
+  },
+  {
+    "id": "94",
+    "text": "Distrust people",
+    "domain": "A",
+    "facet": "1",
+    "keyed": -1
+  },
+  {
+    "id": "95",
+    "text": "Know how to get things done",
+    "domain": "C",
+    "facet": "1",
+    "keyed": 1
+  },
+  {
+    "id": "96",
+    "text": "Rarely get irritated",
+    "domain": "N",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "97",
+    "text": "Avoid crowds",
+    "domain": "E",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "98",
+    "text": "Do not like art",
+    "domain": "O",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "99",
+    "text": "Make people feel unwelcome",
+    "domain": "A",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "100",
+    "text": "Leave my belongings around",
+    "domain": "C",
+    "facet": "2",
+    "keyed": -1
+  },
+  {
+    "id": "101",
+    "text": "Feel comfortable with myself",
+    "domain": "N",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "102",
+    "text": "Wait for others to lead the way",
+    "domain": "E",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "103",
+    "text": "Am not easily affected by my emotions",
+    "domain": "O",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "104",
+    "text": "Turn my back on others",
+    "domain": "A",
+    "facet": "3",
+    "keyed": -1
+  },
+  {
+    "id": "105",
+    "text": "Stick to the rules",
+    "domain": "C",
+    "facet": "3",
+    "keyed": 1
+  },
+  {
+    "id": "106",
+    "text": "Am not embarrassed easily",
+    "domain": "N",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "107",
+    "text": "Like a slow pace",
+    "domain": "E",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "108",
+    "text": "Am attached to conventional ways",
+    "domain": "O",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "109",
+    "text": "Get back at others",
+    "domain": "A",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "110",
+    "text": "Put little time and effort into my work",
+    "domain": "C",
+    "facet": "4",
+    "keyed": -1
+  },
+  {
+    "id": "111",
+    "text": "Am able to control my cravings",
+    "domain": "N",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "112",
+    "text": "Act wild and crazy",
+    "domain": "E",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "113",
+    "text": "Am not interested in abstract ideas",
+    "domain": "O",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "114",
+    "text": "Make myself the center of attention",
+    "domain": "A",
+    "facet": "5",
+    "keyed": -1
+  },
+  {
+    "id": "115",
+    "text": "Get chores done right away",
+    "domain": "C",
+    "facet": "5",
+    "keyed": 1
+  },
+  {
+    "id": "116",
+    "text": "Remain calm under pressure",
+    "domain": "N",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "117",
+    "text": "Avoid seeking danger",
+    "domain": "E",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "118",
+    "text": "Tend to vote for conservative candidates",
+    "domain": "O",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "119",
+    "text": "Look down on others",
+    "domain": "A",
+    "facet": "6",
+    "keyed": -1
+  },
+  {
+    "id": "120",
+    "text": "Act without thinking",
+    "domain": "C",
+    "facet": "6",
+    "keyed": -1
+  }
+]

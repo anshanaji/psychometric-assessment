@@ -1,0 +1,32 @@
+{
+    "N": {
+        "name": "Neuroticism",
+        "low": "You are generally calm, resilient, and able to handle stress well. You don't worry much and are emotionally stable.",
+        "average": "You are generally calm but can feel stressed or anxious in demanding situations. Your emotional reactions are typical of most people.",
+        "high": "You are sensitive and emotional. You may experience feelings of anxiety, worry, or sadness more often than others. You are likely very passionate but may need to manage stress carefully."
+    },
+    "E": {
+        "name": "Extraversion",
+        "low": "You are introverted, preferring solitary activities or small groups. You find social events draining and value your privacy and inner world.",
+        "average": "You enjoy social situations but also need time alone to recharge. You strike a balance between engaging with others and solitary reflection.",
+        "high": "You are extroverted, outgoing, and energetic. You love being around people, seek excitement, and often take the lead in social situations."
+    },
+    "O": {
+        "name": "Openness",
+        "low": "You are practical, conventional, and prefer routine. You value facts over abstract ideas and prefer the tried-and-true methods.",
+        "average": "You appreciate a balance between the new and the familiar. You are open to some new experiences but also value tradition and stability.",
+        "high": "You are creative, curious, and open to new experiences. You enjoy abstract thinking, art, and exploring new ideas and cultures."
+    },
+    "A": {
+        "name": "Agreeableness",
+        "low": "You are competitive, skeptical, and direct. You prioritize your own interests and may challenge others. You value toughness and objectivity.",
+        "average": "You are generally warm and trusting but can be firm when necessary. You balance a concern for others with your own needs.",
+        "high": "You are compassionate, cooperative, and trusting. You value harmony and are always willing to help others. You may find it hard to say no."
+    },
+    "C": {
+        "name": "Conscientiousness",
+        "low": "You are spontaneous, flexible, and relaxed. You prefer not to make strict plans and may be disorganized. You value freedom over structure.",
+        "average": "You are dependable and organized but not obsessive. You can work hard when needed but also know how to relax and be flexible.",
+        "high": "You are disciplined, organized, and goal-oriented. You plan ahead, pay attention to detail, and always strive for excellence."
+    }
+}

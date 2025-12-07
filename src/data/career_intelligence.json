@@ -1,0 +1,197 @@
+{
+    "R": {
+        "title": "The Doer (Realistic)",
+        "description": "You like to work with your hands, tools, and machines. You prefer practical, concrete problems over abstract ones.",
+        "strengths": [
+            "Practical problem solving",
+            "Mechanical aptitude",
+            "Persistence",
+            "Physical coordination"
+        ],
+        "weaknesses": [
+            "Communication with large groups",
+            "Abstract theory",
+            "Navigating office politics"
+        ],
+        "anti_roles": [
+            "Public Relations Specialist",
+            "Counselor",
+            "Event Planner"
+        ]
+    },
+    "I": {
+        "title": "The Thinker (Investigative)",
+        "description": "You are analytical, intellectual, and scientific. You enjoy solving complex problems and understanding how things work.",
+        "strengths": [
+            "Critical thinking",
+            "Data analysis",
+            "Intellectual curiosity",
+            "Independence"
+        ],
+        "weaknesses": [
+            "Leadership/Persuasion",
+            "Routine administrative tasks",
+            "Emotional conflict resolution"
+        ],
+        "anti_roles": [
+            "Sales Representative",
+            "Receptionist",
+            "Politician"
+        ]
+    },
+    "A": {
+        "title": "The Creator (Artistic)",
+        "description": "You are creative, original, and expressive. You prefer unstructured environments where you can use your imagination.",
+        "strengths": [
+            "Creativity",
+            "Innovation",
+            "Expressiveness",
+            "Adaptability"
+        ],
+        "weaknesses": [
+            "Following strict rules",
+            "Routine data entry",
+            "Highly structured environments"
+        ],
+        "anti_roles": [
+            "Accountant",
+            "Compliance Officer",
+            "Bank Teller"
+        ]
+    },
+    "S": {
+        "title": "The Helper (Social)",
+        "description": "You are cooperative, supporting, and empathetic. You like to work with people to enlighten, inform, help, train, or cure them.",
+        "strengths": [
+            "Empathy",
+            "Communication",
+            "Teamwork",
+            "Teaching/Mentoring"
+        ],
+        "weaknesses": [
+            "Working in isolation",
+            "Mechanical/Technical tasks",
+            "Competitive environments"
+        ],
+        "anti_roles": [
+            "Software Engineer",
+            "Truck Driver",
+            "Data Entry Clerk"
+        ]
+    },
+    "E": {
+        "title": "The Persuader (Enterprising)",
+        "description": "You are energetic, ambitious, and sociable. You like to lead and persuade people, and to sell things or ideas.",
+        "strengths": [
+            "Leadership",
+            "Persuasion",
+            "Public speaking",
+            "Decision making"
+        ],
+        "weaknesses": [
+            "Scientific analysis",
+            "Long periods of solitary work",
+            "Detail-oriented observation"
+        ],
+        "anti_roles": [
+            "Lab Technician",
+            "Librarian",
+            "Programmer"
+        ]
+    },
+    "C": {
+        "title": "The Organizer (Conventional)",
+        "description": "You are detail-oriented, organized, and data-driven. You like to work with data, have clerical or numerical ability, and carry out things in detail.",
+        "strengths": [
+            "Organization",
+            "Attention to detail",
+            "Data management",
+            "Efficiency"
+        ],
+        "weaknesses": [
+            "Ambiguity",
+            "Improvisation",
+            "Artistic expression"
+        ],
+        "anti_roles": [
+            "Artist",
+            "Actor",
+            "Entrepreneur"
+        ]
+    },
+    "combinations": {
+        "IRE": {
+            "title": "The Technical Strategist",
+            "description": "You combine analytical depth with practical application and leadership drive. You are well-suited for engineering management or systems architecture.",
+            "strengths": [
+                "Strategic planning",
+                "Technical leadership",
+                "Systems thinking"
+            ],
+            "weaknesses": [
+                "Over-analyzing decisions",
+                "Impatience with incompetence"
+            ],
+            "careers": [
+                {
+                    "title": "Engineering Manager",
+                    "zone": 5
+                },
+                {
+                    "title": "Systems Architect",
+                    "zone": 5
+                },
+                {
+                    "title": "Technical Project Manager",
+                    "zone": 4
+                }
+            ]
+        },
+        "RIS": {
+            "title": "The Practical Analyst",
+            "description": "You are grounded and analytical. You excel at diagnosing and fixing complex physical or technical systems.",
+            "strengths": [
+                "Diagnostics",
+                "Hands-on problem solving",
+                "Technical precision"
+            ],
+            "careers": [
+                {
+                    "title": "Biomedical Engineer",
+                    "zone": 4
+                },
+                {
+                    "title": "Forensic Science Technician",
+                    "zone": 4
+                },
+                {
+                    "title": "Database Administrator",
+                    "zone": 4
+                }
+            ]
+        },
+        "ESA": {
+            "title": "The Creative Leader",
+            "description": "You have a unique blend of social energy, leadership, and creativity. You thrive in marketing, media, and public relations.",
+            "strengths": [
+                "Public speaking",
+                "Creative direction",
+                "Team motivation"
+            ],
+            "careers": [
+                {
+                    "title": "Creative Director",
+                    "zone": 5
+                },
+                {
+                    "title": "Public Relations Manager",
+                    "zone": 4
+                },
+                {
+                    "title": "Corporate Trainer",
+                    "zone": 4
+                }
+            ]
+        }
+    }
+}

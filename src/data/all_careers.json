@@ -1,0 +1,1326 @@
+[
+    {
+        "title": "Accountant",
+        "code": "CEI"
+    },
+    {
+        "title": "Actor",
+        "code": "AES"
+    },
+    {
+        "title": "Actuary",
+        "code": "ICE"
+    },
+    {
+        "title": "Acupuncturist",
+        "code": "ISR"
+    },
+    {
+        "title": "Advertising Manager",
+        "code": "ESA"
+    },
+    {
+        "title": "Aerospace Engineer",
+        "code": "RIC"
+    },
+    {
+        "title": "Agricultural Engineer",
+        "code": "RIE"
+    },
+    {
+        "title": "Air Traffic Controller",
+        "code": "ECS"
+    },
+    {
+        "title": "Aircraft Mechanic",
+        "code": "RCE"
+    },
+    {
+        "title": "Airline Pilot",
+        "code": "RIE"
+    },
+    {
+        "title": "Animal Trainer",
+        "code": "SRA"
+    },
+    {
+        "title": "Anthropologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Appraiser (Real Estate)",
+        "code": "ECS"
+    },
+    {
+        "title": "Arbitrator",
+        "code": "ESC"
+    },
+    {
+        "title": "Archaeologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Architect",
+        "code": "AIR"
+    },
+    {
+        "title": "Archivist",
+        "code": "CSE"
+    },
+    {
+        "title": "Art Director",
+        "code": "AES"
+    },
+    {
+        "title": "Art Therapist",
+        "code": "SAI"
+    },
+    {
+        "title": "Astronomer",
+        "code": "IRE"
+    },
+    {
+        "title": "Athlete",
+        "code": "RES"
+    },
+    {
+        "title": "Athletic Trainer",
+        "code": "SRE"
+    },
+    {
+        "title": "Audiologist",
+        "code": "ISR"
+    },
+    {
+        "title": "Auditor",
+        "code": "CEI"
+    },
+    {
+        "title": "Author",
+        "code": "AIE"
+    },
+    {
+        "title": "Baker",
+        "code": "RCE"
+    },
+    {
+        "title": "Bank Teller",
+        "code": "CSE"
+    },
+    {
+        "title": "Barber",
+        "code": "ERS"
+    },
+    {
+        "title": "Bartender",
+        "code": "ERS"
+    },
+    {
+        "title": "Biochemist",
+        "code": "IRE"
+    },
+    {
+        "title": "Bioinformatics Scientist",
+        "code": "IRC"
+    },
+    {
+        "title": "Biologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Biomedical Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Bookkeeper",
+        "code": "CEI"
+    },
+    {
+        "title": "Brickmason",
+        "code": "RCI"
+    },
+    {
+        "title": "Broadcast News Analyst",
+        "code": "ASE"
+    },
+    {
+        "title": "Budget Analyst",
+        "code": "CEI"
+    },
+    {
+        "title": "Building Inspector",
+        "code": "RCI"
+    },
+    {
+        "title": "Bus Driver",
+        "code": "RSE"
+    },
+    {
+        "title": "Business Intelligence Analyst",
+        "code": "ICE"
+    },
+    {
+        "title": "Butcher",
+        "code": "RCE"
+    },
+    {
+        "title": "Buyer (Purchasing Agent)",
+        "code": "ECS"
+    },
+    {
+        "title": "Cabinetmaker",
+        "code": "RCI"
+    },
+    {
+        "title": "Camera Operator",
+        "code": "RAE"
+    },
+    {
+        "title": "Cardiovascular Technologist",
+        "code": "IRS"
+    },
+    {
+        "title": "Carpenter",
+        "code": "RCI"
+    },
+    {
+        "title": "Cartographer",
+        "code": "ICE"
+    },
+    {
+        "title": "Cashier",
+        "code": "CRE"
+    },
+    {
+        "title": "Chef",
+        "code": "ERA"
+    },
+    {
+        "title": "Chemical Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Chemist",
+        "code": "IRE"
+    },
+    {
+        "title": "Chief Executive Officer (CEO)",
+        "code": "ECS"
+    },
+    {
+        "title": "Chief Financial Officer (CFO)",
+        "code": "CEI"
+    },
+    {
+        "title": "Chief Information Officer (CIO)",
+        "code": "ECS"
+    },
+    {
+        "title": "Chief Operations Officer (COO)",
+        "code": "ECI"
+    },
+    {
+        "title": "Chief Technology Officer (CTO)",
+        "code": "EIC"
+    },
+    {
+        "title": "Childcare Worker",
+        "code": "SFA"
+    },
+    {
+        "title": "Chiropractor",
+        "code": "ISR"
+    },
+    {
+        "title": "Choreographer",
+        "code": "AES"
+    },
+    {
+        "title": "Civil Engineer",
+        "code": "RIC"
+    },
+    {
+        "title": "Claims Adjuster",
+        "code": "ECS"
+    },
+    {
+        "title": "Clean Energy Specialist",
+        "code": "RIC"
+    },
+    {
+        "title": "Clinical Psychologist",
+        "code": "ISA"
+    },
+    {
+        "title": "Coach (Sports)",
+        "code": "SER"
+    },
+    {
+        "title": "Commercial Pilot",
+        "code": "RIE"
+    },
+    {
+        "title": "Community Health Worker",
+        "code": "SIE"
+    },
+    {
+        "title": "Compensation Manager",
+        "code": "CES"
+    },
+    {
+        "title": "Compliance Officer",
+        "code": "CEI"
+    },
+    {
+        "title": "Computer Hardware Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Computer Programmer",
+        "code": "ICI"
+    },
+    {
+        "title": "Computer Systems Analyst",
+        "code": "ICR"
+    },
+    {
+        "title": "Concierge",
+        "code": "ESR"
+    },
+    {
+        "title": "Conservation Scientist",
+        "code": "IRC"
+    },
+    {
+        "title": "Construction Manager",
+        "code": "ERC"
+    },
+    {
+        "title": "Copywriter",
+        "code": "AIE"
+    },
+    {
+        "title": "Correctional Officer",
+        "code": "RES"
+    },
+    {
+        "title": "Cost Estimator",
+        "code": "CEI"
+    },
+    {
+        "title": "Counselor (Mental Health)",
+        "code": "SIA"
+    },
+    {
+        "title": "Court Reporter",
+        "code": "CE"
+    },
+    {
+        "title": "Craft Artist",
+        "code": "AR"
+    },
+    {
+        "title": "Credit Analyst",
+        "code": "CEI"
+    },
+    {
+        "title": "Criminal Investigator",
+        "code": "EIR"
+    },
+    {
+        "title": "Curator",
+        "code": "AES"
+    },
+    {
+        "title": "Customer Service Representative",
+        "code": "CSE"
+    },
+    {
+        "title": "Cybersecurity Analyst",
+        "code": "ICR"
+    },
+    {
+        "title": "Data Entry Keyer",
+        "code": "CR"
+    },
+    {
+        "title": "Data Scientist",
+        "code": "IRE"
+    },
+    {
+        "title": "Database Administrator",
+        "code": "CI"
+    },
+    {
+        "title": "Dental Assistant",
+        "code": "SRC"
+    },
+    {
+        "title": "Dental Hygienist",
+        "code": "SRC"
+    },
+    {
+        "title": "Dentist",
+        "code": "ISR"
+    },
+    {
+        "title": "Desktop Publisher",
+        "code": "RCA"
+    },
+    {
+        "title": "Detective",
+        "code": "EIR"
+    },
+    {
+        "title": "Diagnostic Medical Sonographer",
+        "code": "ISR"
+    },
+    {
+        "title": "Dietitian",
+        "code": "ISE"
+    },
+    {
+        "title": "Director (Film/Stage)",
+        "code": "AES"
+    },
+    {
+        "title": "Dispatcher",
+        "code": "CSE"
+    },
+    {
+        "title": "Doctor (Physician)",
+        "code": "ISR"
+    },
+    {
+        "title": "Drafter",
+        "code": "RCI"
+    },
+    {
+        "title": "Economist",
+        "code": "IAS"
+    },
+    {
+        "title": "Editor",
+        "code": "AIE"
+    },
+    {
+        "title": "Education Administrator",
+        "code": "ESC"
+    },
+    {
+        "title": "Electrician",
+        "code": "RICE"
+    },
+    {
+        "title": "Electronics Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Elementary School Teacher",
+        "code": "SAE"
+    },
+    {
+        "title": "Elevator Installer",
+        "code": "R"
+    },
+    {
+        "title": "Emergency Management Director",
+        "code": "ECS"
+    },
+    {
+        "title": "Emergency Medical Technician (EMT)",
+        "code": "RES"
+    },
+    {
+        "title": "Energy Auditor",
+        "code": "CRI"
+    },
+    {
+        "title": "Energy Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Engineering Manager",
+        "code": "ERC"
+    },
+    {
+        "title": "English Teacher",
+        "code": "SAE"
+    },
+    {
+        "title": "Entrepreneur",
+        "code": "ESA"
+    },
+    {
+        "title": "Environmental Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Environmental Scientist",
+        "code": "IRE"
+    },
+    {
+        "title": "Epidemiologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Event Planner",
+        "code": "ESA"
+    },
+    {
+        "title": "Executive Assistant",
+        "code": "CES"
+    },
+    {
+        "title": "Facilities Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Family Therapist",
+        "code": "SIA"
+    },
+    {
+        "title": "Farmer / Rancher",
+        "code": "RE"
+    },
+    {
+        "title": "Fashion Designer",
+        "code": "AES"
+    },
+    {
+        "title": "Film Editor",
+        "code": "AE"
+    },
+    {
+        "title": "Financial Advisor",
+        "code": "ECS"
+    },
+    {
+        "title": "Financial Analyst",
+        "code": "CIE"
+    },
+    {
+        "title": "Financial Manager",
+        "code": "CEI"
+    },
+    {
+        "title": "Firefighter",
+        "code": "RES"
+    },
+    {
+        "title": "Fitness Trainer",
+        "code": "SRE"
+    },
+    {
+        "title": "Flight Attendant",
+        "code": "ESA"
+    },
+    {
+        "title": "Flight Engineer",
+        "code": "RIC"
+    },
+    {
+        "title": "Florist",
+        "code": "AER"
+    },
+    {
+        "title": "Food Scientist",
+        "code": "IRE"
+    },
+    {
+        "title": "Forensic Science Technician",
+        "code": "IRC"
+    },
+    {
+        "title": "Forester",
+        "code": "RIS"
+    },
+    {
+        "title": "Fundraiser",
+        "code": "ESA"
+    },
+    {
+        "title": "Funeral Director",
+        "code": "ECS"
+    },
+    {
+        "title": "Game Designer",
+        "code": "AEI"
+    },
+    {
+        "title": "Genetic Counselor",
+        "code": "SIA"
+    },
+    {
+        "title": "Geographer",
+        "code": "IRE"
+    },
+    {
+        "title": "Geologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Glazier",
+        "code": "R"
+    },
+    {
+        "title": "Graphic Designer",
+        "code": "AES"
+    },
+    {
+        "title": "Hairdresser",
+        "code": "AES"
+    },
+    {
+        "title": "Health Educator",
+        "code": "SEA"
+    },
+    {
+        "title": "Health Services Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Historian",
+        "code": "IAE"
+    },
+    {
+        "title": "Home Health Aide",
+        "code": "SRC"
+    },
+    {
+        "title": "Hotel Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Human Resources Assistant",
+        "code": "CES"
+    },
+    {
+        "title": "Human Resources Manager",
+        "code": "SEC"
+    },
+    {
+        "title": "Hydrologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Industrial Designer",
+        "code": "AIR"
+    },
+    {
+        "title": "Industrial Engineer",
+        "code": "EIR"
+    },
+    {
+        "title": "Information Security Analyst",
+        "code": "ICR"
+    },
+    {
+        "title": "Instructional Coordinator",
+        "code": "SIE"
+    },
+    {
+        "title": "Insurance Agent",
+        "code": "ECS"
+    },
+    {
+        "title": "Insurance Underwriter",
+        "code": "CEI"
+    },
+    {
+        "title": "Interior Designer",
+        "code": "AES"
+    },
+    {
+        "title": "Interpreter / Translator",
+        "code": "AS"
+    },
+    {
+        "title": "Investment Banker",
+        "code": "ECS"
+    },
+    {
+        "title": "IT Manager",
+        "code": "ECI"
+    },
+    {
+        "title": "Janitor",
+        "code": "R"
+    },
+    {
+        "title": "Jeweler",
+        "code": "RAE"
+    },
+    {
+        "title": "Journalist",
+        "code": "ASE"
+    },
+    {
+        "title": "Judge",
+        "code": "EIA"
+    },
+    {
+        "title": "Landscape Architect",
+        "code": "AIR"
+    },
+    {
+        "title": "Landscape Gardener",
+        "code": "R"
+    },
+    {
+        "title": "Lawyer",
+        "code": "EIA"
+    },
+    {
+        "title": "Legal Assistant",
+        "code": "CEI"
+    },
+    {
+        "title": "Librarian",
+        "code": "CSE"
+    },
+    {
+        "title": "Library Technician",
+        "code": "CSE"
+    },
+    {
+        "title": "Licensed Practical Nurse (LPN)",
+        "code": "SRC"
+    },
+    {
+        "title": "Loan Officer",
+        "code": "ECS"
+    },
+    {
+        "title": "Locksmith",
+        "code": "RCE"
+    },
+    {
+        "title": "Logistician",
+        "code": "CEI"
+    },
+    {
+        "title": "Machinist",
+        "code": "R"
+    },
+    {
+        "title": "Magistrate Judge",
+        "code": "EIA"
+    },
+    {
+        "title": "Makeup Artist",
+        "code": "AES"
+    },
+    {
+        "title": "Management Analyst",
+        "code": "IEC"
+    },
+    {
+        "title": "Manufacturing Engineer",
+        "code": "IRE"
+    },
+    {
+        "title": "Marine Biologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Market Research Analyst",
+        "code": "IEC"
+    },
+    {
+        "title": "Marketing Manager",
+        "code": "ESA"
+    },
+    {
+        "title": "Marketing Specialist",
+        "code": "ESA"
+    },
+    {
+        "title": "Marriage and Family Therapist",
+        "code": "SIA"
+    },
+    {
+        "title": "Massage Therapist",
+        "code": "SR"
+    },
+    {
+        "title": "Materials Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Mathematician",
+        "code": "ICA"
+    },
+    {
+        "title": "Mechanical Engineer",
+        "code": "RIC"
+    },
+    {
+        "title": "Media Planner",
+        "code": "AES"
+    },
+    {
+        "title": "Medical Assistant",
+        "code": "SCR"
+    },
+    {
+        "title": "Medical Illustrator",
+        "code": "AIR"
+    },
+    {
+        "title": "Medical Lab Technician",
+        "code": "RIC"
+    },
+    {
+        "title": "Medical Records Technician",
+        "code": "C"
+    },
+    {
+        "title": "Medical Scientist",
+        "code": "IRE"
+    },
+    {
+        "title": "Meeting Planner",
+        "code": "ECS"
+    },
+    {
+        "title": "Mental Health Counselor",
+        "code": "SIA"
+    },
+    {
+        "title": "Meteorologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Microbiologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Middle School Teacher",
+        "code": "SAE"
+    },
+    {
+        "title": "Midwife",
+        "code": "SIR"
+    },
+    {
+        "title": "Military Officer",
+        "code": "ECR"
+    },
+    {
+        "title": "Mining Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Model",
+        "code": "AR"
+    },
+    {
+        "title": "Multimedia Artist",
+        "code": "AI"
+    },
+    {
+        "title": "Museum Technician",
+        "code": "ARC"
+    },
+    {
+        "title": "Music Director",
+        "code": "AES"
+    },
+    {
+        "title": "Musician",
+        "code": "A"
+    },
+    {
+        "title": "Nanny",
+        "code": "S"
+    },
+    {
+        "title": "Network Administrator",
+        "code": "ECR"
+    },
+    {
+        "title": "Network Architect",
+        "code": "IRC"
+    },
+    {
+        "title": "Nuclear Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Nurse Anesthetist",
+        "code": "ISR"
+    },
+    {
+        "title": "Nurse Practitioner",
+        "code": "SIA"
+    },
+    {
+        "title": "Nurse",
+        "code": "SIA"
+    },
+    {
+        "title": "Nutritionist",
+        "code": "ISE"
+    },
+    {
+        "title": "Occupational Therapist",
+        "code": "SRA"
+    },
+    {
+        "title": "Oceanographer",
+        "code": "IRE"
+    },
+    {
+        "title": "Office Clerk",
+        "code": "C"
+    },
+    {
+        "title": "Office Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Operations Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Operations Research Analyst",
+        "code": "ICE"
+    },
+    {
+        "title": "Optician",
+        "code": "ECR"
+    },
+    {
+        "title": "Optometrist",
+        "code": "ISR"
+    },
+    {
+        "title": "Orthodontist",
+        "code": "ISR"
+    },
+    {
+        "title": "Painter (Artistic)",
+        "code": "A"
+    },
+    {
+        "title": "Painter (Construction)",
+        "code": "R"
+    },
+    {
+        "title": "Paralegal",
+        "code": "CEI"
+    },
+    {
+        "title": "Paramedic",
+        "code": "RES"
+    },
+    {
+        "title": "Park Ranger",
+        "code": "SE"
+    },
+    {
+        "title": "Payroll Clerk",
+        "code": "CE"
+    },
+    {
+        "title": "Pediatrician",
+        "code": "ISA"
+    },
+    {
+        "title": "Personal Care Aide",
+        "code": "S"
+    },
+    {
+        "title": "Personal Financial Advisor",
+        "code": "ECS"
+    },
+    {
+        "title": "Petroleum Engineer",
+        "code": "RIC"
+    },
+    {
+        "title": "Pharmacist",
+        "code": "ICR"
+    },
+    {
+        "title": "Pharmacy Technician",
+        "code": "CRE"
+    },
+    {
+        "title": "Photographer",
+        "code": "AES"
+    },
+    {
+        "title": "Physical Therapist Assistant",
+        "code": "SR"
+    },
+    {
+        "title": "Physical Therapist",
+        "code": "SRE"
+    },
+    {
+        "title": "Physician Assistant",
+        "code": "ISA"
+    },
+    {
+        "title": "Physicist",
+        "code": "IRE"
+    },
+    {
+        "title": "Pilot",
+        "code": "RIE"
+    },
+    {
+        "title": "Plumber",
+        "code": "R"
+    },
+    {
+        "title": "Podiatrist",
+        "code": "ISR"
+    },
+    {
+        "title": "Police Officer",
+        "code": "RES"
+    },
+    {
+        "title": "Political Scientist",
+        "code": "IAE"
+    },
+    {
+        "title": "Postal Service Worker",
+        "code": "CR"
+    },
+    {
+        "title": "Preschool Teacher",
+        "code": "SA"
+    },
+    {
+        "title": "Private Detective",
+        "code": "EIR"
+    },
+    {
+        "title": "Probation Officer",
+        "code": "SEC"
+    },
+    {
+        "title": "Producer",
+        "code": "EA"
+    },
+    {
+        "title": "Product Manager",
+        "code": "EIC"
+    },
+    {
+        "title": "Professor",
+        "code": "SIA"
+    },
+    {
+        "title": "Project Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Property Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Psychiatrist",
+        "code": "ISA"
+    },
+    {
+        "title": "Psychologist",
+        "code": "ISA"
+    },
+    {
+        "title": "Public Relations Specialist",
+        "code": "EAS"
+    },
+    {
+        "title": "Purchasing Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Quality Control Inspector",
+        "code": "RCI"
+    },
+    {
+        "title": "Radiation Therapist",
+        "code": "SR"
+    },
+    {
+        "title": "Radio Announcer",
+        "code": "AS"
+    },
+    {
+        "title": "Radiologic Technologist",
+        "code": "RIS"
+    },
+    {
+        "title": "Real Estate Agent",
+        "code": "ESR"
+    },
+    {
+        "title": "Real Estate Broker",
+        "code": "ESR"
+    },
+    {
+        "title": "Receptionist",
+        "code": "CES"
+    },
+    {
+        "title": "Recreational Therapist",
+        "code": "SAR"
+    },
+    {
+        "title": "Recruiter",
+        "code": "ES"
+    },
+    {
+        "title": "Registered Nurse",
+        "code": "SIA"
+    },
+    {
+        "title": "Rehabilitation Counselor",
+        "code": "SIA"
+    },
+    {
+        "title": "Reporter",
+        "code": "ASE"
+    },
+    {
+        "title": "Respiratory Therapist",
+        "code": "SIR"
+    },
+    {
+        "title": "Retail Salesperson",
+        "code": "ES"
+    },
+    {
+        "title": "Roofer",
+        "code": "R"
+    },
+    {
+        "title": "Sales Engineer",
+        "code": "ERS"
+    },
+    {
+        "title": "Sales Manager",
+        "code": "ECS"
+    },
+    {
+        "title": "Sales Representative",
+        "code": "ES"
+    },
+    {
+        "title": "School Counselor",
+        "code": "SIA"
+    },
+    {
+        "title": "School Principal",
+        "code": "ESC"
+    },
+    {
+        "title": "Scientist",
+        "code": "IRE"
+    },
+    {
+        "title": "Secretary",
+        "code": "CES"
+    },
+    {
+        "title": "Security Guard",
+        "code": "RSE"
+    },
+    {
+        "title": "SEO Specialist",
+        "code": "ICE"
+    },
+    {
+        "title": "Ship Captain",
+        "code": "ER"
+    },
+    {
+        "title": "Social Media Manager",
+        "code": "AE"
+    },
+    {
+        "title": "Social Worker",
+        "code": "SEA"
+    },
+    {
+        "title": "Sociologist",
+        "code": "IAE"
+    },
+    {
+        "title": "Software Developer",
+        "code": "IRC"
+    },
+    {
+        "title": "Software Engineer",
+        "code": "IRC"
+    },
+    {
+        "title": "Solar Energy Technician",
+        "code": "RCI"
+    },
+    {
+        "title": "Sound Engineering Technician",
+        "code": "RCI"
+    },
+    {
+        "title": "Special Education Teacher",
+        "code": "SA"
+    },
+    {
+        "title": "Speech-Language Pathologist",
+        "code": "SAI"
+    },
+    {
+        "title": "Statistician",
+        "code": "IC"
+    },
+    {
+        "title": "Stockbroker",
+        "code": "ECS"
+    },
+    {
+        "title": "Substance Abuse Counselor",
+        "code": "SIA"
+    },
+    {
+        "title": "Surgeon",
+        "code": "IRS"
+    },
+    {
+        "title": "Surveyor",
+        "code": "RCI"
+    },
+    {
+        "title": "Systems Administrator",
+        "code": "IRC"
+    },
+    {
+        "title": "Systems Analyst",
+        "code": "IC"
+    },
+    {
+        "title": "Tax Examiner",
+        "code": "CE"
+    },
+    {
+        "title": "Tax Preparer",
+        "code": "CE"
+    },
+    {
+        "title": "Taxi Driver",
+        "code": "RSE"
+    },
+    {
+        "title": "Teacher Assistant",
+        "code": "SC"
+    },
+    {
+        "title": "Teacher",
+        "code": "SAE"
+    },
+    {
+        "title": "Technical Writer",
+        "code": "AIC"
+    },
+    {
+        "title": "Telemarketer",
+        "code": "EC"
+    },
+    {
+        "title": "Teller",
+        "code": "CE"
+    },
+    {
+        "title": "Tour Guide",
+        "code": "SEA"
+    },
+    {
+        "title": "Training and Development Specialist",
+        "code": "SEC"
+    },
+    {
+        "title": "Translator",
+        "code": "AS"
+    },
+    {
+        "title": "Travel Agent",
+        "code": "ECS"
+    },
+    {
+        "title": "Truck Driver",
+        "code": "R"
+    },
+    {
+        "title": "Tutor",
+        "code": "S"
+    },
+    {
+        "title": "Umpire / Referee",
+        "code": "EC"
+    },
+    {
+        "title": "Urban Planner",
+        "code": "IEA"
+    },
+    {
+        "title": "UX/UI Designer",
+        "code": "AIE"
+    },
+    {
+        "title": "Veterinarian",
+        "code": "IRS"
+    },
+    {
+        "title": "Veterinary Technician",
+        "code": "RSI"
+    },
+    {
+        "title": "Video Game Designer",
+        "code": "AEI"
+    },
+    {
+        "title": "Videographer",
+        "code": "ARE"
+    },
+    {
+        "title": "Waiter / Waitress",
+        "code": "ES"
+    },
+    {
+        "title": "Web Designer",
+        "code": "AES"
+    },
+    {
+        "title": "Web Developer",
+        "code": "ACI"
+    },
+    {
+        "title": "Welder",
+        "code": "R"
+    },
+    {
+        "title": "Wholesale Buyer",
+        "code": "EC"
+    },
+    {
+        "title": "Wildlife Biologist",
+        "code": "IRE"
+    },
+    {
+        "title": "Wind Turbine Technician",
+        "code": "RCI"
+    },
+    {
+        "title": "Writer",
+        "code": "AI"
+    },
+    {
+        "title": "Zoologist",
+        "code": "IRE"
+    }
+]

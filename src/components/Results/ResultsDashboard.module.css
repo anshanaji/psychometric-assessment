@@ -1,0 +1,341 @@
+.dashboardContainer {
+    padding: 2rem 0;
+}
+
+.section {
+    margin-bottom: 3rem;
+}
+
+.insightGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.insightColumn {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.insightTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.insightList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.insightItem {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #475569;
+}
+
+.insightItem::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.strengths .insightTitle {
+    color: #10b981;
+}
+
+.strengths .insightItem::before {
+    color: #10b981;
+}
+
+.blindSpots .insightTitle {
+    color: #f43f5e;
+}
+
+.blindSpots .insightItem::before {
+    color: #f43f5e;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 0.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.careerCard {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+    gap: 1rem;
+}
+
+.careerCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-color: #e2e8f0;
+}
+
+.careerIcon {
+    width: 48px;
+    height: 48px;
+    background: #eff6ff;
+    color: #4361ee;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.careerInfo {
+    flex: 1;
+}
+
+.careerInfo h4 {
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.progressBarContainer {
+    width: 100%;
+    height: 6px;
+    background: #f1f5f9;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(90deg, #4361ee, #3a0ca3);
+    border-radius: 3px;
+}
+
+.matchScore {
+    text-align: center;
+    min-width: 60px;
+}
+
+.matchPercent {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4361ee;
+    display: block;
+}
+
+.matchLabel {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chartCard {
+    background: var(--color-surface);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.riasecCard {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.riasecCode {
+    font-size: 4rem;
+    font-weight: 800;
+    margin: 1rem 0;
+    letter-spacing: 0.5rem;
+}
+
+.careerList {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.careerItem {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.careerZone {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.heroCard {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.heroContent {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.codeCircle {
+    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+    color: white;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 10px 15px -3px rgba(67, 97, 238, 0.3);
+}
+
+.codeLabel {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.codeValue {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.codeDetails {
+    flex: 1;
+}
+
+.codeDescription {
+    font-size: 1.1rem;
+    color: #334155;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.characteristicsContainer {
+    margin-top: 1rem;
+}
+
+.charTitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.charTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.charTag {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.insightBox {
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.insightTitle {
+    color: #1e40af;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.insightText {
+    color: #1e3a8a;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.splitGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .heroContent {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .charTags {
+        justify-content: center;
+    }
+
+    .splitGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.downloadSection {
+    text-align: center;
+    margin-top: 3rem;
+}
