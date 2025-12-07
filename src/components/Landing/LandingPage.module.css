@@ -7,6 +7,94 @@
     position: relative;
 }
 
+.container {
+    background: #ffffff;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.testCard {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-align: left;
+    border: 1px solid #edf2f7;
+}
+
+.testCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.cardHeader {
+    padding: 2rem;
+    text-align: center;
+}
+
+.badge {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+}
+
+.cardBody {
+    padding: 2rem;
+}
+
+.cardBody h3 {
+    margin: 0 0 0.5rem 0;
+    color: #2d3748;
+    font-size: 1.5rem;
+}
+
+.cardBody p {
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.cardBtn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #2d3748;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.testCard:hover .cardBtn {
+    background: #553c9a;
+}
+
+.activeLang {
+    background: #e2e8f0;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #2d3748;
+}
+
+.inactiveLang {
+    background: transparent;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #718096;
+}
+
 .hero {
     text-align: center;
     padding: 6rem 1rem;

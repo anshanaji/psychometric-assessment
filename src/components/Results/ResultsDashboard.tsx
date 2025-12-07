@@ -224,14 +224,77 @@ const ResultsDashboard: React.FC = () => {
                 </header>
 
                 <div className={styles.section}>
-                    <div className={styles.card} style={{ textAlign: 'center', background: 'linear-gradient(135deg, #667eea, #764ba2)', color: 'white' }}>
-                        <h2 style={{ fontSize: '4rem', margin: '1rem 0', color: 'white' }}>{results.mbti.type}</h2>
-                        <h3 style={{ fontSize: '1.8rem', color: '#e2e8f0' }}>{results.mbti.details.name}</h3>
-                        <p style={{ fontSize: '1.2rem', marginTop: '1rem', maxWidth: '800px', margin: '1rem auto' }}>
+                    <div className={styles.card} style={{ textAlign: 'center', background: 'linear-gradient(135deg, #667eea, #764ba2)', color: 'white', padding: '3rem 2rem' }}>
+                        <h2 style={{ fontSize: '4rem', margin: '1rem 0', color: 'white', fontWeight: '800' }}>{results.mbti.type}</h2>
+                        <h3 style={{ fontSize: '2rem', color: '#e2e8f0', marginBottom: '1rem' }}>{results.mbti.details.name}</h3>
+                        <p style={{ fontSize: '1.25rem', marginTop: '1rem', maxWidth: '800px', margin: '0 auto', lineHeight: '1.6' }}>
                             {results.mbti.details.description}
                         </p>
                     </div>
                 </div>
+
+                <div className={styles.grid} style={{ marginTop: '2rem' }}>
+                    <div className={styles.card}>
+                        <h3 style={{ borderBottom: '2px solid #667eea', paddingBottom: '0.5rem', marginBottom: '1rem', color: '#553c9a' }}>
+                            {language === 'ml' ? 'കഴിവുകൾ' : 'Strengths'}
+                        </h3>
+                        <ul className={styles.list} style={{ listStyle: 'none', padding: 0 }}>
+                            {(results.mbti.details.strengths || []).map((s: string, i: number) => (
+                                <li key={i} style={{ padding: '0.5rem 0', borderBottom: '1px solid #eee', color: '#2d3748' }}>✅ {s}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className={styles.card}>
+                        <h3 style={{ borderBottom: '2px solid #e53e3e', paddingBottom: '0.5rem', marginBottom: '1rem', color: '#9b2c2c' }}>
+                            {language === 'ml' ? 'ദൗർബല്യങ്ങൾ' : 'Weaknesses'}
+                        </h3>
+                        <ul className={styles.list} style={{ listStyle: 'none', padding: 0 }}>
+                            {(results.mbti.details.weaknesses || []).map((w: string, i: number) => (
+                                <li key={i} style={{ padding: '0.5rem 0', borderBottom: '1px solid #eee', color: '#2d3748' }}>⚠️ {w}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {results.mbti.details.work_style && (
+                    <div className={styles.section} style={{ marginTop: '2rem' }}>
+                        <div className={styles.card} style={{ background: '#f7fafc', borderLeft: '5px solid #4fd1c5' }}>
+                            <h3 style={{ color: '#285e61' }}>{language === 'ml' ? 'ജോലി ശൈലി' : 'Work Style'}</h3>
+                            <p style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.6' }}>
+                                {results.mbti.details.work_style}
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {results.mbti.details.cognitive_functions && (
+                    <div className={styles.section} style={{ marginTop: '2rem' }}>
+                        <h3 className={styles.sectionTitle} style={{ textAlign: 'left' }}>Cognitive Stack</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                            <div className={styles.card} style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#718096', textTransform: 'uppercase', letterSpacing: '1px' }}>Dominant</div>
+                                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#553c9a' }}>{results.mbti.details.cognitive_functions.dominant}</div>
+                                <div style={{ fontSize: '0.85rem', color: '#a0aec0' }}>Flow State / Hero</div>
+                            </div>
+                            <div className={styles.card} style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#718096', textTransform: 'uppercase', letterSpacing: '1px' }}>Auxiliary</div>
+                                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#553c9a' }}>{results.mbti.details.cognitive_functions.auxiliary}</div>
+                                <div style={{ fontSize: '0.85rem', color: '#a0aec0' }}>Growth / Parent</div>
+                            </div>
+                            <div className={styles.card} style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#718096', textTransform: 'uppercase', letterSpacing: '1px' }}>Tertiary</div>
+                                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#553c9a' }}>{results.mbti.details.cognitive_functions.tertiary}</div>
+                                <div style={{ fontSize: '0.85rem', color: '#a0aec0' }}>Relief / Child</div>
+                            </div>
+                            <div className={styles.card} style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '0.9rem', color: '#718096', textTransform: 'uppercase', letterSpacing: '1px' }}>Inferior</div>
+                                <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#553c9a' }}>{results.mbti.details.cognitive_functions.inferior}</div>
+                                <div style={{ fontSize: '0.85rem', color: '#a0aec0' }}>Stress / Aspiration</div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
 
                 <div className={styles.section}>
                     <h2 className={styles.sectionTitle}>{language === 'ml' ? 'അനുയോജ്യമായ തൊഴിലുകൾ' : 'Recommended Careers'}</h2>

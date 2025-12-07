@@ -52,6 +52,15 @@ export interface MbtiResult {
     name: string;
     description: string;
     careers: string[];
+    strengths?: string[];
+    weaknesses?: string[];
+    work_style?: string;
+    cognitive_functions?: {
+      dominant: string;
+      auxiliary: string;
+      tertiary: string;
+      inferior: string;
+    };
   };
 }
 

@@ -96,12 +96,12 @@ interface PDFReportProps {
 const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = 'en' }) => {
     const t = translations[language].results;
 
-    // Get Insights
+    // Get Insights for Big Five
     const primaryCode = results.topRiasec ? results.topRiasec.charAt(0) as keyof typeof careerIntelligence : 'R';
     const primaryInsight = results.topRiasec ? (careerIntelligence as any)[primaryCode] : null;
     const comboInsight = results.topRiasec ? (careerIntelligence as any).combinations[results.topRiasec] : null;
 
-
+    // MBTI REPORT
     if (results.assessmentType === 'mbti' && results.mbti) {
         return (
             <Document>
@@ -124,6 +124,25 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                     </View>
 
                     <View style={styles.section}>
+                        <Text style={styles.subtitle}>{language === 'ml' ? 'കഴിവുകൾ (Strengths)' : 'Strengths'}</Text>
+                        {results.mbti.details.strengths?.map((s, i) => (
+                            <Text key={i} style={styles.text}>• {s}</Text>
+                        ))}
+                    </View>
+
+                    <View style={styles.section}>
+                        <Text style={styles.subtitle}>{language === 'ml' ? 'ദൗർബല്യങ്ങൾ (Weaknesses)' : 'Weaknesses'}</Text>
+                        {results.mbti.details.weaknesses?.map((w, i) => (
+                            <Text key={i} style={styles.text}>• {w}</Text>
+                        ))}
+                    </View>
+
+                    <View style={styles.section}>
+                        <Text style={styles.subtitle}>{language === 'ml' ? 'ജോലി ശൈലി (Work Style)' : 'Work Style'}</Text>
+                        <Text style={styles.text}>{results.mbti.details.work_style}</Text>
+                    </View>
+
+                    <View style={styles.section}>
                         <Text style={styles.sectionTitle}>{language === 'ml' ? 'അനുയോജ്യമായ തൊഴിലുകൾ' : 'Recommended Careers'}</Text>
                         <View style={{ marginTop: 5 }}>
                             {(results.mbti.details.careers || []).map((career, idx) => (
@@ -142,6 +161,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
         );
     }
 
+    // BIG FIVE REPORT
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -153,7 +173,6 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>{t.career_intelligence.title}</Text>
                     <Text style={styles.text}>
-                        {/* Fallback code description - usually these are English only unless we translated career_intelligence.json */}
                         {comboInsight ? comboInsight.description : primaryInsight?.description}
                     </Text>
                     <Text style={styles.text}>
@@ -167,7 +186,6 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                     </View>
                 )}
 
-                {/* Consistency Checks */}
                 {results.consistencyFlags && results.consistencyFlags.length > 0 && (
                     <View style={[styles.warningBox, { backgroundColor: '#fffbeb', borderLeftColor: '#f59e0b' }]}>
                         <Text style={[styles.sectionTitle, { color: '#d97706', fontSize: 12 }]}>{t.consistency_title}</Text>
@@ -216,7 +234,7 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                     <Text style={styles.sectionTitle}>{t.career_intelligence.top_matches_title}</Text>
                     <View style={{ marginTop: 5 }}>
                         {results.careers.map((career, idx) => {
-                            if (typeof career === 'string') return null; // Should not happen in Big5 mode
+                            if (typeof career === 'string') return null;
                             return (
                                 <View key={idx} style={styles.row}>
                                     <Text style={[styles.text, styles.col1]}>{career.title}</Text>
