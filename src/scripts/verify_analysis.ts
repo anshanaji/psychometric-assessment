@@ -1,6 +1,6 @@
 
 import { checkConsistency, generateNuancedInsights } from '../core/analysis';
-import { ScoreResult } from '../types';
+import type { ScoreResult } from '../types';
 
 // Mock Data Builders
 const mockScore = (level: 'Low' | 'Average' | 'High', percentile: number): ScoreResult => ({
