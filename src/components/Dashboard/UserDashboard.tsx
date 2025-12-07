@@ -11,6 +11,7 @@ interface SavedReport {
     type: 'big5' | 'mbti';
     timestamp: any;
     resultSummary: any;
+    currentCareer?: string;
     results: any; // Full results for loading
 }
 
@@ -95,6 +96,11 @@ const UserDashboard: React.FC = () => {
                                         <h3>Result: {report.resultSummary?.type || 'MBTI'}</h3>
                                     ) : (
                                         <h3>Big Five Profile</h3>
+                                    )}
+                                    {report.currentCareer && (
+                                        <p style={{ margin: '0.5rem 0', color: '#2d3748', fontWeight: '500' }}>
+                                            Role: <span style={{ color: '#4c51bf' }}>{report.currentCareer}</span>
+                                        </p>
                                     )}
                                     <button
                                         className={styles.viewBtn}

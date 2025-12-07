@@ -134,13 +134,14 @@ const ResultsDashboard: React.FC = () => {
             const reportRef = doc(db, `users/${currentUser.uid}/reports`, reportId);
 
             const resultSummary = results.assessmentType === 'mbti'
-                ? { type: results.mbti?.type, name: results.mbti?.details.name }
-                : { riasec: results.topRiasec };
+                ? { type: results.mbti?.type, name: results.mbti?.details.name, career: currentCareer }
+                : { riasec: results.topRiasec, career: currentCareer };
 
             await setDoc(reportRef, {
                 type: results.assessmentType,
                 timestamp: serverTimestamp(),
                 results: results,
+                currentCareer: currentCareer,
                 resultSummary
             });
             setSaveStatus('saved');
