@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useAssessment } from '../../context/AssessmentContext';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import html2canvas from 'html2canvas';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import Chart from 'chart.js/auto';
@@ -15,10 +15,10 @@ import bigFiveInsights from '../../data/big_five_insights.json';
 import itemsData from '../../data/items.json';
 import { getLevel } from '../../core/scoring';
 import { translations } from '../../data/translations';
-import { Domain } from '../../types';
+import type { Domain } from '../../types';
 
 const ResultsDashboard: React.FC = () => {
-    const { results, resetAssessment, currentCareer, answers, isGenerating, language } = useAssessment();
+    const { results, resetAssessment, currentCareer, isGenerating, language } = useAssessment();
     const t = translations[language].results;
 
     const hiddenChartsRef = useRef<HTMLDivElement>(null);
@@ -112,11 +112,7 @@ const ResultsDashboard: React.FC = () => {
         fill: (domainColors as any)[key]
     }));
 
-    const radarData = Object.entries(results.domains).map(([key, value]) => ({
-        subject: language === 'ml' ? (bigFiveInsights as any)[key].name_ml : (bigFiveInsights as any)[key].name,
-        A: value.percentile,
-        fullMark: 100,
-    }));
+
 
     const primaryCode = results.topRiasec.charAt(0) as keyof typeof careerIntelligence;
     const primaryInsight = (careerIntelligence as any)[primaryCode];
@@ -458,7 +454,7 @@ const ResultsDashboard: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Object.entries(results.answers).map(([itemId, value], index) => {
+                            {(Object.entries(results.answers || {}) as [string, number][]).map(([itemId, value], index) => {
                                 // @ts-ignore
                                 const item = itemsData.find(i => i.id === itemId);
                                 return (

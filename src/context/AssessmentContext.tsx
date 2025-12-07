@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { Item, UserAnswers, AssessmentResult } from '../types';
 import itemsData from '../data/items.json';
 import normsData from '../data/norms.json';
@@ -21,6 +21,9 @@ interface AssessmentContextType {
     fillRandomAnswers: () => void;
     finishAssessment: () => void;
     resetAssessment: () => void;
+    isComplete: boolean;
+    currentCareer: string | null;
+    setCurrentCareer: (career: string) => void;
 }
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
@@ -31,6 +34,7 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [isGenerating, setIsGenerating] = useState(false);
     const [results, setResults] = useState<AssessmentResult | null>(null);
     const [language, setLanguage] = useState<'en' | 'ml'>('en');
+    const [currentCareer, setCurrentCareer] = useState<string | null>(null);
 
     const items = itemsData as Item[];
     const totalSteps = items.length;
@@ -45,6 +49,7 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 if (parsed.currentStep !== undefined) setCurrentStep(parsed.currentStep);
                 if (parsed.language) setLanguage(parsed.language);
                 if (parsed.results) setResults(parsed.results);
+                if (parsed.currentCareer) setCurrentCareer(parsed.currentCareer);
             } catch (e) {
                 console.error("Failed to load session", e);
                 localStorage.removeItem('assessment_session');
@@ -54,8 +59,8 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     // Save state to localStorage on change
     useEffect(() => {
-        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results }));
-    }, [answers, currentStep, language, results]);
+        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results, currentCareer }));
+    }, [answers, currentStep, language, results, currentCareer]);
 
     const generateResults = (finalAnswers: UserAnswers) => {
         setIsGenerating(true);
@@ -107,11 +112,9 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 topRiasec,
                 careers: matchedCareers,
                 nuancedInsights: nuancedInsights || {},
-                consistencyFlags: consistencyFlags || []
+                consistencyFlags: consistencyFlags || [],
+                answers: finalAnswers
             };
-
-            // NOTE: generateReport in scoring.ts was updated to return nuancedInsights and consistencyFlags.
-            // I should update the destructuring above to capture them.
 
             setResults(resultData);
             setIsGenerating(false);
@@ -135,11 +138,8 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setAnswers({});
         setCurrentStep(0);
         setResults(null);
-        // localStorage will auto-update due to useEffects, or we might need to clear it manually?
-        // We use localStorage for persistence.
-        localStorage.removeItem('assessment_answers');
-        localStorage.removeItem('assessment_step');
-        localStorage.removeItem('assessment_results');
+        setCurrentCareer(null);
+        localStorage.removeItem('assessment_session');
     };
 
     const finishAssessment = () => {
@@ -177,16 +177,19 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             totalSteps,
             answers,
             handleAnswer,
-            setAnswer, // Added back
+            setAnswer,
             nextStep,
             prevStep,
             results,
             isGenerating,
             language,
             setLanguage,
-            fillRandomAnswers, // Added back
-            finishAssessment, // Added back
-            resetAssessment // Added back
+            fillRandomAnswers,
+            finishAssessment,
+            resetAssessment,
+            isComplete: !!results,
+            currentCareer,
+            setCurrentCareer
         }}>
             {children}
         </AssessmentContext.Provider>

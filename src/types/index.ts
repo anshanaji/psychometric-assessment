@@ -43,4 +43,5 @@ export interface AssessmentResult {
   careers: Career[];
   nuancedInsights?: Record<Domain, string>;
   consistencyFlags?: { item1Id: string; item2Id: string; message: string; severity: 'Medium' | 'High' }[];
+  answers?: UserAnswers;
 }

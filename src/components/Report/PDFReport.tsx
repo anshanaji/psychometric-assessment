@@ -1,11 +1,11 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import type { AssessmentResult } from '../../types';
 import careerIntelligence from '../../data/career_intelligence.json';
 import bigFiveInsights from '../../data/big_five_insights.json';
 import { getLevel } from '../../core/scoring';
 import { translations } from '../../data/translations';
-import { Domain } from '../../types';
+import type { Domain } from '../../types';
 
 // Register a font that supports Malayalam if available, otherwise fallback might fail.
 // Since we don't have a local font file, we rely on standard fonts which might not support ML.
