@@ -14,7 +14,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
     return (
         <div className={styles.container}>
-            <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px' }}>
+            <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px', zIndex: 10 }}>
                 <button
                     onClick={() => setLanguage('en')}
                     style={{
