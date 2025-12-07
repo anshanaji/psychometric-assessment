@@ -57,11 +57,27 @@ const UserDashboard: React.FC = () => {
         fetchData();
     }, [currentUser]);
 
-    const copyToClipboard = () => {
-        if (!userData?.referralCode) return;
-        const link = `${window.location.origin}/login?ref=${userData.referralCode}`;
-        navigator.clipboard.writeText(link);
-        setCopyStatus('Copied!');
+    const copyToClipboard = async () => {
+        const code = userData?.referralCode || currentUser?.uid.slice(0, 8);
+        if (!code) return;
+
+        const link = `${window.location.origin}/login?ref=${code}`;
+
+        try {
+            await navigator.clipboard.writeText(link);
+            setCopyStatus('Copied!');
+        } catch (err) {
+            console.error('Failed to copy keys', err);
+            // Fallback for some browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = link;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            setCopyStatus('Copied!');
+        }
+
         setTimeout(() => setCopyStatus('Copy Link'), 2000);
     };
 
