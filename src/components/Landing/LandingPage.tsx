@@ -37,7 +37,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     </span>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <a href="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</a>
                     <button onClick={() => setLanguage('en')} className={!isMal ? styles.activeLang : styles.inactiveLang}>EN</button>
                     <button onClick={() => setLanguage('ml')} className={isMal ? styles.activeLang : styles.inactiveLang}>ML</button>
                 </div>

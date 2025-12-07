@@ -3,10 +3,17 @@ import { AssessmentProvider, useAssessment } from './context/AssessmentContext';
 import Wizard from './components/Wizard/Wizard';
 import ResultsDashboard from './components/Results/ResultsDashboard';
 import LandingPage from './components/Landing/LandingPage';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import UserDashboard from './components/Dashboard/UserDashboard';
+import { AuthProvider, useAuth } from './context/AuthContext';
 const AppContent: React.FC = () => {
   const { isComplete } = useAssessment();
   const [hasStarted, setHasStarted] = useState(isComplete);
+
+  const { loading } = useAuth();
+
+  if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading...</div>;
 
   if (!hasStarted) {
     return <LandingPage onStart={() => setHasStarted(true)} />;
@@ -30,7 +37,15 @@ const AppContent: React.FC = () => {
 function App() {
   return (
     <AssessmentProvider>
-      <AppContent />
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<AppContent />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<UserDashboard />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </AssessmentProvider>
   );
 }

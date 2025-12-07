@@ -17,8 +17,16 @@ import { getLevel } from '../../core/scoring';
 import { translations } from '../../data/translations';
 import type { Domain } from '../../types';
 
+import { db } from '../../firebase';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '../../context/AuthContext';
+
 const ResultsDashboard: React.FC = () => {
     const { results, resetAssessment, currentCareer, isGenerating, language } = useAssessment();
+    const { currentUser } = useAuth(); // Add auth context
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle');
+
     const t = translations[language].results;
 
     const hiddenChartsRef = useRef<HTMLDivElement>(null);
@@ -117,6 +125,32 @@ const ResultsDashboard: React.FC = () => {
     const primaryCode = results.topRiasec ? results.topRiasec.charAt(0) as keyof typeof careerIntelligence : 'R';
     const primaryInsight = results.topRiasec ? (careerIntelligence as any)[primaryCode] : null;
     const comboInsight = results.topRiasec ? (careerIntelligence as any).combinations[results.topRiasec] : null;
+
+    const saveResult = async () => {
+        if (!currentUser || !results) return;
+        setIsSaving(true);
+        try {
+            const reportId = `${results.assessmentType}_${Date.now()}`;
+            const reportRef = doc(db, `users/${currentUser.uid}/reports`, reportId);
+
+            const resultSummary = results.assessmentType === 'mbti'
+                ? { type: results.mbti?.type, name: results.mbti?.details.name }
+                : { riasec: results.topRiasec };
+
+            await setDoc(reportRef, {
+                type: results.assessmentType,
+                timestamp: serverTimestamp(),
+                results: results,
+                resultSummary
+            });
+            setSaveStatus('saved');
+        } catch (error) {
+            console.error("Error saving result:", error);
+            setSaveStatus('error');
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     const generatePdfImage = async () => {
         if (hiddenChartsRef.current) {
@@ -326,13 +360,34 @@ const ResultsDashboard: React.FC = () => {
 
                 {/* PDF Download Button Logic */}
                 {!chartImage ? (
-                    <button
-                        className="btn btn-primary"
-                        onClick={generatePdfImage}
-                        disabled={isPreparingPdf}
-                    >
-                        {isPreparingPdf ? t.preparing_pdf : t.prepare_pdf}
-                    </button>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        {/* Save Button */}
+                        {currentUser ? (
+                            <button
+                                className="btn btn-secondary"
+                                onClick={saveResult}
+                                disabled={isSaving || saveStatus === 'saved'}
+                                style={{ background: saveStatus === 'saved' ? '#48bb78' : undefined, color: saveStatus === 'saved' ? 'white' : undefined }}
+                            >
+                                {isSaving ? 'Saving...' : saveStatus === 'saved' ? 'Saved ✓' : 'Save Result'}
+                            </button>
+                        ) : (
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => window.location.href = '/login'}
+                            >
+                                Login to Save
+                            </button>
+                        )}
+
+                        <button
+                            className="btn btn-primary"
+                            onClick={generatePdfImage}
+                            disabled={isPreparingPdf}
+                        >
+                            {isPreparingPdf ? t.preparing_pdf : t.prepare_pdf}
+                        </button>
+                    </div>
                 ) : (
                     <PDFDownloadLink
                         document={<PDFDocument results={results} chartImage={chartImage} language={language} />}
