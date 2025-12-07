@@ -44,13 +44,13 @@ const ResultsDashboard: React.FC = () => {
         const existingChart = Chart.getChart(chartRef.current);
         if (existingChart) existingChart.destroy();
 
-        const labels = Object.keys(results.domains).map(d => {
+        const labels = results.domains ? Object.keys(results.domains).map(d => {
             const domain = d as Domain;
             // @ts-ignore
             return language === 'ml' ? bigFiveInsights[domain].name_ml : bigFiveInsights[domain].name;
-        });
+        }) : [];
 
-        const data = Object.values(results.domains).map(r => r.percentile);
+        const data = results.domains ? Object.values(results.domains).map(r => r.percentile) : [];
 
         new Chart(ctx, {
             type: 'radar',
@@ -104,19 +104,19 @@ const ResultsDashboard: React.FC = () => {
         C: '#3a0ca3'
     };
 
-    const domainData = Object.entries(results.domains).map(([key, value]) => ({
+    const domainData = results.domains ? Object.entries(results.domains).map(([key, value]) => ({
         name: language === 'ml' ? (bigFiveInsights as any)[key].name_ml : (bigFiveInsights as any)[key].name,
         key: key,
         score: value.percentile,
         fullMark: 100,
         fill: (domainColors as any)[key]
-    }));
+    })) : [];
 
 
 
-    const primaryCode = results.topRiasec.charAt(0) as keyof typeof careerIntelligence;
-    const primaryInsight = (careerIntelligence as any)[primaryCode];
-    const comboInsight = (careerIntelligence as any).combinations[results.topRiasec];
+    const primaryCode = results.topRiasec ? results.topRiasec.charAt(0) as keyof typeof careerIntelligence : 'R';
+    const primaryInsight = results.topRiasec ? (careerIntelligence as any)[primaryCode] : null;
+    const comboInsight = results.topRiasec ? (careerIntelligence as any).combinations[results.topRiasec] : null;
 
     const generatePdfImage = async () => {
         if (hiddenChartsRef.current) {
@@ -160,7 +160,7 @@ const ResultsDashboard: React.FC = () => {
 
         const isExecutive = /Chief|Executive|Manager|Director|Lead|Head|Owner|Founder/i.test(careerTitle);
 
-        if (isExecutive) {
+        if (isExecutive && results.domains && results.facets) {
             const cPercentile = results.domains.C.percentile;
             const nAnger = results.facets['N2']?.percentile || 50;
             const cIndustriousness = results.facets['C4']?.percentile || 50;
@@ -176,7 +176,7 @@ const ResultsDashboard: React.FC = () => {
     const safeAllCareers = Array.isArray(allCareers) ? allCareers : [];
     const scoredCareers = safeAllCareers.map(career => ({
         ...career,
-        matchScore: calculateMatchScore(results.topRiasec, career.code, career.title)
+        matchScore: calculateMatchScore(results.topRiasec || '', career.code, career.title)
     }));
 
     const topMatches = [...scoredCareers]
@@ -194,7 +194,7 @@ const ResultsDashboard: React.FC = () => {
             // Try to find exact match first if we don't have code
             const match = safeAllCareers.find(c => c.title.toLowerCase() === currentCareer.toLowerCase());
             if (match) {
-                currentCareerFit = calculateMatchScore(results.topRiasec, match.code, match.title);
+                currentCareerFit = calculateMatchScore(results.topRiasec || '', match.code, match.title);
             } else {
                 currentCareerFit = 50; // Default if not found
             }
@@ -203,6 +203,7 @@ const ResultsDashboard: React.FC = () => {
         console.error("Error calculating career fit", e);
         currentCareerFit = 50;
     }
+
 
     const getAnswerLabel = (val: number) => {
         switch (val) {
@@ -214,6 +215,44 @@ const ResultsDashboard: React.FC = () => {
             default: return "-";
         }
     };
+
+    if (results.assessmentType === 'mbti' && results.mbti) {
+        return (
+            <div className={styles.dashboardContainer} style={{ paddingBottom: '4rem' }}>
+                <header className={styles.header}>
+                    <h1>{language === 'ml' ? 'നിങ്ങളുടെ വ്യക്തിത്വം' : 'Your Personality Type'}</h1>
+                </header>
+
+                <div className={styles.section}>
+                    <div className={styles.card} style={{ textAlign: 'center', background: 'linear-gradient(135deg, #667eea, #764ba2)', color: 'white' }}>
+                        <h2 style={{ fontSize: '4rem', margin: '1rem 0', color: 'white' }}>{results.mbti.type}</h2>
+                        <h3 style={{ fontSize: '1.8rem', color: '#e2e8f0' }}>{results.mbti.details.name}</h3>
+                        <p style={{ fontSize: '1.2rem', marginTop: '1rem', maxWidth: '800px', margin: '1rem auto' }}>
+                            {results.mbti.details.description}
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles.section}>
+                    <h2 className={styles.sectionTitle}>{language === 'ml' ? 'അനുയോജ്യമായ തൊഴിലുകൾ' : 'Recommended Careers'}</h2>
+                    <div className={styles.grid}>
+                        {(results.mbti.details.careers || []).map((career, idx) => (
+                            <div key={idx} className={styles.card} style={{ textAlign: 'center' }}>
+                                <h3 style={{ margin: 0, color: '#4a5568' }}>{career}</h3>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className={styles.downloadSection} style={{ marginTop: '2rem', textAlign: 'center' }}>
+                    <button className="btn btn-secondary" onClick={resetAssessment}>
+                        {t.retake_btn || "Retake Assessment"}
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
 
     return (
         <div className={styles.dashboardContainer} style={{ paddingBottom: '4rem' }}>
@@ -326,7 +365,7 @@ const ResultsDashboard: React.FC = () => {
                     <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
                         <h3>{t.detailed_breakdown}</h3>
                         <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
-                            {Object.entries(results.domains).map(([key, value]) => {
+                            {results.domains && Object.entries(results.domains).map(([key, value]) => {
                                 const d = key as Domain;
                                 const level = getLevel(value.percentile).toLowerCase() as 'low' | 'average' | 'high';
                                 const insight = (bigFiveInsights as any)[d];
@@ -488,7 +527,7 @@ const ResultsDashboard: React.FC = () => {
                     {t.detailed_facet_analysis.description}
                 </p>
 
-                {Object.entries(results.domains).map(([domainKey, domainValue]) => {
+                {results.domains && Object.entries(results.domains).map(([domainKey, domainValue]) => {
                     const d = domainKey as Domain;
                     const domainName = (bigFiveInsights as any)[d].name;
                     const domainNameTranslated = language === 'ml' ? (bigFiveInsights as any)[d].name_ml : domainName;
@@ -507,7 +546,7 @@ const ResultsDashboard: React.FC = () => {
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
                                 {[1, 2, 3, 4, 5, 6].map(num => {
                                     const facetKey = `${d}${num}`;
-                                    const facetScore = results.facets[facetKey];
+                                    const facetScore = results.facets?.[facetKey];
                                     if (!facetScore) return null;
 
                                     const facetText = (facetsText as any)[facetKey];

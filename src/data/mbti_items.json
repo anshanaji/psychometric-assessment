@@ -1,0 +1,226 @@
+[
+    {
+        "id": "m1",
+        "text": "I enjoy social gatherings and parties.",
+        "text_ml": "എനിക്ക് പാർട്ടികളിലും ആഘോഷങ്ങളിലും പങ്കെടുക്കുന്നത് ഇഷ്ടമാണ്.",
+        "dimension": "EI",
+        "keyed": "E"
+    },
+    {
+        "id": "m2",
+        "text": "I prefer to spend time alone rather than in a crowd.",
+        "text_ml": "ൾക്കൂട്ടത്തിനേക്കാൾ ഒറ്റയ്ക്ക് സമയം ചെലവഴിക്കാനാണ് എനിക്കിഷ്ടം.",
+        "dimension": "EI",
+        "keyed": "I"
+    },
+    {
+        "id": "m3",
+        "text": "I focus on the present reality rather than future possibilities.",
+        "text_ml": "ഭാവിയിൽ എന്ത് നടക്കും എന്നതിനേക്കാൾ ഇപ്പോൾ നടക്കുന്ന കാര്യങ്ങൾക്കാണ് ഞാൻ പ്രാധാന്യം നൽകുന്നത്.",
+        "dimension": "SN",
+        "keyed": "S"
+    },
+    {
+        "id": "m4",
+        "text": "I often think about abstract ideas and theories.",
+        "text_ml": "ഞാൻ പലപ്പോഴും സങ്കീർണ്ണമായ ആശയങ്ങളെക്കുറിച്ചും സിദ്ധാന്തങ്ങളെക്കുറിച്ചും ചിന്തിക്കാറുണ്ട്.",
+        "dimension": "SN",
+        "keyed": "N"
+    },
+    {
+        "id": "m5",
+        "text": "I make decisions based on logic and facts.",
+        "text_ml": "യുക്തിയും കണക്കുകളും നോക്കിയാണ് ഞാൻ തീരുമാനങ്ങൾ എടുക്കാറുള്ളത്.",
+        "dimension": "TF",
+        "keyed": "T"
+    },
+    {
+        "id": "m6",
+        "text": "I make decisions based on my feelings and values.",
+        "text_ml": "എന്റെ വികാരങ്ങൾക്കും മൂല്യങ്ങൾക്കും അനുസരിച്ചാണ് ഞാൻ തീരുമാനങ്ങൾ എടുക്കുന്നത്.",
+        "dimension": "TF",
+        "keyed": "F"
+    },
+    {
+        "id": "m7",
+        "text": "I like to have a detailed plan before starting.",
+        "text_ml": "എന്തിനും ഒരു കൃത്യമായ പ്ലാൻ തയ്യാറാക്കി തുടങ്ങാനാണ് എനിക്കിഷ്ടം.",
+        "dimension": "JP",
+        "keyed": "J"
+    },
+    {
+        "id": "m8",
+        "text": "I prefer to be flexible and go with the flow.",
+        "text_ml": "മുൻകൂട്ടി പ്ലാൻ ചെയ്യാതെ, അപ്പപ്പോൾ വരുന്നതുപോലെ കാര്യങ്ങൾ ചെയ്യാനാണ് എനിക്കിഷ്ടം.",
+        "dimension": "JP",
+        "keyed": "P"
+    },
+    {
+        "id": "m9",
+        "text": "I am talkative and outgoing.",
+        "text_ml": "ഞാൻ ധാരാളം സംസാരിക്കുന്ന ഒരു പ്രകൃതക്കാരനാണ്.",
+        "dimension": "EI",
+        "keyed": "E"
+    },
+    {
+        "id": "m10",
+        "text": "I am quiet and reserved.",
+        "text_ml": "ഞാൻ അധികം സംസാരിക്കാത്ത, ഒതുങ്ങിയ പ്രകൃതക്കാരനാണ്.",
+        "dimension": "EI",
+        "keyed": "I"
+    },
+    {
+        "id": "m11",
+        "text": "I trust facts and concrete details.",
+        "text_ml": "തെളിവുകളിലും വ്യക്തമായ വിവരങ്ങളിലുമാണ് എനിക്ക് വിശ്വാസം.",
+        "dimension": "SN",
+        "keyed": "S"
+    },
+    {
+        "id": "m12",
+        "text": "I trust my intuition and gut feeling.",
+        "text_ml": "എന്റെ ഉള്ളിൽ തോന്നുന്ന കാര്യങ്ങളെ (അവബോധം) ഞാൻ വിശ്വസിക്കുന്നു.",
+        "dimension": "SN",
+        "keyed": "N"
+    },
+    {
+        "id": "m13",
+        "text": "I am often described as tough-minded.",
+        "text_ml": "കർക്കശക്കാരൻ എന്ന് മറ്റുള്ളവർ എന്നെ വിശേഷിപ്പിക്കാറുണ്ട്.",
+        "dimension": "TF",
+        "keyed": "T"
+    },
+    {
+        "id": "m14",
+        "text": "I am sensitive to the needs of others.",
+        "text_ml": "മറ്റുള്ളവരുടെ ആവശ്യങ്ങൾ കണ്ടറിഞ്ഞ് സഹായിക്കാൻ ഞാൻ ശ്രദ്ധിക്കാറുണ്ട്.",
+        "dimension": "TF",
+        "keyed": "F"
+    },
+    {
+        "id": "m15",
+        "text": "I like to finish my work before playing.",
+        "text_ml": "വിനോദത്തിന് മുമ്പ് ജോലി തീർക്കാനാണ് ഞാൻ ശ്രമിക്കുക.",
+        "dimension": "JP",
+        "keyed": "J"
+    },
+    {
+        "id": "m16",
+        "text": "I act efficiently when deadline approaches.",
+        "text_ml": "അവസാന നിമിഷം ജോലി ചെയ്യുന്നതാണ് എനിക്ക് കൂടുതൽ ആവേശം.",
+        "dimension": "JP",
+        "keyed": "P"
+    },
+    {
+        "id": "m17",
+        "text": "I feel comfortable being the center of attention.",
+        "text_ml": "എല്ലാവരുടെയും ശ്രദ്ധ എന്റെ മേൽ വരുന്നത് എനിക്ക് ഇഷ്ടമാണ്.",
+        "dimension": "EI",
+        "keyed": "E"
+    },
+    {
+        "id": "m18",
+        "text": "I keep my thoughts to myself.",
+        "text_ml": "എന്റെ ചിന്തകൾ ഞാൻ മറ്റുള്ളവരുമായി പങ്കുവെക്കാറില്ല.",
+        "dimension": "EI",
+        "keyed": "I"
+    },
+    {
+        "id": "m19",
+        "text": "I prefer standard and conventional ways.",
+        "text_ml": "പതിവ് രീതികൾ പിന്തുടരാനാണ് എനിക്ക് താൽപ്പര്യം.",
+        "dimension": "SN",
+        "keyed": "S"
+    },
+    {
+        "id": "m20",
+        "text": "I like to explore new and unproven methods.",
+        "text_ml": "പുതിയതും പരീക്ഷിക്കാത്തതുമായ വഴികൾ നോക്കാൻ എനിക്കിഷ്ടമാണ്.",
+        "dimension": "SN",
+        "keyed": "N"
+    },
+    {
+        "id": "m21",
+        "text": "I value justice over mercy.",
+        "text_ml": "കരുണയേക്കാൾ നീതിക്കാണ് ഞാൻ വിലകൽപ്പിക്കുന്നത്.",
+        "dimension": "TF",
+        "keyed": "T"
+    },
+    {
+        "id": "m22",
+        "text": "I value harmony over being right.",
+        "text_ml": "ശരിയാണെന്ന് തെളിയിക്കുന്നതിനേക്കാൾ ബന്ധങ്ങൾ നിലനിർത്താനാണ് ഞാൻ ആഗ്രഹിക്കുന്നത്.",
+        "dimension": "TF",
+        "keyed": "F"
+    },
+    {
+        "id": "m23",
+        "text": "I keep my things organized.",
+        "text_ml": "എന്റെ സാധനങ്ങൾ ഞാൻ അടുക്കും ചിട്ടയോടും കൂടി വെക്കാറുണ്ട്.",
+        "dimension": "JP",
+        "keyed": "J"
+    },
+    {
+        "id": "m24",
+        "text": "I don't mind a little mess.",
+        "text_ml": "അല്പം അലങ്കോലമായിക്കിടന്നാലും എനിക്ക് കുഴപ്പമില്ല.",
+        "dimension": "JP",
+        "keyed": "P"
+    },
+    {
+        "id": "m25",
+        "text": "I initiate conversations.",
+        "text_ml": "സംസാരം തുടങ്ങുന്നത് എപ്പോഴും ഞാനായിരിക്കും.",
+        "dimension": "EI",
+        "keyed": "E"
+    },
+    {
+        "id": "m26",
+        "text": "I wait for others to talk to me.",
+        "text_ml": "മറ്റുള്ളവർ ഇങ്ങോട്ട് വന്ന് സംസാരിക്കാൻ ഞാൻ കാത്തിരിക്കും.",
+        "dimension": "EI",
+        "keyed": "I"
+    },
+    {
+        "id": "m27",
+        "text": "I am practical and realistic.",
+        "text_ml": "യാഥാർത്ഥ്യബോധത്തോടെ ചിന്തിക്കുന്ന ഒരാളാണ് ഞാൻ.",
+        "dimension": "SN",
+        "keyed": "S"
+    },
+    {
+        "id": "m28",
+        "text": "I focus on the big picture.",
+        "text_ml": "കാര്യങ്ങളുടെ വിശദാംശങ്ങളേക്കാൾ വലിയ ചിത്രത്തിനാണ് ഞാൻ പ്രാധാന്യം നൽകുന്നത്.",
+        "dimension": "SN",
+        "keyed": "N"
+    },
+    {
+        "id": "m29",
+        "text": "I tend to analyze things objectively.",
+        "text_ml": "വികാരങ്ങൾ മാറ്റിവെച്ച് കാര്യങ്ങളെ യുക്തിപൂർവ്വം വിശകലനം ചെയ്യാറുണ്ട്.",
+        "dimension": "TF",
+        "keyed": "T"
+    },
+    {
+        "id": "m30",
+        "text": "I am guided by my heart.",
+        "text_ml": "ഹൃദയം പറയുന്നതാണ് ഞാൻ പലപ്പോഴും കേൾക്കാറുള്ളത്.",
+        "dimension": "TF",
+        "keyed": "F"
+    },
+    {
+        "id": "m31",
+        "text": "I like to have clear rules.",
+        "text_ml": "വ്യക്തമായ നിയമങ്ങളും ചിട്ടകളും ഉണ്ടാകുന്നത് എനിക്കിഷ്ടമാണ്.",
+        "dimension": "JP",
+        "keyed": "J"
+    },
+    {
+        "id": "m32",
+        "text": "I prefer to keep my options open.",
+        "text_ml": "തീരുമാനങ്ങൾ മാറ്റിമറിക്കാൻ അവസരം വേണമെന്നാണ് എന്റെ ആഗ്രഹം.",
+        "dimension": "JP",
+        "keyed": "P"
+    }
+]

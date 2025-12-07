@@ -8,16 +8,16 @@ interface HiddenChartsProps {
 
 // We render this off-screen to capture it with html2canvas
 export const HiddenCharts = forwardRef<HTMLDivElement, HiddenChartsProps>(({ results }, ref) => {
-    const domainData = Object.entries(results.domains).map(([key, value]) => ({
+    const domainData = results.domains ? Object.entries(results.domains).map(([key, value]) => ({
         name: key,
         score: value.percentile,
-    }));
+    })) : [];
 
-    const radarData = Object.entries(results.domains).map(([key, value]) => ({
+    const radarData = results.domains ? Object.entries(results.domains).map(([key, value]) => ({
         subject: key,
         A: value.percentile,
         fullMark: 100,
-    }));
+    })) : [];
 
     return (
         <div ref={ref} style={{ position: 'absolute', left: '-9999px', top: 0, width: '600px', background: 'white', padding: '20px' }}>

@@ -9,7 +9,7 @@ import { useAssessment } from '../../context/AssessmentContext';
 import { translations } from '../../data/translations';
 
 const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
-    const { language, setLanguage } = useAssessment();
+    const { language, setLanguage, setAssessmentType } = useAssessment();
     const t = translations[language];
 
     return (
@@ -52,9 +52,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                 <p className={styles.subtitle}>
                     {t.subtitle}
                 </p>
-                <button className={styles.startButton} onClick={onStart}>
-                    {t.start}
-                </button>
+
+                <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginTop: '20px' }}>
+                    <button
+                        className={styles.startButton}
+                        onClick={() => {
+                            setAssessmentType('big5');
+                            onStart();
+                        }}
+                        style={{ background: 'white', color: '#764ba2' }}
+                    >
+                        Big Five (IPIP-NEO)
+                    </button>
+
+                    <button
+                        className={styles.startButton}
+                        onClick={() => {
+                            setAssessmentType('mbti');
+                            onStart();
+                        }}
+                        style={{ background: '#764ba2', color: 'white', border: '2px solid white' }}
+                    >
+                        MBTI Assessment
+                    </button>
+                </div>
             </div>
 
             <div className={styles.content}>

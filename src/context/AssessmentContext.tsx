@@ -6,6 +6,10 @@ import careersData from '../data/careers.json';
 import { generateReport } from '../core/scoring';
 import { calculateRiasecScores, getTopRiasecCode } from '../core/riasec';
 
+import mbtiItems from '../data/mbti_items.json';
+import { calculateMbti } from '../core/mbti_scoring';
+import type { AssessmentType } from '../types';
+
 interface AssessmentContextType {
     currentStep: number;
     totalSteps: number;
@@ -24,19 +28,24 @@ interface AssessmentContextType {
     isComplete: boolean;
     currentCareer: string | null;
     setCurrentCareer: (career: string) => void;
+    assessmentType: AssessmentType;
+    setAssessmentType: (type: AssessmentType) => void;
 }
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
 
 export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState<UserAnswers>({});
     const [isGenerating, setIsGenerating] = useState(false);
     const [results, setResults] = useState<AssessmentResult | null>(null);
     const [language, setLanguage] = useState<'en' | 'ml'>('en');
     const [currentCareer, setCurrentCareer] = useState<string | null>(null);
+    const [assessmentType, setAssessmentType] = useState<AssessmentType>('big5');
 
-    const items = itemsData as Item[];
+    // Dynamically load items based on type
+    const items = (assessmentType === 'big5' ? itemsData : mbtiItems) as Item[];
     const totalSteps = items.length;
 
     // Load state from localStorage on mount
@@ -50,6 +59,7 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 if (parsed.language) setLanguage(parsed.language);
                 if (parsed.results) setResults(parsed.results);
                 if (parsed.currentCareer) setCurrentCareer(parsed.currentCareer);
+                if (parsed.assessmentType) setAssessmentType(parsed.assessmentType);
             } catch (e) {
                 console.error("Failed to load session", e);
                 localStorage.removeItem('assessment_session');
@@ -59,64 +69,73 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     // Save state to localStorage on change
     useEffect(() => {
-        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results, currentCareer }));
-    }, [answers, currentStep, language, results, currentCareer]);
+        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results, currentCareer, assessmentType }));
+    }, [answers, currentStep, language, results, currentCareer, assessmentType]);
 
     const generateResults = (finalAnswers: UserAnswers) => {
         setIsGenerating(true);
         setTimeout(() => {
-            // @ts-ignore
-            const { domainResults, facetResults, nuancedInsights, consistencyFlags } = generateReport(finalAnswers, items, normsData);
-            const riasecScores = calculateRiasecScores(domainResults);
-            const topRiasec = getTopRiasecCode(riasecScores);
+            if (assessmentType === 'big5') {
+                // @ts-ignore
+                const { domainResults, facetResults, nuancedInsights, consistencyFlags } = generateReport(finalAnswers, items, normsData);
+                const riasecScores = calculateRiasecScores(domainResults);
+                const topRiasec = getTopRiasecCode(riasecScores);
 
-            // Career Lookup Logic
-            let matchedCareers = (careersData as any)[topRiasec] || [];
+                // Career Lookup Logic
+                let matchedCareers = (careersData as any)[topRiasec] || [];
 
-            // Fallback strategy if exact match yields nothing
-            if (matchedCareers.length === 0) {
-                const perms = [
+                if (matchedCareers.length === 0) {
+                    const perms = [
+                        topRiasec,
+                        topRiasec[0] + topRiasec[2] + topRiasec[1],
+                        topRiasec[1] + topRiasec[0] + topRiasec[2],
+                        topRiasec[1] + topRiasec[2] + topRiasec[0],
+                        topRiasec[2] + topRiasec[0] + topRiasec[1],
+                        topRiasec[2] + topRiasec[1] + topRiasec[0]
+                    ];
+                    for (const p of perms) {
+                        if ((careersData as any)[p]) {
+                            matchedCareers = (careersData as any)[p];
+                            break;
+                        }
+                    }
+                }
+                if (matchedCareers.length === 0) {
+                    const twoLetter = topRiasec.substring(0, 2);
+                    const allKeys = Object.keys(careersData);
+                    for (const key of allKeys) {
+                        if (key.startsWith(twoLetter)) {
+                            matchedCareers = [...matchedCareers, ...(careersData as any)[key]];
+                        }
+                    }
+                }
+
+                // Deduplicate and limit
+                matchedCareers = Array.from(new Set(matchedCareers)).slice(0, 20);
+
+                const resultData: AssessmentResult = {
+                    domains: domainResults,
+                    facets: facetResults,
+                    riasec: riasecScores,
                     topRiasec,
-                    topRiasec[0] + topRiasec[2] + topRiasec[1],
-                    topRiasec[1] + topRiasec[0] + topRiasec[2],
-                    topRiasec[1] + topRiasec[2] + topRiasec[0],
-                    topRiasec[2] + topRiasec[0] + topRiasec[1],
-                    topRiasec[2] + topRiasec[1] + topRiasec[0]
-                ];
-
-                for (const p of perms) {
-                    if ((careersData as any)[p]) {
-                        matchedCareers = (careersData as any)[p];
-                        break;
-                    }
-                }
+                    careers: matchedCareers,
+                    nuancedInsights: nuancedInsights || {},
+                    consistencyFlags: consistencyFlags || [],
+                    answers: finalAnswers,
+                    assessmentType: 'big5'
+                };
+                setResults(resultData);
+            } else {
+                // MBTI Logic
+                const mbtiResult = calculateMbti(finalAnswers, language);
+                const resultData: AssessmentResult = {
+                    assessmentType: 'mbti',
+                    mbti: mbtiResult,
+                    careers: mbtiResult.details.careers,
+                    answers: finalAnswers
+                };
+                setResults(resultData);
             }
-
-            if (matchedCareers.length === 0) {
-                const twoLetter = topRiasec.substring(0, 2);
-                const allKeys = Object.keys(careersData);
-                for (const key of allKeys) {
-                    if (key.startsWith(twoLetter)) {
-                        matchedCareers = [...matchedCareers, ...(careersData as any)[key]];
-                    }
-                }
-            }
-
-            // Deduplicate and limit
-            matchedCareers = Array.from(new Set(matchedCareers)).slice(0, 20);
-
-            const resultData: AssessmentResult = {
-                domains: domainResults,
-                facets: facetResults,
-                riasec: riasecScores,
-                topRiasec,
-                careers: matchedCareers,
-                nuancedInsights: nuancedInsights || {},
-                consistencyFlags: consistencyFlags || [],
-                answers: finalAnswers
-            };
-
-            setResults(resultData);
             setIsGenerating(false);
         }, 1500);
     };
@@ -139,6 +158,7 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setCurrentStep(0);
         setResults(null);
         setCurrentCareer(null);
+        // keep language and type? Or reset type? Let's keep type for UX
         localStorage.removeItem('assessment_session');
     };
 
@@ -189,7 +209,9 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             resetAssessment,
             isComplete: !!results,
             currentCareer,
-            setCurrentCareer
+            setCurrentCareer,
+            assessmentType,
+            setAssessmentType
         }}>
             {children}
         </AssessmentContext.Provider>

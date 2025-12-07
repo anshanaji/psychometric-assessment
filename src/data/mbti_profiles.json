@@ -1,0 +1,226 @@
+{
+    "ISTJ": {
+        "name": "The Inspector",
+        "name_ml": "ഇൻസ്പെക്ടർ",
+        "description": "Practical, fact-minded individuals whose reliability cannot be doubted. They focus on organization and structure.",
+        "description_ml": "പ്രായോഗികമായി ചിന്തിക്കുന്നവർ. വിശ്വസിക്കാൻ കൊള്ളാവുന്നവർ. ചിട്ടയും ക്രമവും ഇവർക്ക് നിർബന്ധമാണ്. വസ്‌തുതകളുടെ അടിസ്ഥാനത്തിൽ മാത്രം കാര്യങ്ങൾ തീരുമാനിക്കുന്നു.",
+        "careers": [
+            "Accountant",
+            "Auditor",
+            "Data Analyst",
+            "Financial Manager",
+            "Judge",
+            "Administrator"
+        ]
+    },
+    "ISFJ": {
+        "name": "The Protector",
+        "name_ml": "സംരക്ഷകൻ",
+        "description": "Very dedicated and warm protectors, always ready to defend their loved ones. Hardworking and loyal.",
+        "description_ml": "പ്രിയപ്പെട്ടവരെ സംരക്ഷിക്കാൻ എന്തിനും തയ്യാറുള്ളവർ. ആത്മാർത്ഥതയും കഠിനാധ്വാനവും മുഖമുദ്രയാക്കിയവർ. മറ്റുള്ളവരെ സഹായിക്കാൻ എപ്പോഴും സന്നദ്ധരായിരിക്കും.",
+        "careers": [
+            "Nurse",
+            "Teacher",
+            "Social Worker",
+            "HR Specialist",
+            "Librarian",
+            "Customer Service"
+        ]
+    },
+    "INFJ": {
+        "name": "The Counselor",
+        "name_ml": "ഉപദേശകൻ",
+        "description": "Quiet and mystical, yet very inspiring and tireless idealists. Deep thinkers with strong intuition.",
+        "description_ml": "ശാന്തരായവർ. എന്നാൽ മറ്റുള്ളവർക്ക് പ്രചോദനം നൽകാൻ കഴിവുള്ളവർ. ആഴത്തിൽ ചിന്തിക്കുന്നവരും മികച്ച ഉൾക്കാഴ്ചയുള്ളവരുമാണ്.",
+        "careers": [
+            "Psychologist",
+            "Writer",
+            "Counselor",
+            "Non-profit Director",
+            "Artist",
+            "UX Designer"
+        ]
+    },
+    "INTJ": {
+        "name": "The Mastermind",
+        "name_ml": "ബുദ്ധിരാക്ഷസൻ",
+        "description": "Imaginative and strategic thinkers, with a plan for everything. They value intellect and competence above all.",
+        "description_ml": "തന്ത്രപരമായ നീക്കങ്ങൾ നടത്തുന്നവർ. എന്തിനും ഒരു പ്ലാൻ കയ്യിലുണ്ടാകും. അറിവിനും കഴിവിനും വലിയ വില നൽകുന്നവർ.",
+        "careers": [
+            "Software Architect",
+            "Scientist",
+            "Strategist",
+            "Investment Banker",
+            "Engineer",
+            "Professor"
+        ]
+    },
+    "ISTP": {
+        "name": "The Craftsman",
+        "name_ml": "കരകൗശലവിദഗ്ദ്ധൻ",
+        "description": "Bold and practical experimenters, masters of all kinds of tools. They learn by doing and exploring.",
+        "description_ml": "ധൈര്യശാലികൾ. പ്രായോഗിക പരീക്ഷണങ്ങൾ നടത്താൻ ഇഷ്ടപ്പെടുന്നവർ. കാര്യങ്ങൾ ചെയ്തുപഠിക്കാനാണ് ഇവർക്ക് കൂടുതൽ താൽപ്പര്യം.",
+        "careers": [
+            "Mechanic",
+            "Pilot",
+            "Forensic Scientist",
+            "Developer",
+            "Carpenter",
+            "Athlete"
+        ]
+    },
+    "ISFP": {
+        "name": "The Composer",
+        "name_ml": "കലാകാരൻ",
+        "description": "Flexible and charming artists, always ready to explore and experience something new.",
+        "description_ml": "ആകർഷകമായ പെരുമാറ്റമുള്ളവർ. പുതിയ കാര്യങ്ങൾ പരീക്ഷിക്കാൻ ഇഷ്ടപ്പെടുന്ന കലാകാരന്മാർ. സ്വാതന്ത്ര്യം ആഗ്രഹിക്കുന്നവർ.",
+        "careers": [
+            "Artist",
+            "Designer",
+            "Chef",
+            "Veterinarian",
+            "Physical Therapist",
+            "Musician"
+        ]
+    },
+    "INFP": {
+        "name": "The Healer",
+        "name_ml": "സ്വപ്ന സഞ്ചാരി",
+        "description": "Poetic, kind and altruistic people, always eager to help a good cause. Driven by their values.",
+        "description_ml": "കവിതയും കലയും ഇഷ്ടപ്പെടുന്നവർ. നല്ല കാര്യങ്ങൾക്ക് വേണ്ടി നിലകൊള്ളുന്നവർ. സ്വന്തം മൂല്യങ്ങൾക്കനുസരിച്ച് ജീവിക്കാൻ ആഗ്രഹിക്കുന്നവർ.",
+        "careers": [
+            "Writer",
+            "Counselor",
+            "Social Worker",
+            "Journalist",
+            "Missionary",
+            "Graphic Designer"
+        ]
+    },
+    "INTP": {
+        "name": "The Architect",
+        "name_ml": "ചിന്തകൻ",
+        "description": "Innovative inventors with an unquenchable thirst for knowledge. Logical and analytical.",
+        "description_ml": "പുതിയ കാര്യങ്ങൾ കണ്ടുപിടിക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. അറിവ് നേടാൻ അതിയായ ആഗ്രഹമുള്ളവർ. യുക്തിപൂർവ്വം ചിന്തിക്കുന്നവർ.",
+        "careers": [
+            "Programmer",
+            "Researcher",
+            "Mathematician",
+            "Systems Analyst",
+            "Scientist",
+            "Professor"
+        ]
+    },
+    "ESTP": {
+        "name": "The Dynamo",
+        "name_ml": "പ്രകടനക്കാരൻ",
+        "description": "Smart, energetic and very perceptive people, who truly enjoy living on the edge.",
+        "description_ml": "ഊർജ്ജസ്വലരായവർ. റിസ്ക് എടുക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. ജീവിതം ആഘോഷപ്രദമാക്കാൻ ആഗ്രഹിക്കുന്നവർ.",
+        "careers": [
+            "Entrepreneur",
+            "Sales Manager",
+            "Stockbroker",
+            "Police Officer",
+            "Paramedic",
+            "Contractor"
+        ]
+    },
+    "ESFP": {
+        "name": "The Performer",
+        "name_ml": "ആഘോഷപ്രിയൻ",
+        "description": "Spontaneous, energetic and enthusiastic people - life is never boring around them.",
+        "description_ml": "എപ്പോഴും ഉഷാറായിരിക്കുന്നവർ. ഇവർ കൂടെയുണ്ടെങ്കിൽ ഒട്ടും ബോറടിക്കില്ല. ഏത് കാര്യത്തിലും ആവേശം കണ്ടെത്തുന്നവർ.",
+        "careers": [
+            "Actor",
+            "Event Planner",
+            "Tour Guide",
+            "Sales Representative",
+            "Public Relations",
+            "Teacher"
+        ]
+    },
+    "ENFP": {
+        "name": "The Champion",
+        "name_ml": "പ്രചാരകൻ",
+        "description": "Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.",
+        "description_ml": "സർഗ്ഗാത്മകതയുള്ളവർ. സ്വതന്ത്രമായി ചിന്തിക്കുന്നവർ. എപ്പോഴും ചിരിച്ചുകൊണ്ടും മറ്റുള്ളവരെ ചിരിപ്പിച്ചുകൊണ്ടും നടക്കാൻ ഇഷ്ടപ്പെടുന്നവർ.",
+        "careers": [
+            "Marketer",
+            "Journalist",
+            "Consultant",
+            "Campaign Manager",
+            "Artist",
+            "Teacher"
+        ]
+    },
+    "ENTP": {
+        "name": "The Visionary",
+        "name_ml": "തർക്കവിദഗ്ദ്ധൻ",
+        "description": "Smart and curious thinkers who cannot resist an intellectual challenge. Good at debating.",
+        "description_ml": "ബുദ്ധിമാന്മാർ. വെല്ലുവിളികൾ ഏറ്റെടുക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. വാദപ്രതിവാദങ്ങളിൽ (Debate) കേമന്മാർ.",
+        "careers": [
+            "Entrepreneur",
+            "Lawyer",
+            "Consultant",
+            "Creative Director",
+            "Politician",
+            "Systems Engineer"
+        ]
+    },
+    "ESTJ": {
+        "name": "The Supervisor",
+        "name_ml": "മേൽനോട്ടക്കാരൻ",
+        "description": "Excellent administrators, unsurpassed at managing things - or people.",
+        "description_ml": "മികച്ച ഭരണാധികാരികൾ. കാര്യങ്ങളും ആളുകളെയും നിയന്ത്രിക്കാൻ പ്രത്യേക കഴിവുള്ളവർ.",
+        "careers": [
+            "Manager",
+            "Judge",
+            "Administrator",
+            "Police Officer",
+            "Banker",
+            "Military Officer"
+        ]
+    },
+    "ESFJ": {
+        "name": "The Provider",
+        "name_ml": "സഹായഹസ്തം",
+        "description": "Extraordinarily caring, social and popular people, always eager to help.",
+        "description_ml": "അതീവ ശ്രദ്ധയും സ്നേഹവും ഉള്ളവർ. സാമൂഹ്യ സേവനം ഇഷ്ടപ്പെടുന്നവർ. എല്ലാവർക്കും പ്രിയപ്പെട്ടവർ.",
+        "careers": [
+            "Teacher",
+            "Healthcare Administrator",
+            "Social Worker",
+            "Event Planner",
+            "Nurse",
+            "Office Manager"
+        ]
+    },
+    "ENFJ": {
+        "name": "The Teacher",
+        "name_ml": "നായകൻ",
+        "description": "Charismatic and inspiring leaders, able to mesmerize their listeners.",
+        "description_ml": "ആകർഷകമായ വ്യക്തിത്വം. നല്ലൊരു നേതാവാകാൻ കഴിവുള്ളവർ. സംസാരത്തിലൂടെ മറ്റുള്ളവരെ സ്വാധീനിക്കാൻ ഇവർക്ക് കഴിയും.",
+        "careers": [
+            "Teacher",
+            "HR Manager",
+            "Public Relations",
+            "Sales Manager",
+            "Politician",
+            "Counselor"
+        ]
+    },
+    "ENTJ": {
+        "name": "The Commander",
+        "name_ml": "കമാൻഡർ",
+        "description": "Bold, imaginative and strong-willed leaders, always finding a way - or making one.",
+        "description_ml": "ധീരരായവർ. ശക്തമായ ഇച്ഛാശക്തിയുള്ളവർ. തടസ്സങ്ങൾ മാറ്റിവെച്ച് മുന്നേറാൻ കഴിവുള്ള മികച്ച നേതാക്കൾ.",
+        "careers": [
+            "Executive",
+            "Lawyer",
+            "Entrepreneur",
+            "Management Consultant",
+            "University Professor",
+            "Judge"
+        ]
+    }
+}
