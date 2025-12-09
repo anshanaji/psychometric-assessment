@@ -739,22 +739,34 @@ const ResultsDashboard: React.FC = () => {
                             {/* Broad Career Categories */}
                             {broadCategories.length > 0 && (
                                 <div className="md:col-span-2 space-y-6">
-                                    <h3 className="text-xl font-bold text-slate-800 border-b pb-2">{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <h3 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                                        <span className="p-1 bg-indigo-100 rounded-lg">📊</span>
+                                        {t.advanced_insights.broad_career_title || "Broad Career Paths"}
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {broadCategories.map((cat: any) => (
-                                            <div key={cat.id} className="p-4 bg-white border rounded-lg shadow-sm hover:shadow-md transition-shadow" style={{ borderLeft: `5px solid ${cat.color}` }}>
-                                                <div className="flex justify-between items-center mb-3">
-                                                    <h4 className="font-bold text-slate-900">{cat.name}</h4>
-                                                    <span className={`text-xs px-2 py-1 rounded font-bold uppercase tracking-wider ${cat.fit === 'High' ? 'bg-green-100 text-green-700' :
-                                                        cat.fit === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                                                            'bg-red-100 text-red-700'
+                                            <div key={cat.id} className="relative p-5 bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-lg transition-all duration-300 flex flex-col h-full group" style={{ borderTop: `4px solid ${cat.color}` }}>
+                                                <div className="flex justify-between items-start mb-4">
+                                                    <div className="p-2 rounded-lg bg-slate-50 group-hover:bg-indigo-50 transition-colors">
+                                                        {/* Icons based on cat.id */}
+                                                        {cat.id === 'entrepreneur' && <span className="text-2xl">🚀</span>}
+                                                        {cat.id === 'corporate' && <span className="text-2xl">💼</span>}
+                                                        {cat.id === 'academia' && <span className="text-2xl">🎓</span>}
+                                                        {cat.id === 'creative' && <span className="text-2xl">🎨</span>}
+                                                        {cat.id === 'social' && <span className="text-2xl">🤝</span>}
+                                                        {cat.id === 'tech' && <span className="text-2xl">💻</span>}
+                                                    </div>
+                                                    <span className={`text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-wider border ${cat.fit === 'High' ? 'bg-green-50 text-green-700 border-green-200' :
+                                                            cat.fit === 'Medium' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                                                                'bg-red-50 text-red-700 border-red-200'
                                                         }`}>
                                                         {cat.fit === 'High' ? (t.advanced_insights.fit_high || "Excellent Fit") :
                                                             cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Moderate Fit") :
                                                                 (t.advanced_insights.fit_low || "Low Fit")}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-slate-600 leading-relaxed">{cat.reason}</p>
+                                                <h4 className="font-bold text-lg text-slate-800 mb-2">{cat.name}</h4>
+                                                <p className="text-sm text-slate-600 leading-relaxed flex-grow">{cat.reason}</p>
                                             </div>
                                         ))}
                                     </div>
