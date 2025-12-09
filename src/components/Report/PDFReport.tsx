@@ -441,25 +441,21 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                         <Text style={styles.sectionTitle}>{t.advanced_insights.broad_career_title}</Text>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                             {broadCategories.map((cat: any, i: number) => (
-                                <View key={i} style={{ width: '48%', padding: 10, borderWidth: 1, borderColor: '#e2e8f0', borderTopWidth: 4, borderTopColor: cat.color, borderRadius: 6, marginBottom: 12, backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column' }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6, alignItems: 'flex-start' }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', width: '70%' }}>
-                                            <Text style={{ fontSize: 14, marginRight: 4 }}>
-                                                {cat.id === 'entrepreneur' ? '🚀' :
-                                                    cat.id === 'corporate' ? '💼' :
-                                                        cat.id === 'academia' ? '🎓' :
-                                                            cat.id === 'creative' ? '🎨' :
-                                                                cat.id === 'social' ? '🤝' : '💻'}
-                                            </Text>
-                                            <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#1e293b' }}>{cat.name}</Text>
-                                        </View>
-                                        <Text style={{ fontSize: 8, fontWeight: 'bold', paddingHorizontal: 6, paddingVertical: 3, backgroundColor: cat.fit === 'High' ? '#f0fdf4' : cat.fit === 'Medium' ? '#fefce8' : '#fef2f2', color: cat.fit === 'High' ? '#15803d' : cat.fit === 'Medium' ? '#a16207' : '#b91c1c', borderRadius: 4 }}>
-                                            {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High") :
-                                                cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Med") :
-                                                    (t.advanced_insights.fit_low || "Low")}
-                                        </Text>
-                                    </View>
-                                    <Text style={{ fontSize: 8, color: '#475569', lineHeight: 1.5, flexGrow: 1 }}>{cat.reason}</Text>
+                                <View key={i} style={{ width: '31%', padding: 10, borderWidth: 1, borderColor: '#f1f5f9', borderRadius: 8, marginBottom: 10, backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 24, marginBottom: 6 }}>
+                                        {cat.id === 'entrepreneur' ? '🚀' :
+                                            cat.id === 'corporate' ? '💼' :
+                                                cat.id === 'academia' ? '🎓' :
+                                                    cat.id === 'creative' ? '🎨' :
+                                                        cat.id === 'social' ? '🤝' : '💻'}
+                                    </Text>
+                                    <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#1e293b', textAlign: 'center', marginBottom: 2 }}>{cat.name}</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'extrabold', color: cat.fit === 'High' ? '#10b981' : cat.fit === 'Medium' ? '#f59e0b' : '#f43f5e', textAlign: 'center', marginBottom: 4 }}>
+                                        {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High") :
+                                            cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Med") :
+                                                (t.advanced_insights.fit_low || "Low")}
+                                    </Text>
+                                    <Text style={{ fontSize: 8, color: '#94a3b8', textAlign: 'center', lineHeight: 1.4 }}>{cat.reason}</Text>
                                 </View>
                             ))}
                         </View>
