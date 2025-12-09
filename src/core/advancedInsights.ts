@@ -246,13 +246,13 @@ export const deriveLearningStyle = (domains: Record<string, ScoreResult>, langua
     }
 };
 
-export const deriveFlowState = (domains: Record<string, ScoreResult>, language: string = 'en'): FlowState => {
+export const deriveFlowState = (domains: Record<string, ScoreResult>, _language: string = 'en'): FlowState => {
     const O = getP(domains, 'O');
     const C = getP(domains, 'C');
 
     let trigger = '';
     let desc = '';
-
+    // ... logic remains same ...
     if (O > 60 && C > 60) {
         trigger = 'Complex Problem-Solving Sprint';
         desc = 'You enter flow when tackling open-ended, complex problems that require both creativity and high technical precision. The "Sweet Spot" is rigorous innovation.';
@@ -270,7 +270,7 @@ export const deriveFlowState = (domains: Record<string, ScoreResult>, language: 
     return { trigger, description: desc };
 };
 
-export const deriveConflictStyle = (domains: Record<string, ScoreResult>, language: string = 'en'): ConflictStyle => {
+export const deriveConflictStyle = (domains: Record<string, ScoreResult>, _language: string = 'en'): ConflictStyle => {
     const A = getP(domains, 'A');
     const E = getP(domains, 'E');
 
@@ -301,7 +301,7 @@ export const deriveConflictStyle = (domains: Record<string, ScoreResult>, langua
     }
 };
 
-export const deriveBurnoutTriggers = (domains: Record<string, ScoreResult>, language: string = 'en'): BurnoutTrigger => {
+export const deriveBurnoutTriggers = (domains: Record<string, ScoreResult>, _language: string = 'en'): BurnoutTrigger => {
     const E = getP(domains, 'E');
     const O = getP(domains, 'O');
     const A = getP(domains, 'A');
@@ -313,7 +313,7 @@ export const deriveBurnoutTriggers = (domains: Record<string, ScoreResult>, lang
     return { trigger: 'Unclear Expectations', prevention: 'Chaos and lack of structure stress you out. Demand clear KPIs and roadmaps from leadership.' };
 };
 
-export const deriveCommunicationGuide = (domains: Record<string, ScoreResult>, language: string = 'en'): CommunicationGuide => {
+export const deriveCommunicationGuide = (domains: Record<string, ScoreResult>, _language: string = 'en'): CommunicationGuide => {
     const E = getP(domains, 'E');
     const A = getP(domains, 'A');
     const O = getP(domains, 'O');
@@ -348,10 +348,11 @@ export const deriveCommunicationGuide = (domains: Record<string, ScoreResult>, l
     return { dos, donts };
 };
 
-export const deriveLeadershipArchetype = (domains: Record<string, ScoreResult>, language: string = 'en'): LeadershipStyle => {
+export const deriveLeadershipArchetype = (domains: Record<string, ScoreResult>, _language: string = 'en'): LeadershipStyle => {
     const E = getP(domains, 'E');
     const C = getP(domains, 'C');
     const A = getP(domains, 'A');
+    const O = getP(domains, 'O');
 
     if (E > 60 && C > 60) return { archetype: 'The Driver', description: 'High energy, high standards. You lead from the front and expect excellence. Great for turnarounds and scaling.' };
     if (E > 60 && A > 60) return { archetype: 'The Coach', description: 'People-first leadership. You build high-trust teams that would run through walls for you. Great for culture building.' };
