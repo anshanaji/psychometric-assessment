@@ -441,21 +441,40 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                         <Text style={styles.sectionTitle}>{t.advanced_insights.broad_career_title}</Text>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
                             {broadCategories.map((cat: any, i: number) => (
-                                <View key={i} style={{ width: '31%', padding: 10, borderWidth: 1, borderColor: '#f1f5f9', borderRadius: 8, marginBottom: 10, backgroundColor: '#ffffff', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 24, marginBottom: 6 }}>
+                                <View key={i} style={{
+                                    width: '32%',
+                                    padding: 12,
+                                    borderWidth: 1,
+                                    borderColor: '#e2e8f0',
+                                    borderRadius: 6,
+                                    marginBottom: 10,
+                                    backgroundColor: '#ffffff',
+                                    alignItems: 'center'
+                                }}>
+                                    <Text style={{ fontSize: 24, marginBottom: 8, backgroundColor: '#f8fafc', padding: 8, borderRadius: 20 }}>
                                         {cat.id === 'entrepreneur' ? '🚀' :
                                             cat.id === 'corporate' ? '💼' :
                                                 cat.id === 'academia' ? '🎓' :
                                                     cat.id === 'creative' ? '🎨' :
                                                         cat.id === 'social' ? '🤝' : '💻'}
                                     </Text>
-                                    <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#1e293b', textAlign: 'center', marginBottom: 2 }}>{cat.name}</Text>
-                                    <Text style={{ fontSize: 12, fontWeight: 'extrabold', color: cat.fit === 'High' ? '#10b981' : cat.fit === 'Medium' ? '#f59e0b' : '#f43f5e', textAlign: 'center', marginBottom: 4 }}>
-                                        {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High") :
-                                            cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Med") :
-                                                (t.advanced_insights.fit_low || "Low")}
+                                    <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#0f172a', textAlign: 'center', marginBottom: 4 }}>{cat.name}</Text>
+                                    <Text style={{
+                                        fontSize: 9,
+                                        fontWeight: 'bold',
+                                        color: cat.fit === 'High' ? '#15803d' : cat.fit === 'Medium' ? '#b45309' : '#b91c1c',
+                                        textAlign: 'center',
+                                        marginBottom: 6,
+                                        backgroundColor: cat.fit === 'High' ? '#dcfce7' : cat.fit === 'Medium' ? '#fef3c7' : '#fee2e2',
+                                        paddingHorizontal: 6,
+                                        paddingVertical: 2,
+                                        borderRadius: 4
+                                    }}>
+                                        {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
+                                            cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
+                                                (t.advanced_insights.fit_low || "Low Fit")}
                                     </Text>
-                                    <Text style={{ fontSize: 8, color: '#94a3b8', textAlign: 'center', lineHeight: 1.4 }}>{cat.reason}</Text>
+                                    <Text style={{ fontSize: 8, color: '#64748b', textAlign: 'center', lineHeight: 1.4 }}>{cat.reason}</Text>
                                 </View>
                             ))}
                         </View>

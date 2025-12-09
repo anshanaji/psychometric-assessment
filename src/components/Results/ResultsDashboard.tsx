@@ -711,10 +711,10 @@ const ResultsDashboard: React.FC = () => {
                     {broadCategories.length > 0 && (
                         <div className={styles.section}>
                             <h2 className={styles.sectionTitle}>{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h2>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                                 {broadCategories.map((cat: any) => (
-                                    <div key={cat.id} className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                                        <div className="text-5xl mb-4 p-4 bg-slate-50 rounded-full">
+                                    <div key={cat.id} className={styles.card} style={{ alignItems: 'center', textAlign: 'center', padding: '2rem', transition: 'all 0.3s ease', cursor: 'default' }}>
+                                        <div style={{ fontSize: '3rem', marginBottom: '1rem', background: '#f8fafc', padding: '1rem', borderRadius: '50%', width: '80px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             {cat.id === 'entrepreneur' && '🚀'}
                                             {cat.id === 'corporate' && '💼'}
                                             {cat.id === 'academia' && '🎓'}
@@ -722,16 +722,19 @@ const ResultsDashboard: React.FC = () => {
                                             {cat.id === 'social' && '🤝'}
                                             {cat.id === 'tech' && '💻'}
                                         </div>
-                                        <h4 className="font-bold text-slate-800 text-center mb-2 text-lg">{cat.name}</h4>
-                                        <span className={`text-sm font-bold px-3 py-1 rounded-full mb-3 ${cat.fit === 'High' ? 'bg-emerald-100 text-emerald-700' :
-                                            cat.fit === 'Medium' ? 'bg-amber-100 text-amber-700' :
-                                                'bg-rose-100 text-rose-700'
-                                            }`}>
+                                        <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b', marginBottom: '0.5rem' }}>{cat.name}</h4>
+                                        <span className={styles.badge} style={{
+                                            marginBottom: '1rem',
+                                            background: cat.fit === 'High' ? '#dcfce7' : cat.fit === 'Medium' ? '#fef3c7' : '#fee2e2',
+                                            color: cat.fit === 'High' ? '#166534' : cat.fit === 'Medium' ? '#b45309' : '#b91c1c',
+                                            padding: '0.5rem 1rem',
+                                            fontSize: '0.9rem'
+                                        }}>
                                             {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
                                                 cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
                                                     (t.advanced_insights.fit_low || "Low Fit")}
                                         </span>
-                                        <p className="text-sm text-slate-500 text-center leading-relaxed">{cat.reason}</p>
+                                        <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{cat.reason}</p>
                                     </div>
                                 ))}
                             </div>
