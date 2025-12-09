@@ -59,6 +59,7 @@ export const getLevel = (percentile: number): 'Low' | 'Average' | 'High' => {
 };
 
 import { generateNuancedInsights, checkConsistency } from './analysis';
+import { calculateRiasecScores } from './riasec';
 
 export const generateReport = (answers: UserAnswers, items: Item[], norms: Norms) => {
     const { domainScores, facetScores } = calculateRawScores(answers, items);
@@ -84,8 +85,11 @@ export const generateReport = (answers: UserAnswers, items: Item[], norms: Norms
     // Generate Nuanced Text
     const nuancedInsights = generateNuancedInsights(domainResults as any, facetResults);
 
+    // Calculate RIASEC Logic
+    const riasec = calculateRiasecScores(domainResults as any);
+
     // Check Consistency
     const consistencyFlags = checkConsistency(answers);
 
-    return { domainResults, facetResults, nuancedInsights, consistencyFlags };
+    return { domainResults, facetResults, nuancedInsights, consistencyFlags, riasec };
 };

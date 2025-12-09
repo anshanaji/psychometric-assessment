@@ -227,7 +227,12 @@ export interface BroadCategoryResult {
     color: string;
 }
 
-export const evaluateBroadCareerCategories = (domains: Record<string, ScoreResult>, language: string = 'en'): BroadCategoryResult[] => {
+export const evaluateBroadCareerCategories = (results: any, language: string = 'en'): BroadCategoryResult[] => {
+    // Scores are expected to be roughly -1 to 1 range (z-scores weighted)
+    // We normalize them relative to each other for ranking, or use absolute thresholds if calibrated.
+    // Given calculateRiasecScores uses z-scores, values can be around -2 to +2.
+    // Thresholds: High > 0.5, Medium > -0.5, Low < -0.5 is a reasonable start.
+
     const t = language === 'ml' ? {
         cat_entrepreneur: "സംരംഭകത്വം (Entrepreneurship)",
         cat_corporate: "കോർപ്പറേറ്റ് നേൃത്വപാടവം (Corporate Leadership)",
@@ -236,23 +241,8 @@ export const evaluateBroadCareerCategories = (domains: Record<string, ScoreResul
         cat_social: "സേവന മേഖലകൾ (Healthcare & Social Impact)",
         cat_tech: "സാങ്കേതികവിദ്യ & എഞ്ചിനീയറിംഗ് (Technology & Engineering)",
 
-        reason_entrepreneur_high: "ഉയർന്ന ആത്മവിശ്വാസം, പുതിയ ആശയങ്ങൾ പരീക്ഷിക്കാനുള്ള താൽപ്പര്യവും (High Openness) കഠിനാധ്വാനശീലവും (High Conscientiousness) നിങ്ങളെ മികച്ച സംരംഭകനാക്കുന്നു.",
-        reason_entrepreneur_low: "റിസ്ക് എടുക്കാനുള്ള മടിയും (Low Openness) അനിശ്ചിതത്വങ്ങളോടുള്ള ഭയവും (Low Neuroticism Stability) തടസ്സമായേക്കാം.",
-
-        reason_corporate_high: "ആളുകളെ നയിക്കാനുള്ള കഴിവ് (High Extraversion), ചിട്ടയായ പ്രവർത്തനരീതി (High Conscientiousness) എന്നിവ കോർപ്പറേറ്റ് ലോകത്ത് വിജയം ഉറപ്പാക്കുന്നു.",
-        reason_corporate_low: "ആൾക്കൂട്ടത്തിൽ നിന്നുള്ള അകലം, നേതൃത്വമേറ്റെടുക്കാനുള്ള വിമുഖത എന്നിവ വെല്ലുവിളിയായേക്കാം.",
-
-        reason_academia_high: "ആഴത്തിലുള്ള പഠനത്തോടുള്ള താൽപ്പര്യം (High Openness), വിശകലനത്തിനുള്ള ക്ഷമ എന്നിവ ഗവേഷണത്തിന് അനുയോജ്യമാണ്.",
-        reason_academia_low: "തിയറികളേക്കാൾ പ്രായോഗിക കാര്യങ്ങളിൽ മാത്രം ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നത് ഗവേഷണത്തെ ബാധിക്കാം.",
-
-        reason_creative_high: "ഭാവനയും (Abstract thinking) സർഗ്ഗാത്മകതയും (High Openness) കലാരംഗത്ത് വലിയ നേട്ടങ്ങൾ സമ്മാനിക്കും.",
-        reason_creative_low: "പരമ്പരാഗത രീതികളോടുള്ള അമിതമായ താൽപ്പര്യം (Low Openness) പുതുമയുള്ള സൃഷ്ടികൾക്ക് തടസ്സമാകാം.",
-
-        reason_social_high: "മറ്റുള്ളവരെ സഹായിക്കാനുള്ള മനസ്സും (High Agreeableness) സഹാനുഭൂതിയും സേവന മേഖലകളിൽ തിളങ്ങാൻ സഹായിക്കും.",
-        reason_social_low: "മറ്റുള്ളവരുടെ വികാരങ്ങളേക്കാൾ സ്വന്തം യുക്തിക്ക് പ്രാധാന്യം നൽകുന്നത് ഈ മേഖലയിൽ വെല്ലുവിളിയാകാം.",
-
-        reason_tech_high: "വിശദാംശങ്ങളിലെ ശ്രദ്ധയും (Conscientiousness) യുക്തി സഹമായ ചിന്തയും സാങ്കേതിക മേഖലയ്ക്ക് മുതൽക്കൂട്ടാണ്.",
-        reason_tech_low: "കൃത്യതയും ഏകാഗ്രതയും കുറവായിരിക്കുന്നത് (Low Conscientiousness) സാങ്കേതിക ജോലികളിൽ പിഴവുകൾക്ക് കാരണാമാകാം.", // Generalization
+        // ... (We can reuse existing reasons or update them to be more RIASEC specific)
+        // I will inline the specific reasons logic for simplicity and direct mapping
     } : {
         cat_entrepreneur: "Entrepreneurship & Business",
         cat_corporate: "Corporate Leadership",
@@ -260,93 +250,80 @@ export const evaluateBroadCareerCategories = (domains: Record<string, ScoreResul
         cat_creative: "Creative Arts & Media",
         cat_social: "Healthcare & Social Impact",
         cat_tech: "Technology & Engineering",
-
-        reason_entrepreneur_high: "Your mix of high Openness (innovation) and Conscientiousness (execution) makes you a natural fit for building ventures.",
-        reason_entrepreneur_low: "You may find the uncertainty and high-risk nature of entrepreneurship draining due to lower risk tolerance.",
-
-        reason_corporate_high: "High Extraversion (leadership) and Conscientiousness (organization) equip you well for executive roles.",
-        reason_corporate_low: "You might prefer independent contribution over managing large teams or navigating corporate politics.",
-
-        reason_academia_high: "Your distinct intellectual curiosity (Openness) drives you to explore complex theories and research deeply.",
-        reason_academia_low: "You likely prefer practical, hands-on action over theoretical study or long-term research.",
-
-        reason_creative_high: "Your high Openness fuels a vivid imagination, essential for design, writing, and artistic expression.",
-        reason_creative_low: "You tend to value tradition and established methods, which may conflict with the constant reinvention needed in arts.",
-
-        reason_social_high: "High Agreeableness and empathy make you naturally suited for roles requiring care, counseling, and social support.",
-        reason_social_low: "You may prioritize objective logic over emotional connection, making purely care-giving roles less satisfying.",
-
-        reason_tech_high: "Your structured approach (Conscientiousness) and logical mindset fit well with engineering and technical problem-solving.",
-        reason_tech_low: "You might find the rigid accuracy and detail-oriented nature of engineering roles restrictive or draining.",
     };
 
-    const categories: BroadCategoryResult[] = [];
-    const getP = (key: string) => domains[key]?.percentile || 50;
-    const O = getP('O');
-    const C = getP('C');
-    const E = getP('E');
-    const A = getP('A');
-    const N = getP('N');
+    const riasec = results.riasec || { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
 
-    // Entrepreneurship: Needs Openness (Ideas) + Conscientiousness (Drive) + Emotional Stability (Resilience)
-    const entreScore = (O + C + (100 - N)) / 3;
-    categories.push({
-        id: 'entrepreneur',
-        name: t.cat_entrepreneur,
-        fit: entreScore > 65 ? 'High' : entreScore > 40 ? 'Medium' : 'Low',
-        reason: entreScore > 40 ? t.reason_entrepreneur_high : t.reason_entrepreneur_low,
-        color: '#f59e0b'
+    // Mathematical Calculation from Holland Codes
+    // Entrepreneurship: Driven by Enterprising (Risk/Leadership) + Realistic/Artistic (Creation)
+    const entreScore = (riasec.E * 0.7 + Math.max(riasec.R, riasec.A) * 0.3);
+
+    // Corporate: Enterprising (Leadership) + Conventional (Organization)
+    const corpScore = (riasec.E * 0.6 + riasec.C * 0.4);
+
+    // Academia: Investigative (Research)
+    const acadScore = riasec.I;
+
+    // Creative: Artistic (Expression)
+    const creativeScore = riasec.A;
+
+    // Social: Social (Helping)
+    const socialScore = riasec.S;
+
+    // Tech: Realistic (Hands-on) + Investigative (Problem Solving)
+    const techScore = (riasec.R * 0.5 + riasec.I * 0.5);
+
+    const getFit = (score: number) => {
+        if (score > 0.5) return 'High';
+        if (score > -0.5) return 'Medium';
+        return 'Low';
+    };
+
+    const getReason = (cat: string, fit: string) => {
+        const isMl = language === 'ml';
+        if (cat === 'entrepreneur') {
+            if (fit === 'High') return isMl ? "നിങ്ങളുടെ ഉയർന്ന 'Enterprising' സ്കോർ ബിസിനസ്സ് ആശയങ്ങൾ നടപ്പിലാക്കാനുള്ള കഴിവിനെ സൂചിപ്പിക്കുന്നു." : "Your strong 'Enterprising' score combined with practical/creative drive makes you a natural fit for building ventures.";
+            if (fit === 'Medium') return isMl ? "നിങ്ങൾക്ക് ബിസിനസ്സ് താൽപ്പര്യമുണ്ടെങ്കിലും, റിസ്ക് എടുക്കാനുള്ള പ്രവണത മിതമായതാണ്." : "You have some entrepreneurial drive (Enterprising), but may prefer calculated risks over pure venture building.";
+            return isMl ? "നിങ്ങൾ സ്ഥിരതയുള്ള വരുമാനവും കുറഞ്ഞ റിസ്കുമാണ് ആഗ്രഹിക്കുന്നത്." : "You likely prefer the stability of established structures over the uncertainty of entrepreneurship.";
+        }
+        if (cat === 'corporate') {
+            if (fit === 'High') return isMl ? "ഓർഗനൈസേഷനുകൾ നയിക്കാനുള്ള (Enterprising & Conventional) കഴിവ് നിങ്ങൾക്ക് കൂടുതലാണ്." : "Your blend of 'Enterprising' leadership and 'Conventional' organization suits corporate management perfectly.";
+            if (fit === 'Medium') return isMl ? "കോർപ്പറേറ്റ് അന്തരീക്ഷം നിങ്ങൾക്ക് യോജിക്കുമെങ്കിലും, കൂടുതൽ സ്വാതന്ത്ര്യം നിങ്ങൾ ആഗ്രഹിച്ചേക്കാം." : "You fit reasonably well in corporate settings but might find rigid hierarchies confining at times.";
+            return isMl ? "അധികാരശ്രേണികളുള്ള (Hierarchy) കോർപ്പറേറ്റ് രീതികളോട് നിങ്ങൾക്ക് താൽപ്പര്യം കുറവാണ്." : "You may find corporate politics and rigid structures draining, preferring more autonomy.";
+        }
+        if (cat === 'academia') {
+            if (fit === 'High') return isMl ? "ഗവേഷണത്തോടുള്ള നിറഞ്ഞ താൽപ്പര്യം (High Investigative) നിങ്ങളെ അക്കാദമിക് മേഖലയിൽ ശോഭിപ്പിക്കും." : "Your dominant 'Investigative' trait drives distinct intellectual curiosity perfect for research and academia.";
+            if (fit === 'Medium') return isMl ? "പഠനം ഇഷ്ടമാണെങ്കിലും, തിയറികളേക്കാൾ പ്രായോഗിക തലത്തിനാണ് നിങ്ങൾ മുൻഗണന നൽകുന്നത്." : "You enjoy learning (Investigative) but may prefer applying knowledge practically rather than pure academic research.";
+            return isMl ? "തിയറികളെക്കാൾ പ്രായോഗിക കാര്യങ്ങളിലാണ് നിങ്ങൾക്ക് കൂടുതൽ താൽപ്പര്യം." : "Abstract research may feel too disconnected from action for your preference.";
+        }
+        if (cat === 'creative') {
+            if (fit === 'High') return isMl ? "നിങ്ങളുടെ ഉയർന്ന 'Artistic' സ്കോർ സർഗ്ഗാത്മക മേഖലകളിലെ മികച്ച പ്രകടനത്തെ സൂചിപ്പിക്കുന്നു." : "Your high 'Artistic' score indicates a powerful need for self-expression and creative freedom.";
+            if (fit === 'Medium') return isMl ? "സർഗ്ഗാത്മകത ഉണ്ടെങ്കിലും, അത് ഒരു ഹോബിയായിരിക്കാനാണ് സാധ്യത കൂടുതൽ." : "You appreciate creativity but may prefer it balanced with structure rather than total artistic chaos.";
+            return isMl ? "കലാപരമായ കാര്യങ്ങളേക്കാൾ, വ്യക്തതയുള്ളതും യുക്തിസഹവുമായ കാര്യങ്ങളാണ് നിങ്ങൾക്ക് ഇഷ്ടം." : "You likely prioritize functionality and logic over purely aesthetic or abstract expression.";
+        }
+        if (cat === 'social') {
+            if (fit === 'High') return isMl ? "മറ്റുള്ളവരെ സഹായിക്കാനുള്ള മനസ്സ് (High Social) നിങ്ങളെ സേവന മേഖലകളിൽ മികച്ചതാക്കും." : "Your 'Social' score highlights a deep drive to help, teach, or counsel others effectively.";
+            if (fit === 'Medium') return isMl ? "ആളുകളുമായി ഇടപഴകാൻ ഇഷ്ടമാണെങ്കിലും, അത് നിങ്ങളുടെ പ്രധാന തൊഴിൽ ലക്ഷ്യമല്ല." : "You enjoy helping others but need balance to avoid emotional burnout causing fatigue.";
+            return isMl ? "വൈകാരികമായ ഇടപെടലുകളേക്കാൾ, വസ്തുനിഷ്ഠമായ കാര്യങ്ങളാണ് നിങ്ങൾ ഇഷ്ടപ്പെടുന്നത്." : "You prefer objective tasks over roles requiring constant emotional labor or caregiving.";
+        }
+        if (cat === 'tech') {
+            if (fit === 'High') return isMl ? "സാങ്കേതിക കാര്യങ്ങളിലെ താൽപ്പര്യം (Realistic & Investigative) നിങ്ങളെ ഈ മേഖലയിൽ വിജയിപ്പിക്കും." : "The combination of 'Realistic' practicality and 'Investigative' problem-solving makes a distinct tech/engineering fit.";
+            if (fit === 'Medium') return isMl ? "സാങ്കേതികവിദ്യ ഇഷ്ടമാണെങ്കിലും, അതിൽ മാത്രം ഒതുങ്ങിനിൽക്കാൻ നിങ്ങൾ ആഗ്രഹിച്ചേക്കില്ല." : "You are capable with technology but may miss the human or creative element if the role is too purely technical.";
+            return isMl ? "യന്ത്രങ്ങളേക്കാളും കോഡുകളേക്കാളും നിങ്ങൾക്ക് താൽപ്പര്യം മനുഷ്യരുമായോ ആശയങ്ങളുമായോ ഉള്ള ഇടപെടലായിരിക്കും." : "You likely prefer working with people or ideas rather than purely with code, machines, or hardware.";
+        }
+        return "";
+    };
+
+    const makeCat = (id: string, name: string, score: number, color: string): BroadCategoryResult => ({
+        id, name, fit: getFit(score), reason: getReason(id, getFit(score)), color
     });
 
-    // Corporate: Extraversion (People) + Conscientiousness (Order)
-    const corpScore = (E + C) / 2;
-    categories.push({
-        id: 'corporate',
-        name: t.cat_corporate,
-        fit: corpScore > 65 ? 'High' : corpScore > 40 ? 'Medium' : 'Low',
-        reason: corpScore > 40 ? t.reason_corporate_high : t.reason_corporate_low,
-        color: '#3b82f6'
-    });
-
-    // Academia: Openness (Curiosity) + Conscientiousness (Focus)
-    const acadScore = (O * 0.7 + C * 0.3);
-    categories.push({
-        id: 'academia',
-        name: t.cat_academia,
-        fit: acadScore > 70 ? 'High' : acadScore > 45 ? 'Medium' : 'Low',
-        reason: acadScore > 45 ? t.reason_academia_high : t.reason_academia_low,
-        color: '#8b5cf6'
-    });
-
-    // Creative: Openness dominant
-    const creativeScore = O;
-    categories.push({
-        id: 'creative',
-        name: t.cat_creative,
-        fit: creativeScore > 70 ? 'High' : creativeScore > 45 ? 'Medium' : 'Low',
-        reason: creativeScore > 45 ? t.reason_creative_high : t.reason_creative_low,
-        color: '#ec4899'
-    });
-
-    // Social: Agreeableness + Extraversion
-    const socialScore = (A + E) / 2;
-    categories.push({
-        id: 'social',
-        name: t.cat_social,
-        fit: socialScore > 60 ? 'High' : socialScore > 35 ? 'Medium' : 'Low',
-        reason: socialScore > 35 ? t.reason_social_high : t.reason_social_low,
-        color: '#10b981'
-    });
-
-    // Tech: Conscientiousness + Openness (Learning)
-    const techScore = (C + O) / 2;
-    categories.push({
-        id: 'tech',
-        name: t.cat_tech,
-        fit: techScore > 60 ? 'High' : techScore > 40 ? 'Medium' : 'Low',
-        reason: techScore > 40 ? t.reason_tech_high : t.reason_tech_low,
-        color: '#6366f1'
-    });
-
-    return categories;
+    return [
+        makeCat('entrepreneur', t.cat_entrepreneur, entreScore, '#ea580c'),
+        makeCat('corporate', t.cat_corporate, corpScore, '#0284c7'),
+        makeCat('academia', t.cat_academia, acadScore, '#7c3aed'),
+        makeCat('creative', t.cat_creative, creativeScore, '#db2777'),
+        makeCat('social', t.cat_social, socialScore, '#059669'),
+        makeCat('tech', t.cat_tech, techScore, '#4f46e5')
+    ];
 };

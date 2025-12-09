@@ -48,7 +48,7 @@ const ResultsDashboard: React.FC = () => {
     const synergies = results?.domains ? identifySynergies(results.domains, language) : [];
     const hero = results?.domains ? deriveExcellenceProfile(results.domains) : null;
     const learningStyle = results?.domains ? deriveLearningStyle(results.domains, language) : null;
-    const broadCategories = results?.domains ? evaluateBroadCareerCategories(results.domains, language) : [];
+    const broadCategories = results ? evaluateBroadCareerCategories(results, language) : [];
 
     // Chart.js Radar Chart
     const chartRef = useRef<HTMLCanvasElement>(null);
@@ -737,6 +737,7 @@ const ResultsDashboard: React.FC = () => {
                             )}
 
                             {/* Broad Career Categories */}
+                            {/* Broad Career Categories */}
                             {broadCategories.length > 0 && (
                                 <div className="md:col-span-2 space-y-6">
                                     <h3 className="text-xl font-bold text-slate-800 mb-4">{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h3>
@@ -753,8 +754,8 @@ const ResultsDashboard: React.FC = () => {
                                                 </div>
                                                 <h4 className="font-bold text-slate-700 text-center mb-1">{cat.name}</h4>
                                                 <span className={`text-lg font-extrabold ${cat.fit === 'High' ? 'text-emerald-500' :
-                                                        cat.fit === 'Medium' ? 'text-amber-500' :
-                                                            'text-rose-500'
+                                                    cat.fit === 'Medium' ? 'text-amber-500' :
+                                                        'text-rose-500'
                                                     }`}>
                                                     {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
                                                         cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
