@@ -24,7 +24,7 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { generateAIAnalysis } from '../../services/gemini';
 import ReactMarkdown from 'react-markdown';
-import { deriveMotivationDrivers, deriveExcellenceProfile, identifySynergies, deriveLearningStyle, evaluateBroadCareerCategories } from '../../core/advancedInsights';
+import { deriveMotivationDrivers, deriveExcellenceProfile, identifySynergies, deriveLearningStyle, evaluateBroadCareerCategories, deriveFlowState, deriveConflictStyle, deriveBurnoutTriggers, deriveCommunicationGuide, deriveLeadershipArchetype } from '../../core/advancedInsights';
 
 const ResultsDashboard: React.FC = () => {
     const { results, resetAssessment, currentCareer, isGenerating, language, userDetails, setResults, hasPaid, setHasPaid } = useAssessment();
@@ -49,6 +49,13 @@ const ResultsDashboard: React.FC = () => {
     const hero = results?.domains ? deriveExcellenceProfile(results.domains) : null;
     const learningStyle = results?.domains ? deriveLearningStyle(results.domains, language) : null;
     const broadCategories = results ? evaluateBroadCareerCategories(results, language) : [];
+
+    // Expert Insights
+    const flowState = results?.domains ? deriveFlowState(results.domains, language) : null;
+    const conflictStyle = results?.domains ? deriveConflictStyle(results.domains, language) : null;
+    const burnoutTrigger = results?.domains ? deriveBurnoutTriggers(results.domains, language) : null;
+    const commGuide = results?.domains ? deriveCommunicationGuide(results.domains, language) : null;
+    const leadershipStyle = results?.domains ? deriveLeadershipArchetype(results.domains, language) : null;
 
     // Chart.js Radar Chart
     const chartRef = useRef<HTMLCanvasElement>(null);
@@ -705,6 +712,76 @@ const ResultsDashboard: React.FC = () => {
                             </div>
                         </div>
                     )}
+
+                    {/* Expert Strategy Section */}
+                    <div className={styles.section}>
+                        <h2 className={styles.sectionTitle}>🏆 Expert Strategy Profile</h2>
+                        <div className={styles.aiGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+
+                            {/* Flow State */}
+                            {flowState && (
+                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #3b82f6' }}>
+                                    <h3 className={styles.aiCardTitle}>🌊 Flow State Trigger</h3>
+                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#1e40af', marginBottom: '0.5rem' }}>{flowState.trigger}</h4>
+                                    <p style={{ fontSize: '0.95rem', color: '#475569' }}>{flowState.description}</p>
+                                </div>
+                            )}
+
+                            {/* Leadership */}
+                            {leadershipStyle && (
+                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #8b5cf6' }}>
+                                    <h3 className={styles.aiCardTitle}>👑 Leadership Archetype</h3>
+                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#5b21b6', marginBottom: '0.5rem' }}>{leadershipStyle.archetype}</h4>
+                                    <p style={{ fontSize: '0.95rem', color: '#475569' }}>{leadershipStyle.description}</p>
+                                </div>
+                            )}
+
+                            {/* Conflict Style */}
+                            {conflictStyle && (
+                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #f97316' }}>
+                                    <h3 className={styles.aiCardTitle}>⚔️ Conflict Style</h3>
+                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#c2410c', marginBottom: '0.5rem' }}>{conflictStyle.style}</h4>
+                                    <p style={{ fontSize: '0.95rem', color: '#475569', marginBottom: '0.5rem' }}>{conflictStyle.description}</p>
+                                    <div style={{ background: '#fff7ed', padding: '0.5rem', borderRadius: '4px', fontSize: '0.85rem', color: '#9a3412', fontStyle: 'italic' }}>
+                                        <strong>Strategy:</strong> {conflictStyle.strategy}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Burnout Trigger */}
+                            {burnoutTrigger && (
+                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #ef4444' }}>
+                                    <h3 className={styles.aiCardTitle}>🛡️ Burnout Trigger</h3>
+                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#b91c1c', marginBottom: '0.5rem' }}>{burnoutTrigger.trigger}</h4>
+                                    <div style={{ background: '#fef2f2', padding: '0.5rem', borderRadius: '4px', fontSize: '0.85rem', color: '#991b1b' }}>
+                                        <strong>Prevention:</strong> {burnoutTrigger.prevention}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Communication Guide */}
+                            {commGuide && (
+                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #10b981', gridColumn: '1 / -1' }}>
+                                    <h3 className={styles.aiCardTitle}>🗣️ Communication User Manual</h3>
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                        <div style={{ background: '#ecfdf5', padding: '1rem', borderRadius: '8px' }}>
+                                            <h4 style={{ color: '#047857', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>DO THIS ✅</h4>
+                                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                                {commGuide.dos.map(d => <li key={d} style={{ fontSize: '0.85rem', color: '#065f46', marginBottom: '0.25rem' }}>{d}</li>)}
+                                            </ul>
+                                        </div>
+                                        <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '8px' }}>
+                                            <h4 style={{ color: '#b91c1c', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>AVOID THIS ❌</h4>
+                                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
+                                                {commGuide.donts.map(d => <li key={d} style={{ fontSize: '0.85rem', color: '#991b1b', marginBottom: '0.25rem' }}>{d}</li>)}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                        </div>
+                    </div>
 
 
                     {/* Broad Career Categories */}

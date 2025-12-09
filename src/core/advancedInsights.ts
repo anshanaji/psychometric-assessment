@@ -20,6 +20,33 @@ export interface TraitSynergy {
     type: 'strength' | 'challenge';
 }
 
+// Expert Interfaces
+export interface FlowState {
+    trigger: string;
+    description: string;
+}
+
+export interface ConflictStyle {
+    style: string;
+    description: string;
+    strategy: string;
+}
+
+export interface BurnoutTrigger {
+    trigger: string;
+    prevention: string;
+}
+
+export interface CommunicationGuide {
+    dos: string[];
+    donts: string[];
+}
+
+export interface LeadershipStyle {
+    archetype: string;
+    description: string;
+}
+
 // Helper to get score safely
 const getP = (domains: Record<string, ScoreResult>, key: Domain) => domains[key]?.percentile || 50;
 
@@ -217,6 +244,120 @@ export const deriveLearningStyle = (domains: Record<string, ScoreResult>, langua
             tips: language === 'ml' ? ['ടൈംടേബിൾ ഉപയോഗിക്കുക', 'നോട്ടുകൾ തയ്യാറാക്കുക'] : ['Follow structured courses', 'Practice consistently', 'Use checklists and guides']
         };
     }
+};
+
+export const deriveFlowState = (domains: Record<string, ScoreResult>, language: string = 'en'): FlowState => {
+    const O = getP(domains, 'O');
+    const C = getP(domains, 'C');
+
+    let trigger = '';
+    let desc = '';
+
+    if (O > 60 && C > 60) {
+        trigger = 'Complex Problem-Solving Sprint';
+        desc = 'You enter flow when tackling open-ended, complex problems that require both creativity and high technical precision. The "Sweet Spot" is rigorous innovation.';
+    } else if (O > 60 && C <= 60) {
+        trigger = 'Unconstrained Creation';
+        desc = 'You thrive in blue-sky environments with zero rules. Routine kills your flow. You need novelty, freedom, and the ability to pivot instantly.';
+    } else if (O <= 60 && C > 60) {
+        trigger = 'Mastery & Optimization';
+        desc = 'Your flow comes from perfecting a known process. You love seeing efficiency gains, checking off complex lists, and organizing chaos into order.';
+    } else {
+        trigger = 'Hands-On Execution';
+        desc = 'You enter flow when doing tangible work with clear, immediate feedback. You prefer execution over theory and tangible results over abstract ideas.';
+    }
+
+    return { trigger, description: desc };
+};
+
+export const deriveConflictStyle = (domains: Record<string, ScoreResult>, language: string = 'en'): ConflictStyle => {
+    const A = getP(domains, 'A');
+    const E = getP(domains, 'E');
+
+    if (A > 60 && E > 60) {
+        return {
+            style: 'The Diplomatic Facilitator',
+            description: 'You handle conflict by actively bringing people together and talking it out. You want everyone to win and will use your social skills to bridge gaps.',
+            strategy: 'Use your charm to de-escalate, but be careful not to promise too much just to please everyone.'
+        };
+    } else if (A > 60 && E <= 60) {
+        return {
+            style: 'The Empathetic Peacekeeper',
+            description: 'You dislike conflict intensely and will often sacrifice your own needs to keep harmony. You are a good listener but may struggle to assert yourself.',
+            strategy: 'Remember: Healthy conflict is necessary. Don\'t let resentment build up in silence.'
+        };
+    } else if (A <= 60 && E > 60) {
+        return {
+            style: 'The Assertive Commander',
+            description: 'You view conflict as a problem to be solved efficiently. You are direct, logical, and not afraid to step on toes to get the "right" result.',
+            strategy: 'Your directness can feel like an attack. soften your delivery to get better buy-in.'
+        };
+    } else {
+        return {
+            style: 'The Independent Analyst',
+            description: 'You prefer to withdraw from emotional conflict and rely on facts. You may disengage if things get heated, preferring to solve it alone.',
+            strategy: 'Don\'t walk away. Engage with the emotional side of the problem even if it feels irrational.'
+        };
+    }
+};
+
+export const deriveBurnoutTriggers = (domains: Record<string, ScoreResult>, language: string = 'en'): BurnoutTrigger => {
+    const E = getP(domains, 'E');
+    const O = getP(domains, 'O');
+    const A = getP(domains, 'A');
+
+    if (E > 60) return { trigger: 'Isolation & Routine', prevention: 'Ensure you have social contact and varied tasks daily. Working alone in a quiet room is your kryptonite.' };
+    if (E < 40) return { trigger: 'Social Overload', prevention: 'Schedule "Do Not Disturb" blocks. You need deep solitude to recharge after meetings.' };
+    if (O > 60) return { trigger: 'Boredom & Micromanagement', prevention: 'You need autonomy and new problems. Repetitive admin work will drain your soul faster than hard work.' };
+    if (A > 60) return { trigger: 'Interpersonal Conflict', prevention: 'Toxic environments drain you severely. Set boundaries early so you don\'t absorb everyone else\'s stress.' };
+    return { trigger: 'Unclear Expectations', prevention: 'Chaos and lack of structure stress you out. Demand clear KPIs and roadmaps from leadership.' };
+};
+
+export const deriveCommunicationGuide = (domains: Record<string, ScoreResult>, language: string = 'en'): CommunicationGuide => {
+    const E = getP(domains, 'E');
+    const A = getP(domains, 'A');
+    const O = getP(domains, 'O');
+
+    const dos = [];
+    const donts = [];
+
+    if (E > 60) {
+        dos.push('Match their energy and enthusiasm');
+        dos.push('Allow time for verbal processing');
+    } else {
+        dos.push('Send agendas in advance');
+        dos.push('Give space for written reflection');
+    }
+
+    if (A > 60) {
+        dos.push('Start with connection/warmth');
+        donts.push('Be abruptly critical or harsh');
+    } else {
+        dos.push('Get straight to the point');
+        donts.push('Sugarcoat the hard truth');
+    }
+
+    if (O > 60) {
+        dos.push('Focus on the big picture/vision');
+        donts.push('Get bogged down in minor details immediately');
+    } else {
+        dos.push('Provide concrete examples and data');
+        donts.push('Speak in vague metaphors');
+    }
+
+    return { dos, donts };
+};
+
+export const deriveLeadershipArchetype = (domains: Record<string, ScoreResult>, language: string = 'en'): LeadershipStyle => {
+    const E = getP(domains, 'E');
+    const C = getP(domains, 'C');
+    const A = getP(domains, 'A');
+
+    if (E > 60 && C > 60) return { archetype: 'The Driver', description: 'High energy, high standards. You lead from the front and expect excellence. Great for turnarounds and scaling.' };
+    if (E > 60 && A > 60) return { archetype: 'The Coach', description: 'People-first leadership. You build high-trust teams that would run through walls for you. Great for culture building.' };
+    if (C > 60 && A < 50) return { archetype: 'The Operator', description: 'Systems, efficiency, logic. You build machines that run perfectly. Less about speeches, more about execution.' };
+    if (O > 60 && E > 60) return { archetype: 'The Visionary', description: 'You sell the dream. You inspire people to build the future, even if the details aren\'t figured out yet.' };
+    return { archetype: 'The Stabilizer', description: 'Calm, steady, reliable. You are the keel of the ship in a storm. Teams trust your consistency and fairness.' };
 };
 
 export interface BroadCategoryResult {

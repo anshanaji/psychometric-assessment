@@ -12,7 +12,12 @@ import {
     deriveExcellenceProfile,
     identifySynergies,
     deriveLearningStyle,
-    evaluateBroadCareerCategories
+    evaluateBroadCareerCategories,
+    deriveFlowState,
+    deriveConflictStyle,
+    deriveBurnoutTriggers,
+    deriveCommunicationGuide,
+    deriveLeadershipArchetype
 } from '../../core/advancedInsights';
 
 // ... styles remain same ...
@@ -177,6 +182,12 @@ interface PDFReportProps {
 const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = 'en', rolesToAvoid, allCareers, userName }) => {
     const t = translations[language].results;
     const isMbti = results.assessmentType === 'mbti' && results.mbti;
+
+    const flowState = results?.domains ? deriveFlowState(results.domains, language) : null;
+    const conflictStyle = results?.domains ? deriveConflictStyle(results.domains, language) : null;
+    const burnoutTrigger = results?.domains ? deriveBurnoutTriggers(results.domains, language) : null;
+    const commGuide = results?.domains ? deriveCommunicationGuide(results.domains, language) : null;
+    const leadershipStyle = results?.domains ? deriveLeadershipArchetype(results.domains, language) : null;
 
     const drivers = results?.domains ? deriveMotivationDrivers(results.domains, language) : [];
     const synergies = results?.domains ? identifySynergies(results.domains, language) : [];
@@ -434,6 +445,70 @@ const PDFReport: React.FC<PDFReportProps> = ({ results, chartImage, language = '
                         </View>
                     )
                 }
+
+                {/* EXPERT INSIGHTS SECTION */}
+                <View style={styles.section} break>
+                    <Text style={styles.sectionTitle}>🏆 Expert Strategy Profile</Text>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                        {/* Flow State */}
+                        {flowState && (
+                            <View style={{ width: '48%', marginBottom: 15, padding: 10, backgroundColor: '#f0f9ff', borderLeftWidth: 3, borderLeftColor: '#3b82f6', borderRadius: 4 }}>
+                                <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#1e40af', marginBottom: 4 }}>🌊 Flow State Trigger</Text>
+                                <Text style={{ fontSize: 11, fontWeight: 'extrabold', color: '#1e3a8a', marginBottom: 4 }}>{flowState.trigger}</Text>
+                                <Text style={{ fontSize: 9, color: '#334155', lineHeight: 1.4 }}>{flowState.description}</Text>
+                            </View>
+                        )}
+
+                        {/* Leadership */}
+                        {leadershipStyle && (
+                            <View style={{ width: '48%', marginBottom: 15, padding: 10, backgroundColor: '#f5f3ff', borderLeftWidth: 3, borderLeftColor: '#8b5cf6', borderRadius: 4 }}>
+                                <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#5b21b6', marginBottom: 4 }}>👑 Leadership Archetype</Text>
+                                <Text style={{ fontSize: 11, fontWeight: 'extrabold', color: '#4c1d95', marginBottom: 4 }}>{leadershipStyle.archetype}</Text>
+                                <Text style={{ fontSize: 9, color: '#334155', lineHeight: 1.4 }}>{leadershipStyle.description}</Text>
+                            </View>
+                        )}
+
+                        {/* Conflict Style */}
+                        {conflictStyle && (
+                            <View style={{ width: '48%', marginBottom: 15, padding: 10, backgroundColor: '#fff7ed', borderLeftWidth: 3, borderLeftColor: '#f97316', borderRadius: 4 }}>
+                                <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#c2410c', marginBottom: 4 }}>⚔️ Conflict Style</Text>
+                                <Text style={{ fontSize: 11, fontWeight: 'extrabold', color: '#9a3412', marginBottom: 4 }}>{conflictStyle.style}</Text>
+                                <Text style={{ fontSize: 9, color: '#334155', lineHeight: 1.4, marginBottom: 4 }}>{conflictStyle.description}</Text>
+                                <Text style={{ fontSize: 8, color: '#9a3412', fontStyle: 'italic' }}>Strategy: {conflictStyle.strategy}</Text>
+                            </View>
+                        )}
+
+                        {/* Burnout Trigger */}
+                        {burnoutTrigger && (
+                            <View style={{ width: '48%', marginBottom: 15, padding: 10, backgroundColor: '#fef2f2', borderLeftWidth: 3, borderLeftColor: '#ef4444', borderRadius: 4 }}>
+                                <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#b91c1c', marginBottom: 4 }}>🛡️ Burnout Trigger</Text>
+                                <Text style={{ fontSize: 11, fontWeight: 'extrabold', color: '#991b1b', marginBottom: 4 }}>{burnoutTrigger.trigger}</Text>
+                                <Text style={{ fontSize: 8, color: '#7f1d1d', fontWeight: 'bold' }}>Prevention: {burnoutTrigger.prevention}</Text>
+                            </View>
+                        )}
+
+                        {/* Communication Guide */}
+                        {commGuide && (
+                            <View style={{ width: '100%', marginTop: 5, padding: 10, backgroundColor: '#ecfdf5', borderLeftWidth: 3, borderLeftColor: '#10b981', borderRadius: 4 }}>
+                                <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#047857', marginBottom: 8 }}>🗣️ Communication User Manual</Text>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <View style={{ width: '48%' }}>
+                                        <Text style={{ fontSize: 9, fontWeight: 'bold', color: '#166534', marginBottom: 4 }}>DO THIS ✅</Text>
+                                        {commGuide.dos.map((d, i) => (
+                                            <Text key={i} style={{ fontSize: 9, color: '#14532d', marginBottom: 2 }}>• {d}</Text>
+                                        ))}
+                                    </View>
+                                    <View style={{ width: '48%' }}>
+                                        <Text style={{ fontSize: 9, fontWeight: 'bold', color: '#991b1b', marginBottom: 4 }}>AVOID THIS ❌</Text>
+                                        {commGuide.donts.map((d, i) => (
+                                            <Text key={i} style={{ fontSize: 9, color: '#7f1d1d', marginBottom: 2 }}>• {d}</Text>
+                                        ))}
+                                    </View>
+                                </View>
+                            </View>
+                        )}
+                    </View>
+                </View>
 
                 {/* BROAD CAREER CATEGORIES (NEW) */}
                 {broadCategories.length > 0 && (
