@@ -1,341 +1,468 @@
+/* ResultsDashboard.module.css */
+
+/* --- Layout & Container --- */
 .dashboardContainer {
-    padding: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+/* --- Components: Cards --- */
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    padding: 2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1rem;
+}
+
+.cardTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 0;
+}
+
+/* --- Components: Grid --- */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .section {
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
-.insightGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 1.5rem;
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.insightColumn {
-    background: rgba(255, 255, 255, 0.5);
-    padding: 1.5rem;
+/* --- Specific: Career Intelligence Hero --- */
+.heroCard {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.codeCircle {
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+    flex-shrink: 0;
+}
+
+/* --- Tables --- */
+.tableContainer {
+    background: white;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+    margin-top: 1rem;
 }
 
-.insightTitle {
-    font-size: 1.1rem;
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.table th {
+    background: #f8fafc;
+    color: #475569;
     font-weight: 600;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background: #fdfdfd;
+}
+
+/* --- Split AI Cards --- */
+.aiGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.aiCard {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.aiCardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.insightList {
+/* --- Comparison Table / List --- */
+.comparisonGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .comparisonGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.listGroup {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.insightItem {
-    margin-bottom: 0.75rem;
-    padding-left: 1.5rem;
-    position: relative;
-    color: #475569;
-}
-
-.insightItem::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    font-weight: bold;
-}
-
-.strengths .insightTitle {
-    color: #10b981;
-}
-
-.strengths .insightItem::before {
-    color: #10b981;
-}
-
-.blindSpots .insightTitle {
-    color: #f43f5e;
-}
-
-.blindSpots .insightItem::before {
-    color: #f43f5e;
-}
-
-.sectionTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--color-secondary);
-    padding-bottom: 0.5rem;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.careerCard {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
+.listItem {
     background: white;
-    border-radius: 12px;
     border: 1px solid #f1f5f9;
-    transition: all 0.2s ease;
-    gap: 1rem;
-}
-
-.careerCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    border-color: #e2e8f0;
-}
-
-.careerIcon {
-    width: 48px;
-    height: 48px;
-    background: #eff6ff;
-    color: #4361ee;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.25rem;
-    flex-shrink: 0;
-}
-
-.careerInfo {
-    flex: 1;
-}
-
-.careerInfo h4 {
-    margin: 0 0 0.5rem 0;
-    color: #1e293b;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.progressBarContainer {
-    width: 100%;
-    height: 6px;
-    background: #f1f5f9;
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progressBar {
-    height: 100%;
-    background: linear-gradient(90deg, #4361ee, #3a0ca3);
-    border-radius: 3px;
-}
-
-.matchScore {
-    text-align: center;
-    min-width: 60px;
-}
-
-.matchPercent {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #4361ee;
-    display: block;
-}
-
-.matchLabel {
-    font-size: 0.7rem;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.chartCard {
-    background: var(--color-surface);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.riasecCard {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-    color: white;
-    padding: 2rem;
-    border-radius: var(--radius-lg);
-    text-align: center;
-    box-shadow: var(--shadow-lg);
-}
-
-.riasecCode {
-    font-size: 4rem;
-    font-weight: 800;
-    margin: 1rem 0;
-    letter-spacing: 0.5rem;
-}
-
-.careerList {
-    list-style: none;
-    margin-top: 1rem;
-}
-
-.careerItem {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.75rem;
+    padding: 1rem;
     margin-bottom: 0.5rem;
-    border-radius: var(--radius-md);
+    border-radius: 8px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-
-.careerZone {
-    font-size: 0.75rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
-}
-
-.heroCard {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    border: 1px solid #e2e8f0;
-}
-
-.heroContent {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-    margin-bottom: 2rem;
-}
-
-.codeCircle {
-    background: linear-gradient(135deg, #4361ee, #3a0ca3);
-    color: white;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 10px 15px -3px rgba(67, 97, 238, 0.3);
+    gap: 0.75rem;
 }
 
 .codeLabel {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
+    letter-spacing: 2px;
+    opacity: 0.8;
 }
 
 .codeValue {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
     line-height: 1;
 }
 
-.codeDetails {
+.heroContent {
     flex: 1;
 }
 
-.codeDescription {
-    font-size: 1.1rem;
-    color: #334155;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.characteristicsContainer {
-    margin-top: 1rem;
-}
-
-.charTitle {
-    font-size: 0.9rem;
+/* --- Specific: Badges --- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    color: #64748b;
     letter-spacing: 0.05em;
+}
+
+.badgePrimary {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.badgeSecondary {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.badgeSuccess {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badgeWarning {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+/* --- Specific: AI Deep Dive --- */
+.aiSection {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #4f46e5;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.markdownContent h1,
+.markdownContent h2 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.markdownContent h3 {
+    font-size: 1.125rem;
+    color: #475569;
+    margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
 
-.charTags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.charTag {
-    background: #f1f5f9;
-    color: #334155;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.insightBox {
-    background: #eff6ff;
-    border: 1px solid #dbeafe;
-    border-radius: 12px;
-    padding: 1.25rem;
-}
-
-.insightTitle {
-    color: #1e40af;
-    margin: 0 0 0.5rem 0;
+.markdownContent p {
     font-size: 1rem;
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 1rem;
+}
+
+.markdownContent ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.markdownContent li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.markdownContent li::before {
+    content: "•";
+    color: #4f46e5;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* --- Charts --- */
+.chartCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    min-height: 400px;
 }
 
-.insightText {
-    color: #1e3a8a;
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.splitGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-@media (max-width: 900px) {
-    .heroContent {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .dashboardContainer {
+        padding: 1rem;
+        width: 100%;
+        /* Changed from max-width: 100vw to allow natural flow */
+        overflow-x: hidden;
+        /* Prevent horizontal scroll on body */
+        box-sizing: border-box;
     }
 
-    .charTags {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 1.75rem;
+        word-break: break-word;
+        line-height: 1.2;
+    }
+
+    .heroCard {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .codeCircle {
+        width: 100px;
+        height: 100px;
+    }
+
+    .codeValue {
+        font-size: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .comparisonGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .aiSection {
+        padding: 1.5rem;
+    }
+
+    .btnGroup {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .btnGroup button {
+        width: 100%;
         justify-content: center;
     }
 
-    .splitGrid {
-        grid-template-columns: 1fr;
+    .card {
+        padding: 1.25rem;
+    }
+
+    .tableContainer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem 0.5rem;
+        white-space: normal;
+        /* Allow wrapping */
+        min-width: 120px;
+        /* Ensure columns don't get too squashed */
+        word-break: break-word;
+    }
+
+    /* Target the facet card header if possible, but TSX edit is better.
+       Assuming I'll do TSX edit next. */
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.25rem;
+    }
+
+    .aiCard {
+        padding: 1rem;
+    }
+
+    /* Ensure badges wrap on very small screens */
+    .badge {
+        white-space: normal;
+        text-align: center;
     }
 }
 
-.downloadSection {
-    text-align: center;
-    margin-top: 3rem;
+/* --- Utilities --- */
+.textMuted {
+    color: #64748b;
+}
+
+.textSuccess {
+    color: #166534;
+}
+
+.textWarning {
+    color: #b45309;
+}
+
+.btnGroup {
+    display: flex;
+    gap: 1rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    overflow-wrap: break-word;
 }

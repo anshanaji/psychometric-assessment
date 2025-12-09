@@ -31,6 +31,16 @@ interface AssessmentContextType {
     setCurrentCareer: (career: string) => void;
     assessmentType: AssessmentType;
     setAssessmentType: (type: AssessmentType) => void;
+
+    // New Personalization Fields
+    userDetails: { name: string; age: string; profession: string };
+    setUserDetails: (details: { name: string; age: string; profession: string }) => void;
+
+    // Assessment Flow Logic
+    isStarted: boolean; // Tracks if user has clicked "Start"
+    startAssessment: () => void;
+    hasPaid: boolean;
+    setHasPaid: (val: boolean) => void;
 }
 
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
@@ -44,6 +54,13 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [language, setLanguage] = useState<'en' | 'ml'>('en');
     const [currentCareer, setCurrentCareer] = useState<string | null>(null);
     const [assessmentType, setAssessmentType] = useState<AssessmentType>('big5');
+    const [isStarted, setIsStarted] = useState(false);
+
+    // New State for User Details
+    const [userDetails, setUserDetails] = useState({ name: '', age: '', profession: '' });
+
+    // Payment Logic
+    const [hasPaid, setHasPaid] = useState(false);
 
     // Dynamically load items based on type
     const items = (assessmentType === 'big5' ? itemsData : mbtiItems) as Item[];
@@ -61,6 +78,9 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 if (parsed.results) setResults(parsed.results);
                 if (parsed.currentCareer) setCurrentCareer(parsed.currentCareer);
                 if (parsed.assessmentType) setAssessmentType(parsed.assessmentType);
+                if (parsed.userDetails) setUserDetails(parsed.userDetails);
+                if (parsed.isStarted !== undefined) setIsStarted(parsed.isStarted);
+                if (parsed.hasPaid !== undefined) setHasPaid(parsed.hasPaid);
             } catch (e) {
                 console.error("Failed to load session", e);
                 localStorage.removeItem('assessment_session');
@@ -68,10 +88,11 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         }
     }, []);
 
+
     // Save state to localStorage on change
     useEffect(() => {
-        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results, currentCareer, assessmentType }));
-    }, [answers, currentStep, language, results, currentCareer, assessmentType]);
+        localStorage.setItem('assessment_session', JSON.stringify({ answers, currentStep, language, results, currentCareer, assessmentType, userDetails, isStarted, hasPaid }));
+    }, [answers, currentStep, language, results, currentCareer, assessmentType, userDetails, isStarted, hasPaid]);
 
     const generateResults = (finalAnswers: UserAnswers) => {
         setIsGenerating(true);
@@ -159,9 +180,13 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setCurrentStep(0);
         setResults(null);
         setCurrentCareer(null);
+        setIsStarted(false); // Reset start state
+        setHasPaid(false); // Reset payment state
         // keep language and type? Or reset type? Let's keep type for UX
         localStorage.removeItem('assessment_session');
     };
+
+    const startAssessment = () => setIsStarted(true);
 
     const finishAssessment = () => {
         generateResults(answers);
@@ -213,7 +238,13 @@ export const AssessmentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             setCurrentCareer,
             assessmentType,
             setAssessmentType,
-            setResults
+            setResults,
+            userDetails,
+            setUserDetails,
+            isStarted,
+            startAssessment,
+            hasPaid,
+            setHasPaid
         }}>
             {children}
         </AssessmentContext.Provider>

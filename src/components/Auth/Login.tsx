@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Login.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
     const { signInWithGoogle, currentUser } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/');
+        }
+    }, [currentUser, navigate]);
 
     if (currentUser) {
         return (
             <div className={styles.container}>
                 <h2>Welcome Back, {currentUser.displayName}!</h2>
-                <p>You are already signed in.</p>
-                <button className={styles.btn} onClick={() => window.location.href = '/dashboard'}>
-                    Go to Dashboard
-                </button>
+                <p>Redirecting...</p>
             </div>
         );
     }

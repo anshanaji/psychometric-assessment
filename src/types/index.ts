@@ -77,4 +77,5 @@ export interface AssessmentResult {
   answers?: UserAnswers;
   mbti?: MbtiResult;
   assessmentType: AssessmentType;
+  aiAnalysis?: string;
 }

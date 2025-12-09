@@ -97,7 +97,36 @@ export const translations = {
             agree: "Agree",
             strongly_agree: "Strongly Agree",
             potential_contradiction: "Potential Contradiction",
-            domain_percentiles: "Domain Percentiles"
+            domain_percentiles: "Domain Percentiles",
+            advanced_insights: {
+                hero_title: "Psychological Capital (HERO Profile)",
+                hero_desc: "Your core psychological resources for success and well-being.",
+                hero: {
+                    hope: "Hope",
+                    efficacy: "Efficacy",
+                    resilience: "Resilience",
+                    optimism: "Optimism"
+                },
+                drivers_title: "Key Motivation Drivers",
+                learning_title: "Cognitive Learning Style",
+                synergy_title: "Unique Trait Synergies",
+                broad_career_title: "Broad Career Paths",
+                fit_high: "Excellent Fit",
+                fit_med: "Moderate Fit",
+                fit_low: "Low Fit"
+            },
+            unlock: {
+                title: "Unlock Your Full Report",
+                desc: "You've scratched the surface! Get immediate access to:",
+                btn: "Unlock Now • ₹100",
+                sub: "One-time payment for lifetime access",
+                features: [
+                    "Detailed Personality Breakdown",
+                    "Top Career Matches & Compatibility",
+                    "Personalized Growth Areas",
+                    "AI-Powered Career Coach Analysis"
+                ]
+            }
         }
     },
     ml: {
@@ -158,7 +187,6 @@ export const translations = {
             current_role: "നിലവിലെ റോൾ വിശകലനം",
             match: "ചേർച്ച",
             risk: "റിസ്ക്",
-            // New additions
             levels: {
                 low: "കുറവ് (Low)",
                 average: "ശരാശരി (Average)",
@@ -198,7 +226,36 @@ export const translations = {
             agree: "യോജിക്കുന്നു",
             strongly_agree: "ശക്തമായി യോജിക്കുന്നു",
             potential_contradiction: "സാധ്യമായ പൊരുത്തക്കേട്",
-            domain_percentiles: "പ്രധാന വ്യക്തിത്വ ഘടകങ്ങൾ"
+            domain_percentiles: "പ്രധാന വ്യക്തിത്വ ഘടകങ്ങൾ",
+            advanced_insights: {
+                hero_title: "സൈക്കോളജിക്കൽ ക്യാപിറ്റൽ (HERO Profile)",
+                hero_desc: "വിജയത്തിനും ക്ഷേമത്തിനുമായി നിങ്ങളുടെ പ്രധാന മാനസിക വിഭവങ്ങൾ.",
+                hero: {
+                    hope: "പ്രതീക്ഷ (Hope)",
+                    efficacy: "ആത്മവിശ്വാസം (Efficacy)",
+                    resilience: "മനക്കരുത്ത് (Resilience)",
+                    optimism: "ശുഭാപ്തിവിശ്വാസം (Optimism)"
+                },
+                drivers_title: "പ്രധാന പ്രചോദന ഘടകങ്ങൾ (Drivers)",
+                learning_title: "പഠന ശൈലി (Learning Style)",
+                synergy_title: "സവിശേഷ സ്വഭാവങ്ങൾ (Trait Synergies)",
+                broad_career_title: "വിശാലമായ തൊഴിൽ മേഖലകൾ (Broad Career Paths)",
+                fit_high: "മികച്ച അനുയോജ്യത",
+                fit_med: "ശരാശരി അനുയോജ്യത",
+                fit_low: "കുറഞ്ഞ അനുയോജ്യത"
+            },
+            unlock: {
+                title: "പൂർണ്ണമായ റിപ്പോർട്ട് അൺലോക്ക് ചെയ്യുക",
+                desc: "നിങ്ങൾ ഇപ്പോൾ കണ്ടത് വെറും തുടക്കം മാത്രമാണ്! താഴെ പറയുന്നവ ഉടനടി ലഭ്യമാകും:",
+                btn: "ഇപ്പോൾ അൺലോക്ക് ചെയ്യുക • ₹100",
+                sub: "ജീവിതകാലം മുഴുവൻ ലഭ്യമാകുന്ന ഒരൊറ്റ പേയ്മെന്റ്.",
+                features: [
+                    "വിശദമായ വ്യക്തിത്വ വിശകലനം",
+                    "മികച്ച കരിയർ മാച്ചുകൾ",
+                    "വ്യക്തിപരമായ വളർച്ചാ മേഖലകൾ",
+                    "AI കരിയർ കോച്ചിന്റെ ഉപദേശങ്ങൾ"
+                ]
+            }
         }
     }
 };

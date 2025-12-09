@@ -102,7 +102,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return (
         <AuthContext.Provider value={{ currentUser, loading, signInWithGoogle, logout }}>
-            {!loading && children}
+            {loading ? (
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                    flexDirection: 'column',
+                    fontFamily: 'system-ui, -apple-system, sans-serif'
+                }}>
+                    <div style={{
+                        width: '40px',
+                        height: '40px',
+                        border: '3px solid #e2e8f0',
+                        borderTopColor: '#3b82f6',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                    }} />
+                    <p style={{ marginTop: '1rem', color: '#64748b' }}>Loading...</p>
+                    <style>{`
+                        @keyframes spin {
+                            to { transform: rotate(360deg); }
+                        }
+                    `}</style>
+                </div>
+            ) : (
+                children
+            )}
         </AuthContext.Provider>
     );
 };

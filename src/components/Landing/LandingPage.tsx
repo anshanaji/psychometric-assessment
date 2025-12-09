@@ -1,76 +1,22 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
 import styles from './LandingPage.module.css';
 import { useAssessment } from '../../context/AssessmentContext';
-import { useAuth } from '../../context/AuthContext';
-import { translations } from '../../data/translations';
 
-interface LandingPageProps {
-    onStart: () => void;
-}
+interface LandingPageProps { }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
-    const { language, setLanguage, setAssessmentType } = useAssessment();
-    const { currentUser, logout } = useAuth();
-    const t = translations[language];
-
+const LandingPage: React.FC<LandingPageProps> = () => {
+    const { language, setAssessmentType, startAssessment } = useAssessment();
     const isMal = language === 'ml';
+
+    const handleStart = () => {
+        setAssessmentType('big5');
+        startAssessment();
+    };
 
     return (
         <div className={styles.container}>
-            <header style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                padding: '1.5rem 2rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                zIndex: 10,
-                background: 'rgba(255,255,255,0.9)',
-                backdropFilter: 'blur(10px)',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
-            }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg, #667eea, #764ba2)', borderRadius: '8px' }}></div>
-                    <span style={{ fontWeight: '800', fontSize: '1.2rem', color: '#2d3748', letterSpacing: '-0.5px' }}>
-                        NeuroMetric <span style={{ color: '#764ba2' }}>Intelligence</span>
-                    </span>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                    {currentUser ? (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                            <Link to="/dashboard" style={{ color: '#4a5568', textDecoration: 'none', fontWeight: '600' }}>
-                                {currentUser.displayName || 'User'}
-                            </Link>
-                            <button
-                                onClick={logout}
-                                style={{
-                                    background: 'transparent',
-                                    border: '1px solid #cbd5e0',
-                                    padding: '5px 12px',
-                                    borderRadius: '6px',
-                                    cursor: 'pointer',
-                                    fontSize: '0.9rem',
-                                    color: '#718096'
-                                }}
-                            >
-                                Sign Out
-                            </button>
-                        </div>
-                    ) : (
-                        <Link to="/login" style={{ marginRight: '10px', color: '#4a5568', textDecoration: 'none', fontWeight: 'bold' }}>Login</Link>
-                    )}
-
-                    <div style={{ width: '1px', height: '20px', background: '#cbd5e0', margin: '0 5px' }}></div>
-
-                    <button onClick={() => setLanguage('en')} className={!isMal ? styles.activeLang : styles.inactiveLang}>EN</button>
-                    <button onClick={() => setLanguage('ml')} className={isMal ? styles.activeLang : styles.inactiveLang}>ML</button>
-                </div>
-            </header>
-
-            <div className={styles.hero} style={{ paddingTop: '100px', background: 'radial-gradient(circle at 50% 50%, #f7fafc, #edf2f7)' }}>
+            {/* Hero Section */}
+            <div className={styles.hero} style={{ paddingTop: '50px', background: 'radial-gradient(circle at 50% 50%, #f7fafc, #edf2f7)' }}>
                 <span style={{
                     background: '#e0e7ff',
                     color: '#4338ca',
@@ -81,92 +27,130 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
                     marginBottom: '1rem',
                     display: 'inline-block'
                 }}>
-                    {isMal ? 'ശാസ്ത്രീയ വ്യക്തിത്വ വിശകലനം' : 'Scientific Personality Analysis'}
+                    {isMal ? 'ശാസ്ത്രീയ കരിയർ വിശകലനം' : 'Scientific Career Analysis'}
                 </span>
                 <h1 className={styles.title} style={{ fontSize: '3.5rem', lineHeight: '1.1', marginBottom: '1.5rem', color: '#1a202c' }}>
-                    {isMal ? 'നിങ്ങളുടെ യഥാർത്ഥ വ്യക്തിത്വം കണ്ടെത്തൂ' : 'Discover Your True'} <br />
+                    {isMal ? 'നിങ്ങൾക്കും നിങ്ങളുടെ ജോലിക്കും ഇടയിലുള്ള' : 'Align Who You Are with'} <br />
                     <span style={{ background: 'linear-gradient(90deg, #667eea, #764ba2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                        {isMal ? 'ശാസ്ത്രീയമായ വഴികളിലൂടെ' : 'Cognitive Architecture'}
+                        {isMal ? 'പൊരുത്തം കണ്ടെത്തൂ' : 'What You Do'}
                     </span>
                 </h1>
-                <p className={styles.subtitle} style={{ maxWidth: '600px', margin: '0 auto 3rem auto', color: '#4a5568' }}>
+                <p className={styles.subtitle} style={{ maxWidth: '600px', margin: '0 auto 2rem auto', color: '#4a5568', fontSize: '1.1rem' }}>
                     {isMal
-                        ? 'ബിഗ് ഫൈവ്, എംബിടിഐ തുടങ്ങിയ ലോകോത്തര നിലവാരമുള്ള ടെസ്റ്റുകളിലൂടെ നിങ്ങളുടെ കരിയറും ഭാവിയും മെച്ചപ്പെടുത്തൂ.'
-                        : 'Unlock deep insights into your personality, work style, and ideal career paths using industry-standard psychometric assessments.'}
+                        ? 'നിങ്ങളുടെ വ്യക്തിത്വത്തിന് ഏറ്റവും അനുയോജ്യമായ കരിയർ തിരഞ്ഞെടുക്കൂ. സന്തുഷ്ടവും വിജയകരവുമായ ജീവിതം നയിക്കൂ.'
+                        : 'Discover your true personality and find the career path that feels like home. Stop guessing, start thriving.'}
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1000px', margin: '0 auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <button
+                        onClick={handleStart}
+                        style={{
+                            background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                            color: 'white',
+                            border: 'none',
+                            padding: '1rem 3rem',
+                            fontSize: '1.2rem',
+                            borderRadius: '50px',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.4)',
+                            transition: 'transform 0.2s'
+                        }}
+                    >
+                        {isMal ? 'ടെസ്റ്റ് ആരംഭിക്കൂ (സൗജന്യം)' : 'Start Free Career Analysis'}
+                    </button>
+                    <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#718096' }}>
+                        ⏱️ Takes only 5-8 minutes • 🔒 Private & Secure
+                    </p>
+                </div>
 
-                    {/* Big Five Card */}
-                    <div className={styles.testCard} onClick={() => { setAssessmentType('big5'); onStart(); }}>
-                        <div className={styles.cardHeader} style={{ background: '#ebf4ff' }}>
-                            <span className={styles.badge} style={{ color: '#2b6cb0', background: '#bee3f8' }}>Scientific Gold Standard</span>
-                            <div style={{ fontSize: '3rem', marginTop: '1rem' }}>🧬</div>
-                        </div>
-                        <div className={styles.cardBody}>
-                            <h3>Big Five (IPIP-NEO)</h3>
-                            <p>{isMal ? 'ഏറ്റവും കൃത്യതയാർന്ന ശാസ്ത്രീയ വിശകലനം.' : 'The most scientifically validated personality model. Measures 5 major traits and 30 facets.'}</p>
-                            <button className={styles.cardBtn}>Start Big Five &rarr;</button>
-                        </div>
+                {/* Target Audience Section */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1000px', margin: '0 auto 4rem auto' }}>
+
+                    {/* Students */}
+                    <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', borderTop: '5px solid #3b82f6' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎓</div>
+                        <h3 style={{ fontSize: '1.5rem', color: '#1e293b', marginBottom: '1rem' }}>For Students</h3>
+                        <p style={{ color: '#475569', lineHeight: '1.6' }}>
+                            Confused about which stream or degree to choose? Don't follow the crowd. Find the path that matches your natural strengths.
+                        </p>
                     </div>
 
-                    {/* MBTI Card */}
-                    <div className={styles.testCard} onClick={() => { setAssessmentType('mbti'); onStart(); }}>
-                        <div className={styles.cardHeader} style={{ background: '#f3e8ff' }}>
-                            <span className={styles.badge} style={{ color: '#6b46c1', background: '#e9d8fd' }}>Popular & Cognitive</span>
-                            <div style={{ fontSize: '3rem', marginTop: '1rem' }}>🧩</div>
-                        </div>
-                        <div className={styles.cardBody}>
-                            <h3>MBTI Assessment</h3>
-                            <p>{isMal ? 'ജോലി ശൈലിയും ചിന്താരീതിയും മനസിലാക്കാൻ.' : 'Understand your cognitive preferences, energy flow, and decision-making style (16 Types).'}</p>
-                            <button className={styles.cardBtn}>Start MBTI &rarr;</button>
-                        </div>
+                    {/* Executives */}
+                    <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', borderTop: '5px solid #10b981' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💼</div>
+                        <h3 style={{ fontSize: '1.5rem', color: '#1e293b', marginBottom: '1rem' }}>For Professionals</h3>
+                        <p style={{ color: '#475569', lineHeight: '1.6' }}>
+                            Feeling stuck, burnt out, or unfulfilled? It might not be the job—it might be the fit. Rediscover your potential and pivot with confidence.
+                        </p>
                     </div>
 
                 </div>
             </div>
 
-
             <div className={styles.content}>
-                <section className={styles.section}>
-                    <h2>{t.science_title}</h2>
-                    <p>
-                        {t.science_desc}
+
+                {/* Why It Matters */}
+                <section className={styles.section} style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <h2 style={{ fontSize: '2rem', color: '#111827', marginBottom: '1.5rem' }}>Why Career Fit Matters?</h2>
+                    <p style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.1rem', color: '#4b5563', lineHeight: '1.8' }}>
+                        "All personalities are good, but there must be a match between who we are and what we do."
+                        <br /><br />
+                        Working in a role that contradicts your nature leads to <strong>stress, burnout, and mediocrity</strong>.
+                        When your career aligns with your personality, work feels like play, and success comes naturally.
                     </p>
                 </section>
 
-                <section className={styles.grid}>
-                    <div className={styles.card} style={{ borderTop: '4px solid #48bb78' }}>
-                        <h3>{t.cards.science.title}</h3>
-                        <p>{t.cards.science.desc}</p>
-                    </div>
-                    <div className={styles.card} style={{ borderTop: '4px solid #4299e1' }}>
-                        <h3>{t.cards.career.title}</h3>
-                        <p>{t.cards.career.desc}</p>
-                    </div>
-                    <div className={styles.card} style={{ borderTop: '4px solid #ed8936' }}>
-                        <h3>{t.cards.growth.title}</h3>
-                        <p>{t.cards.growth.desc}</p>
-                    </div>
-                    <div className={styles.card} style={{ borderTop: '4px solid #9f7aea' }}>
-                        <h3>{t.cards.cognition.title}</h3>
-                        <p>{t.cards.cognition.desc}</p>
+                {/* Testimonials */}
+                <section className={styles.section} style={{ background: '#f8fafc', padding: '3rem 2rem', borderRadius: '20px' }}>
+                    <h2 style={{ textAlign: 'center', marginBottom: '3rem' }}>Success Stories</h2>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+
+                        {/* Testimonial 1 */}
+                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+                            <p style={{ fontStyle: 'italic', color: '#334155', marginBottom: '1.5rem' }}>
+                                "I was pursuing Engineering just because my friends did. This test showed me my high 'Openness' and 'Aesthetics'. I switched to Architecture and I've never been happier."
+                            </p>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <div style={{ width: '40px', height: '40px', background: '#cbd5e1', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>A</div>
+                                <div>
+                                    <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Arjun Nair</h4>
+                                    <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Architecture Student, Kochi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Testimonial 2 */}
+                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+                            <p style={{ fontStyle: 'italic', color: '#334155', marginBottom: '1.5rem' }}>
+                                "10 years in Banking and I was miserable. CareerCompass revealed my high 'Agreeableness' and need for social impact. I'm now in NGO Management and finally feel alive."
+                            </p>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <div style={{ width: '40px', height: '40px', background: '#cbd5e1', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>P</div>
+                                <div>
+                                    <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Priya Menon</h4>
+                                    <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Ex-Banker, Bangalore</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Testimonial 3 */}
+                        <div style={{ background: 'white', padding: '1.5rem', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+                            <p style={{ fontStyle: 'italic', color: '#334155', marginBottom: '1.5rem' }}>
+                                "The detail in this report is insane. It didn't just tell me 'Sales', it told me exactly WHY I'm good at it. A confidence booster!"
+                            </p>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <div style={{ width: '40px', height: '40px', background: '#cbd5e1', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>R</div>
+                                <div>
+                                    <h4 style={{ margin: 0, fontSize: '0.95rem' }}>Rahul K.</h4>
+                                    <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Sales Manager, Chennai</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 
-                <section className={styles.section} style={{ background: '#ebf8ff', padding: '2rem', borderRadius: '12px', marginTop: '2rem' }}>
-                    <h2 style={{ color: '#2b6cb0' }}>{t.why_alignment.title}</h2>
-                    <p style={{ fontSize: '1.1rem', color: '#2c5282' }}>
-                        {t.why_alignment.desc}
-                    </p>
-                </section>
-
-                <section className={styles.section}>
-                    <h2>{t.career_title}</h2>
-                    <p>
-                        {t.career_desc}
-                    </p>
-                </section>
             </div>
         </div>
     );

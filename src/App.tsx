@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { AssessmentProvider, useAssessment } from './context/AssessmentContext';
 import Wizard from './components/Wizard/Wizard';
 import ResultsDashboard from './components/Results/ResultsDashboard';
@@ -8,15 +8,16 @@ import Login from './components/Auth/Login';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import { AuthProvider, useAuth } from './context/AuthContext';
 const AppContent: React.FC = () => {
-  const { isComplete } = useAssessment();
-  const [hasStarted, setHasStarted] = useState(isComplete);
-
+  const { isComplete, isStarted, results } = useAssessment();
   const { loading } = useAuth();
+
+  // Backward compatibility: If we have results but isStarted is false (legacy session), treat as started
+  const showContent = isStarted || !!results;
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading...</div>;
 
-  if (!hasStarted) {
-    return <LandingPage onStart={() => setHasStarted(true)} />;
+  if (!showContent) {
+    return <LandingPage />;
   }
 
   return (
@@ -34,11 +35,14 @@ const AppContent: React.FC = () => {
   );
 };
 
+import Navbar from './components/Navigation/Navbar';
+
 function App() {
   return (
     <AssessmentProvider>
       <AuthProvider>
         <Router>
+          <Navbar />
           <Routes>
             <Route path="/" element={<AppContent />} />
             <Route path="/login" element={<Login />} />
