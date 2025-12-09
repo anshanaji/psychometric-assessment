@@ -706,6 +706,38 @@ const ResultsDashboard: React.FC = () => {
                         </div>
                     )}
 
+
+                    {/* Broad Career Categories */}
+                    {broadCategories.length > 0 && (
+                        <div className={styles.section}>
+                            <h2 className={styles.sectionTitle}>{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h2>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                {broadCategories.map((cat: any) => (
+                                    <div key={cat.id} className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                                        <div className="text-5xl mb-4 p-4 bg-slate-50 rounded-full">
+                                            {cat.id === 'entrepreneur' && '🚀'}
+                                            {cat.id === 'corporate' && '💼'}
+                                            {cat.id === 'academia' && '🎓'}
+                                            {cat.id === 'creative' && '🎨'}
+                                            {cat.id === 'social' && '🤝'}
+                                            {cat.id === 'tech' && '💻'}
+                                        </div>
+                                        <h4 className="font-bold text-slate-800 text-center mb-2 text-lg">{cat.name}</h4>
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full mb-3 ${cat.fit === 'High' ? 'bg-emerald-100 text-emerald-700' :
+                                            cat.fit === 'Medium' ? 'bg-amber-100 text-amber-700' :
+                                                'bg-rose-100 text-rose-700'
+                                            }`}>
+                                            {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
+                                                cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
+                                                    (t.advanced_insights.fit_low || "Low Fit")}
+                                        </span>
+                                        <p className="text-sm text-slate-500 text-center leading-relaxed">{cat.reason}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                     <div className={styles.section}>
                         <div className={styles.aiSection} style={{ textAlign: 'left' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
@@ -736,37 +768,7 @@ const ResultsDashboard: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* Broad Career Categories */}
-                            {/* Broad Career Categories */}
-                            {broadCategories.length > 0 && (
-                                <div className="md:col-span-2 space-y-6">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-4">{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h3>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        {broadCategories.map((cat: any) => (
-                                            <div key={cat.id} className="flex flex-col items-center p-5 bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300">
-                                                <div className="text-4xl mb-3">
-                                                    {cat.id === 'entrepreneur' && '🚀'}
-                                                    {cat.id === 'corporate' && '💼'}
-                                                    {cat.id === 'academia' && '🎓'}
-                                                    {cat.id === 'creative' && '🎨'}
-                                                    {cat.id === 'social' && '🤝'}
-                                                    {cat.id === 'tech' && '💻'}
-                                                </div>
-                                                <h4 className="font-bold text-slate-700 text-center mb-1">{cat.name}</h4>
-                                                <span className={`text-lg font-extrabold ${cat.fit === 'High' ? 'text-emerald-500' :
-                                                    cat.fit === 'Medium' ? 'text-amber-500' :
-                                                        'text-rose-500'
-                                                    }`}>
-                                                    {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
-                                                        cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
-                                                            (t.advanced_insights.fit_low || "Low Fit")}
-                                                </span>
-                                                <p className="text-xs text-slate-400 text-center mt-3 leading-relaxed line-clamp-3">{cat.reason}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+
 
                             {aiAnalysis && (
                                 <div className={styles.aiGrid}>
