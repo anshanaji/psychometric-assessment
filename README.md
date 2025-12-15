@@ -71,3 +71,12 @@ export default defineConfig([
   },
 ])
 ```
+```
+
+## Version History & Backups
+
+### **v2.9.6_stable** (Dec 10, 2025)
+- **Status**: Stable Release
+- **Features**: Exact Replica PDF (Native Print), Tile Design for AI Analysis, Fixed Grid Alignment.
+- **Backup Location**: `./backups/v2.9.6_stable`
+- **Restore Instructions**: To revert to this version, copy the contents of `backups/v2.9.6_stable/src` into the root `src` folder.

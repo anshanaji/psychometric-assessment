@@ -1,0 +1,104 @@
+{
+    "RIS": [
+        {
+            "title": "Carpenter",
+            "zone": 3,
+            "code": "RIS"
+        },
+        {
+            "title": "Electrician",
+            "zone": 3,
+            "code": "RIS"
+        },
+        {
+            "title": "Civil Engineer",
+            "zone": 4,
+            "code": "RIS"
+        }
+    ],
+    "ESA": [
+        {
+            "title": "Sales Manager",
+            "zone": 4,
+            "code": "ESA"
+        },
+        {
+            "title": "Real Estate Agent",
+            "zone": 3,
+            "code": "ESA"
+        },
+        {
+            "title": "Event Planner",
+            "zone": 3,
+            "code": "ESA"
+        }
+    ],
+    "IAS": [
+        {
+            "title": "Software Developer",
+            "zone": 4,
+            "code": "IAS"
+        },
+        {
+            "title": "Architect",
+            "zone": 5,
+            "code": "IAS"
+        },
+        {
+            "title": "Graphic Designer",
+            "zone": 3,
+            "code": "IAS"
+        }
+    ],
+    "IRE": [
+        {
+            "title": "Chemical Engineer",
+            "zone": 4,
+            "code": "IRE"
+        },
+        {
+            "title": "Robotics Technician",
+            "zone": 3,
+            "code": "IRE"
+        },
+        {
+            "title": "Systems Analyst",
+            "zone": 4,
+            "code": "IRE"
+        }
+    ],
+    "SEC": [
+        {
+            "title": "Teacher",
+            "zone": 4,
+            "code": "SEC"
+        },
+        {
+            "title": "Nurse",
+            "zone": 3,
+            "code": "SEC"
+        },
+        {
+            "title": "Social Worker",
+            "zone": 4,
+            "code": "SEC"
+        }
+    ],
+    "CRI": [
+        {
+            "title": "Data Analyst",
+            "zone": 4,
+            "code": "CRI"
+        },
+        {
+            "title": "Accountant",
+            "zone": 4,
+            "code": "CRI"
+        },
+        {
+            "title": "Web Developer",
+            "zone": 3,
+            "code": "CRI"
+        }
+    ]
+}

@@ -1,16 +1,22 @@
 import React from 'react';
 import styles from './LandingPage.module.css';
+import Footer from '../Shared/Footer';
 import { useAssessment } from '../../context/AssessmentContext';
+import { translations } from '../../data/translations';
+
+import { useNavigate } from 'react-router-dom';
 
 interface LandingPageProps { }
 
 const LandingPage: React.FC<LandingPageProps> = () => {
     const { language, setAssessmentType, startAssessment } = useAssessment();
+    const navigate = useNavigate();
     const isMal = language === 'ml';
 
     const handleStart = () => {
         setAssessmentType('big5');
         startAssessment();
+        navigate('/test');
     };
 
     return (
@@ -90,6 +96,45 @@ const LandingPage: React.FC<LandingPageProps> = () => {
 
             <div className={styles.content}>
 
+                {/* Science & Methodology Section */}
+                <section className={styles.section} style={{ marginBottom: '6rem' }}>
+                    <div className={styles.scienceBadge}>Recommended by Experts</div>
+                    <h2 className={styles.scienceTitle}>{(translations as any)[language].science_section?.title || "Backed by Science, Built for You"}</h2>
+                    <p className={styles.scienceSubtitle}>
+                        {(translations as any)[language].science_section?.subtitle || "We use gold-standard psychometric models trusted by psychologists."}
+                    </p>
+
+                    <div className={styles.scienceGrid}>
+                        {/* Big 5 */}
+                        <div className={styles.scienceCard}>
+                            <div className={styles.iconBox} style={{ background: '#e0e7ff', color: '#4338ca' }}>📊</div>
+                            <h3>{(translations as any)[language].science_section?.cards?.big5?.title || "The Big Five Model"}</h3>
+                            <p>{(translations as any)[language].science_section?.cards?.big5?.desc}</p>
+                        </div>
+
+                        {/* RIASEC */}
+                        <div className={styles.scienceCard}>
+                            <div className={styles.iconBox} style={{ background: '#dcfce7', color: '#15803d' }}>🧭</div>
+                            <h3>{(translations as any)[language].science_section?.cards?.riasec?.title || "Holland Codes"}</h3>
+                            <p>{(translations as any)[language].science_section?.cards?.riasec?.desc}</p>
+                        </div>
+
+                        {/* Jungian */}
+                        <div className={styles.scienceCard}>
+                            <div className={styles.iconBox} style={{ background: '#fef3c7', color: '#b45309' }}>🧩</div>
+                            <h3>{(translations as any)[language].science_section?.cards?.jung?.title || "Jungian Archetypes"}</h3>
+                            <p>{(translations as any)[language].science_section?.cards?.jung?.desc}</p>
+                        </div>
+
+                        {/* Reliability */}
+                        <div className={styles.scienceCard}>
+                            <div className={styles.iconBox} style={{ background: '#fee2e2', color: '#b91c1c' }}>🛡️</div>
+                            <h3>{(translations as any)[language].science_section?.cards?.reliability?.title || "94% Reliability"}</h3>
+                            <p>{(translations as any)[language].science_section?.cards?.reliability?.desc}</p>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Why It Matters */}
                 <section className={styles.section} style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <h2 style={{ fontSize: '2rem', color: '#111827', marginBottom: '1.5rem' }}>Why Career Fit Matters?</h2>
@@ -151,6 +196,11 @@ const LandingPage: React.FC<LandingPageProps> = () => {
                     </div>
                 </section>
 
+            </div>
+
+            {/* Reusable Footer */}
+            <div style={{ width: '100%', marginTop: 'auto' }}>
+                <Footer />
             </div>
         </div>
     );

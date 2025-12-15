@@ -20,7 +20,7 @@ export interface Norms {
 
 export interface Career {
   title: string;
-  zone: number;
+  zone?: number;
   code: string;
 }
 
@@ -66,6 +66,13 @@ export interface MbtiResult {
 
 export type AssessmentType = 'big5' | 'mbti';
 
+export interface RiskFlags {
+  highImpulsivity: boolean;
+  highManipulation: boolean;
+  empathyDeficit: boolean;
+  artHater: boolean;
+}
+
 export interface AssessmentResult {
   domains?: Record<Domain, ScoreResult>;
   facets?: Record<string, ScoreResult>;
@@ -78,4 +85,6 @@ export interface AssessmentResult {
   mbti?: MbtiResult;
   assessmentType: AssessmentType;
   aiAnalysis?: string;
+  riskFlags?: RiskFlags;
+  timestamp?: number; // For proving freshness
 }

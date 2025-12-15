@@ -1,0 +1,224 @@
+.container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #f1f5f9;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.title {
+    font-size: 2rem;
+    background: linear-gradient(to right, #1e293b, #334155);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Traffic Light Premium */
+.trafficLight {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.trafficLight:hover {
+    transform: translateY(-2px);
+}
+
+.trafficLight.green {
+    background: linear-gradient(to right, #f0fdf4, #dcfce7);
+    border-left: 6px solid #22c55e;
+}
+
+.trafficLight.yellow {
+    background: linear-gradient(to right, #fefce8, #fef9c3);
+    border-left: 6px solid #ca8a04;
+}
+
+.trafficLight.red {
+    background: linear-gradient(to right, #fef2f2, #fee2e2);
+    border-left: 6px solid #ef4444;
+}
+
+.statusIcon {
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.statusContent h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+}
+
+.statusContent p {
+    margin: 0;
+    color: #475569;
+    font-size: 1rem;
+}
+
+/* Premium Tile Cards */
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.conflictCard {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.conflictCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+}
+
+.cardHeader {
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    padding: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cardTag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #64748b;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    align-self: flex-start;
+    border: 1px solid #e2e8f0;
+}
+
+.cardHeader h4 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.cardBody {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.conflictBox {
+    background: #fff1f2;
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    border: 1px solid #ffe4e6;
+}
+
+.conflictBox .icon {
+    font-size: 1.5rem;
+    margin-top: -0.2rem;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(244, 63, 94, 0.1);
+}
+
+.conflictBox p {
+    margin: 0;
+    color: #9f1239;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.insightBox {
+    background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe);
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid #bae6fd;
+    position: relative;
+}
+
+.insightBox::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #0ea5e9;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.insightBox strong {
+    display: block;
+    color: #0c4a6e;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.insightBox p {
+    color: #334155;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media print {
+    .title {
+        background: none !important;
+        -webkit-text-fill-color: #1e293b !important;
+        color: #1e293b !important;
+        background-clip: border-box !important;
+        -webkit-background-clip: border-box !important;
+    }
+
+    .statusContent h3,
+    .cardHeader h4 {
+        color: #1e293b !important;
+    }
+}

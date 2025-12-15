@@ -1,0 +1,607 @@
+{
+    "ISTJ": {
+        "name": "The Inspector",
+        "name_ml": "ഇൻസ്പെക്ടർ",
+        "description": "Practical, fact-minded individuals whose reliability cannot be doubted. They focus on organization and structure.",
+        "description_ml": "പ്രായോഗികമായി ചിന്തിക്കുന്നവർ. വിശ്വസിക്കാൻ കൊള്ളാവുന്നവർ. ചിട്ടയും ക്രമവും ഇവർക്ക് നിർബന്ധമാണ്. വസ്‌തുതകളുടെ അടിസ്ഥാനത്തിൽ മാത്രം കാര്യങ്ങൾ തീരുമാനിക്കുന്നു.",
+        "strengths": [
+            "Honest and Direct",
+            "Strong-willed and Dutiful",
+            "Very Responsible",
+            "Calm and Practical",
+            "Create and Enforce Order"
+        ],
+        "weaknesses": [
+            "Stubborn",
+            "Insensitive",
+            "Always by the Book",
+            "Judgmental",
+            "Often Unreasonably Blame Themselves"
+        ],
+        "work_style": "ISTJs work best in structured environments with clear rules and expectations. They like to work independently and are laser-focused on completing tasks accurately and on time.",
+        "cognitive_functions": {
+            "dominant": "Si",
+            "auxiliary": "Te",
+            "tertiary": "Fi",
+            "inferior": "Ne"
+        },
+        "careers": [
+            "Accountant",
+            "Auditor",
+            "Data Analyst",
+            "Financial Manager",
+            "Judge",
+            "Administrator",
+            "Military Officer",
+            "Police Officer"
+        ]
+    },
+    "ISFJ": {
+        "name": "The Protector",
+        "name_ml": "സംരക്ഷകൻ",
+        "description": "Very dedicated and warm protectors, always ready to defend their loved ones. Hardworking and loyal.",
+        "description_ml": "പ്രിയപ്പെട്ടവരെ സംരക്ഷിക്കാൻ എന്തിനും തയ്യാറുള്ളവർ. ആത്മാർത്ഥതയും കഠിനാധ്വാനവും മുഖമുദ്രയാക്കിയവർ. മറ്റുള്ളവരെ സഹായിക്കാൻ എപ്പോഴും സന്നദ്ധരായിരിക്കും.",
+        "strengths": [
+            "Supportive",
+            "Reliable and Patient",
+            "Imaginative and Observant",
+            "Enthusiastic",
+            "Loyal and Hard-working"
+        ],
+        "weaknesses": [
+            "Humble and Shy",
+            "Take Things Too Personally",
+            "Repress Their Feelings",
+            "Overcommitted",
+            "Reluctant to Change"
+        ],
+        "work_style": "ISFJs are dedicated workers who prefer behind-the-scenes roles where they can help others in practical ways. They value harmony and cooperation over competition.",
+        "cognitive_functions": {
+            "dominant": "Si",
+            "auxiliary": "Fe",
+            "tertiary": "Ti",
+            "inferior": "Ne"
+        },
+        "careers": [
+            "Nurse",
+            "Teacher",
+            "Social Worker",
+            "HR Specialist",
+            "Librarian",
+            "Customer Service",
+            "Office Manager",
+            "Childcare Provider"
+        ]
+    },
+    "INFJ": {
+        "name": "The Counselor",
+        "name_ml": "ഉപദേശകൻ",
+        "description": "Quiet and mystical, yet very inspiring and tireless idealists. Deep thinkers with strong intuition.",
+        "description_ml": "ശാന്തരായവർ. എന്നാൽ മറ്റുള്ളവർക്ക് പ്രചോദനം നൽകാൻ കഴിവുള്ളവർ. ആഴത്തിൽ ചിന്തിക്കുന്നവരും മികച്ച ഉൾക്കാഴ്ചയുള്ളവരുമാണ്.",
+        "strengths": [
+            "Creative",
+            "Insightful",
+            "Inspiring and Convincing",
+            "Decisive",
+            "Determined and Passionate",
+            "Altruistic"
+        ],
+        "weaknesses": [
+            "Sensitive",
+            "Extremely Private",
+            "Perfectionistic",
+            "Always Need to Have a Cause",
+            "Can Burn Out Easily"
+        ],
+        "work_style": "INFJs seek meaning in their work. They prefer independence and a quiet environment where they can focus on complex human problems and creative solutions.",
+        "cognitive_functions": {
+            "dominant": "Ni",
+            "auxiliary": "Fe",
+            "tertiary": "Ti",
+            "inferior": "Se"
+        },
+        "careers": [
+            "Psychologist",
+            "Writer",
+            "Counselor",
+            "Non-profit Director",
+            "Artist",
+            "UX Designer",
+            "HR Manager",
+            "Environmental Scientist"
+        ]
+    },
+    "INTJ": {
+        "name": "The Mastermind",
+        "name_ml": "ബുദ്ധിരാക്ഷസൻ",
+        "description": "Imaginative and strategic thinkers, with a plan for everything. They value intellect and competence above all.",
+        "description_ml": "തന്ത്രപരമായ നീക്കങ്ങൾ നടത്തുന്നവർ. എന്തിനും ഒരു പ്ലാൻ കയ്യിലുണ്ടാകും. അറിവിനും കഴിവിനും വലിയ വില നൽകുന്നവർ.",
+        "strengths": [
+            "Quick, Imaginative and Strategic Mind",
+            "High Self-Confidence",
+            "Independent and Decisive",
+            "Hard-working and determined",
+            "Open-minded"
+        ],
+        "weaknesses": [
+            "Arrogant",
+            "Judgmental",
+            "Overly Analytical",
+            "Loathe highly structured environments",
+            "Clueless in romance"
+        ],
+        "work_style": "INTJs demand competence and prefer to work alone or with a small group of intellectual equals. They focus on long-term strategy rather than day-to-day execution.",
+        "cognitive_functions": {
+            "dominant": "Ni",
+            "auxiliary": "Te",
+            "tertiary": "Fi",
+            "inferior": "Se"
+        },
+        "careers": [
+            "Software Architect",
+            "Scientist",
+            "Strategist",
+            "Investment Banker",
+            "Engineer",
+            "Professor",
+            "Project Manager",
+            "Surgeon"
+        ]
+    },
+    "ISTP": {
+        "name": "The Craftsman",
+        "name_ml": "കരകൗശലവിദഗ്ദ്ധൻ",
+        "description": "Bold and practical experimenters, masters of all kinds of tools. They learn by doing and exploring.",
+        "description_ml": "ധൈര്യശാലികൾ. പ്രായോഗിക പരീക്ഷണങ്ങൾ നടത്താൻ ഇഷ്ടപ്പെടുന്നവർ. കാര്യങ്ങൾ ചെയ്തുപഠിക്കാനാണ് ഇവർക്ക് കൂടുതൽ താൽപ്പര്യം.",
+        "strengths": [
+            "Optimistic and Energetic",
+            "Creative and Practical",
+            "Spontaneous and Rational",
+            "Know How to Prioritize",
+            "Great in a Crisis"
+        ],
+        "weaknesses": [
+            "Stubborn",
+            "Insensitive",
+            "Private and Reserved",
+            "Easily Bored",
+            "Dislike Commitment"
+        ],
+        "work_style": "ISTPs like to be hands-on with their work. They prefer flexibility and autonomy, often excelling in roles that require troubleshooting or physical skills.",
+        "cognitive_functions": {
+            "dominant": "Ti",
+            "auxiliary": "Se",
+            "tertiary": "Ni",
+            "inferior": "Fe"
+        },
+        "careers": [
+            "Mechanic",
+            "Pilot",
+            "Forensic Scientist",
+            "Developer",
+            "Carpenter",
+            "Athlete",
+            "Firefighter",
+            "Engineer"
+        ]
+    },
+    "ISFP": {
+        "name": "The Composer",
+        "name_ml": "കലാകാരൻ",
+        "description": "Flexible and charming artists, always ready to explore and experience something new.",
+        "description_ml": "ആകർഷകമായ പെരുമാറ്റമുള്ളവർ. പുതിയ കാര്യങ്ങൾ പരീക്ഷിക്കാൻ ഇഷ്ടപ്പെടുന്ന കലാകാരന്മാർ. സ്വാതന്ത്ര്യം ആഗ്രഹിക്കുന്നവർ.",
+        "strengths": [
+            "Charming",
+            "Sensitive to Others",
+            "Imaginative",
+            "Passionate",
+            "Curious",
+            "Artistic"
+        ],
+        "weaknesses": [
+            "Fiercely Independent",
+            "Unpredictable",
+            "Easily Stressed",
+            "Overly Competitive",
+            "Fluctuating Self-Esteem"
+        ],
+        "work_style": "ISFPs need creative freedom. They dislike strict rules and bureaucratic environments, preferring roles where they can express themselves tangibly.",
+        "cognitive_functions": {
+            "dominant": "Fi",
+            "auxiliary": "Se",
+            "tertiary": "Ni",
+            "inferior": "Te"
+        },
+        "careers": [
+            "Artist",
+            "Designer",
+            "Chef",
+            "Veterinarian",
+            "Physical Therapist",
+            "Musician",
+            "Fashion Designer",
+            "Photographer"
+        ]
+    },
+    "INFP": {
+        "name": "The Healer",
+        "name_ml": "സ്വപ്ന സഞ്ചാരി",
+        "description": "Poetic, kind and altruistic people, always eager to help a good cause. Driven by their values.",
+        "description_ml": "കവിതയും കലയും ഇഷ്ടപ്പെടുന്നവർ. നല്ല കാര്യങ്ങൾക്ക് വേണ്ടി നിലകൊള്ളുന്നവർ. സ്വന്തം മൂല്യങ്ങൾക്കനുസരിച്ച് ജീവിക്കാൻ ആഗ്രഹിക്കുന്നവർ.",
+        "strengths": [
+            "Idealistic",
+            "Seek and Value Harmony",
+            "Open-Minded and Flexible",
+            "Very Creative",
+            "Passionate and Energetic",
+            "Dedicated and Hard-Working"
+        ],
+        "weaknesses": [
+            "Too Idealistic",
+            "Too Altruistic",
+            "Impractical",
+            "Dislike Dealing With Data",
+            "Take Things Personally"
+        ],
+        "work_style": "INFPs prefer work that aligns with their personal values. They enjoy working alone or in small groups on creative projects that help others.",
+        "cognitive_functions": {
+            "dominant": "Fi",
+            "auxiliary": "Ne",
+            "tertiary": "Si",
+            "inferior": "Te"
+        },
+        "careers": [
+            "Writer",
+            "Counselor",
+            "Social Worker",
+            "Journalist",
+            "Missionary",
+            "Graphic Designer",
+            "Psychologist",
+            "Librarian"
+        ]
+    },
+    "INTP": {
+        "name": "The Architect",
+        "name_ml": "ചിന്തകൻ",
+        "description": "Innovative inventors with an unquenchable thirst for knowledge. Logical and analytical.",
+        "description_ml": "പുതിയ കാര്യങ്ങൾ കണ്ടുപിടിക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. അറിവ് നേടാൻ അതിയായ ആഗ്രഹമുള്ളവർ. യുക്തിപൂർവ്വം ചിന്തിക്കുന്നവർ.",
+        "strengths": [
+            "Great Analysts and Abstract Thinkers",
+            "Imaginative and Original",
+            "Open-Minded",
+            "Enthusiastic",
+            "Objective",
+            "Honest and Straightforward"
+        ],
+        "weaknesses": [
+            "Very Private and Withdrawn",
+            "Insensitive",
+            "Absent-minded",
+            "Condescending",
+            "Loathe Rules and Guidelines"
+        ],
+        "work_style": "INTPs thrive in solitary environments where they can solve complex problems without being bogged down by rules or social niceties.",
+        "cognitive_functions": {
+            "dominant": "Ti",
+            "auxiliary": "Ne",
+            "tertiary": "Si",
+            "inferior": "Fe"
+        },
+        "careers": [
+            "Programmer",
+            "Researcher",
+            "Mathematician",
+            "Systems Analyst",
+            "Scientist",
+            "Professor",
+            "Technical Writer",
+            "Logician"
+        ]
+    },
+    "ESTP": {
+        "name": "The Dynamo",
+        "name_ml": "പ്രകടനക്കാരൻ",
+        "description": "Smart, energetic and very perceptive people, who truly enjoy living on the edge.",
+        "description_ml": "ഊർജ്ജസ്വലരായവർ. റിസ്ക് എടുക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. ജീവിതം ആഘോഷപ്രദമാക്കാൻ ആഗ്രഹിക്കുന്നവർ.",
+        "strengths": [
+            "Bold",
+            "Rational and Practical",
+            "Original",
+            "Perceptive",
+            "Direct",
+            "Sociable"
+        ],
+        "weaknesses": [
+            "Insensitive",
+            "Impatient",
+            "Risk-prone",
+            "Unstructured",
+            "May Miss the Bigger Picture",
+            "Defiant"
+        ],
+        "work_style": "ESTPs are action-oriented. They hate sitting still and prefer fast-paced environments where they can solve immediate problems and see tangible results.",
+        "cognitive_functions": {
+            "dominant": "Se",
+            "auxiliary": "Ti",
+            "tertiary": "Fe",
+            "inferior": "Ni"
+        },
+        "careers": [
+            "Entrepreneur",
+            "Sales Manager",
+            "Stockbroker",
+            "Police Officer",
+            "Paramedic",
+            "Contractor",
+            "Detective",
+            "Sports Coach"
+        ]
+    },
+    "ESFP": {
+        "name": "The Performer",
+        "name_ml": "ആഘോഷപ്രിയൻ",
+        "description": "Spontaneous, energetic and enthusiastic people - life is never boring around them.",
+        "description_ml": "എപ്പോഴും ഉഷാറായിരിക്കുന്നവർ. ഇവർ കൂടെയുണ്ടെങ്കിൽ ഒട്ടും ബോറടിക്കില്ല. ഏത് കാര്യത്തിലും ആവേശം കണ്ടെത്തുന്നവർ.",
+        "strengths": [
+            "Bold",
+            "Original",
+            "Aesthetics and Showmanship",
+            "Practical",
+            "Observant",
+            "Excellent People Skills"
+        ],
+        "weaknesses": [
+            "Sensitive",
+            "Conflict-Averse",
+            "Easily Bored",
+            "Poor Long-Term Planners",
+            "Unfocused"
+        ],
+        "work_style": "ESFPs love working with people in lively, active environments. They dislike strict routine and prefer roles where they can make others happy.",
+        "cognitive_functions": {
+            "dominant": "Se",
+            "auxiliary": "Fi",
+            "tertiary": "Te",
+            "inferior": "Ni"
+        },
+        "careers": [
+            "Actor",
+            "Event Planner",
+            "Tour Guide",
+            "Sales Representative",
+            "Public Relations",
+            "Teacher",
+            "Fashion Designer",
+            "Flight Attendant"
+        ]
+    },
+    "ENFP": {
+        "name": "The Champion",
+        "name_ml": "പ്രചാരകൻ",
+        "description": "Enthusiastic, creative and sociable free spirits, who can always find a reason to smile.",
+        "description_ml": "സർഗ്ഗാത്മകതയുള്ളവർ. സ്വതന്ത്രമായി ചിന്തിക്കുന്നവർ. എപ്പോഴും ചിരിച്ചുകൊണ്ടും മറ്റുള്ളവരെ ചിരിപ്പിച്ചുകൊണ്ടും നടക്കാൻ ഇഷ്ടപ്പെടുന്നവർ.",
+        "strengths": [
+            "Curious",
+            "Observant",
+            "Energetic and Enthusiastic",
+            "Excellent Communicators",
+            "Know How to Relax",
+            "Very Popular and Friendly"
+        ],
+        "weaknesses": [
+            "Poor Practical Skills",
+            "Find it Difficult to Focus",
+            "Overthink Things",
+            "Get Stressed Easily",
+            "Highly Emotional"
+        ],
+        "work_style": "ENFPs are idea-generators who love brainstorming and collaborating. They dislike routine and detail-oriented tasks, preferring variety and creativity.",
+        "cognitive_functions": {
+            "dominant": "Ne",
+            "auxiliary": "Fi",
+            "tertiary": "Te",
+            "inferior": "Si"
+        },
+        "careers": [
+            "Marketer",
+            "Journalist",
+            "Consultant",
+            "Campaign Manager",
+            "Artist",
+            "Teacher",
+            "Social Worker",
+            "Public Relations"
+        ]
+    },
+    "ENTP": {
+        "name": "The Visionary",
+        "name_ml": "തർക്കവിദഗ്ദ്ധൻ",
+        "description": "Smart and curious thinkers who cannot resist an intellectual challenge. Good at debating.",
+        "description_ml": "ബുദ്ധിമാന്മാർ. വെല്ലുവിളികൾ ഏറ്റെടുക്കാൻ ഇഷ്ടപ്പെടുന്നവർ. വാദപ്രതിവാദങ്ങളിൽ (Debate) കേമന്മാർ.",
+        "strengths": [
+            "Knowledgeable",
+            "Quick Thinkers",
+            "Original",
+            "Excellent Brainstormers",
+            "Charismatic",
+            "Energetic"
+        ],
+        "weaknesses": [
+            "Very Argumentative",
+            "Insensitive",
+            "Intolerant",
+            "Can Find It Difficult to Focus",
+            "Dislike Practical Matters"
+        ],
+        "work_style": "ENTPs are innovators who thrive on complex challenges. They prefer flat hierarchies where they can debate ideas freely and dislike repetitive maintenance work.",
+        "cognitive_functions": {
+            "dominant": "Ne",
+            "auxiliary": "Ti",
+            "tertiary": "Fe",
+            "inferior": "Si"
+        },
+        "careers": [
+            "Entrepreneur",
+            "Lawyer",
+            "Consultant",
+            "Creative Director",
+            "Politician",
+            "Systems Engineer",
+            "Marketing Strategist",
+            "Stock Trader"
+        ]
+    },
+    "ESTJ": {
+        "name": "The Supervisor",
+        "name_ml": "മേൽനോട്ടക്കാരൻ",
+        "description": "Excellent administrators, unsurpassed at managing things - or people.",
+        "description_ml": "മികച്ച ഭരണാധികാരികൾ. കാര്യങ്ങളും ആളുകളെയും നിയന്ത്രിക്കാൻ പ്രത്യേക കഴിവുള്ളവർ.",
+        "strengths": [
+            "Dedicated",
+            "Strong-willed",
+            "Direct and Honest",
+            "Loyal, Patient and Reliable",
+            "Enjoy Creating Order",
+            "Excellent Organizers"
+        ],
+        "weaknesses": [
+            "Inflexible and Stubborn",
+            "Uncomfortable with Unconventional Situations",
+            "Judgmental",
+            "Too Focused on Social Status",
+            "Difficult to Relax"
+        ],
+        "work_style": "ESTJs are natural leaders who prefer clear hierarchies and standard procedures. They are efficient and expect the same from others.",
+        "cognitive_functions": {
+            "dominant": "Te",
+            "auxiliary": "Si",
+            "tertiary": "Ne",
+            "inferior": "Fi"
+        },
+        "careers": [
+            "Manager",
+            "Judge",
+            "Administrator",
+            "Police Officer",
+            "Banker",
+            "Military Officer",
+            "School Principal",
+            "Auditor"
+        ]
+    },
+    "ESFJ": {
+        "name": "The Provider",
+        "name_ml": "സഹായഹസ്തം",
+        "description": "Extraordinarily caring, social and popular people, always eager to help.",
+        "description_ml": "അതീവ ശ്രദ്ധയും സ്നേഹവും ഉള്ളവർ. സാമൂഹ്യ സേവനം ഇഷ്ടപ്പെടുന്നവർ. എല്ലാവർക്കും പ്രിയപ്പെട്ടവർ.",
+        "strengths": [
+            "Strong Practical Skills",
+            "Warm and Sensitive",
+            "Loyal and Dutiful",
+            "Good at Connecting with Others",
+            "Good at Practical Matters"
+        ],
+        "weaknesses": [
+            "Worried about Their Social Status",
+            "Inflexible",
+            "Reluctant to Innovate or Improvise",
+            "Vulnerable to Criticism",
+            "Often Too Needy"
+        ],
+        "work_style": "ESFJs enjoy working in teams where everyone gets along. They are organized and focused on completing tasks that help people directly.",
+        "cognitive_functions": {
+            "dominant": "Fe",
+            "auxiliary": "Si",
+            "tertiary": "Ne",
+            "inferior": "Ti"
+        },
+        "careers": [
+            "Teacher",
+            "Healthcare Administrator",
+            "Social Worker",
+            "Event Planner",
+            "Nurse",
+            "Office Manager",
+            "Counselor",
+            "Receptionist"
+        ]
+    },
+    "ENFJ": {
+        "name": "The Teacher",
+        "name_ml": "നായകൻ",
+        "description": "Charismatic and inspiring leaders, able to mesmerize their listeners.",
+        "description_ml": "ആകർഷകമായ വ്യക്തിത്വം. നല്ലൊരു നേതാവാകാൻ കഴിവുള്ളവർ. സംസാരത്തിലൂടെ മറ്റുള്ളവരെ സ്വാധീനിക്കാൻ ഇവർക്ക് കഴിയും.",
+        "strengths": [
+            "Tolerant",
+            "Reliable",
+            "Charismatic",
+            "Altruistic",
+            "Natural Leaders",
+            "Collaborative"
+        ],
+        "weaknesses": [
+            "Overly Idealistic",
+            "Too Selfless",
+            "Too Sensitive",
+            "Fluctuating Self-Esteem",
+            "Struggle to Make Tough Decisions"
+        ],
+        "work_style": "ENFJs are collaborative leaders who focus on bringing out the best in their team. They prefer harmonious environments and dislike conflict.",
+        "cognitive_functions": {
+            "dominant": "Fe",
+            "auxiliary": "Ni",
+            "tertiary": "Se",
+            "inferior": "Ti"
+        },
+        "careers": [
+            "Teacher",
+            "HR Manager",
+            "Public Relations",
+            "Sales Manager",
+            "Politician",
+            "Counselor",
+            "Non-profit Director",
+            "Coach"
+        ]
+    },
+    "ENTJ": {
+        "name": "The Commander",
+        "name_ml": "കമാൻഡർ",
+        "description": "Bold, imaginative and strong-willed leaders, always finding a way - or making one.",
+        "description_ml": "ധീരരായവർ. ശക്തമായ ഇച്ഛാശക്തിയുള്ളവർ. തടസ്സങ്ങൾ മാറ്റിവെച്ച് മുന്നേറാൻ കഴിവുള്ള മികച്ച നേതാക്കൾ.",
+        "strengths": [
+            "Efficient",
+            "Energetic",
+            "Self-Confident",
+            "Strong-willed",
+            "Strategic Thinkers",
+            "Charismatic and Inspiring"
+        ],
+        "weaknesses": [
+            "Stubborn and Dominant",
+            "Intolerant",
+            "Impatient",
+            "Arrogant",
+            "Poor Handling of Emotions",
+            "Cold and Ruthless"
+        ],
+        "work_style": "ENTJs are natural executives who like to take charge. They focus on efficiency and results, often streamlining systems to achieve long-term goals.",
+        "cognitive_functions": {
+            "dominant": "Te",
+            "auxiliary": "Ni",
+            "tertiary": "Se",
+            "inferior": "Fi"
+        },
+        "careers": [
+            "Executive",
+            "Lawyer",
+            "Entrepreneur",
+            "Management Consultant",
+            "University Professor",
+            "Judge",
+            "Project Manager",
+            "Surgeon"
+        ]
+    }
+}

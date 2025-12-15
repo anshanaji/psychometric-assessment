@@ -31,56 +31,72 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setCurrentUser(user);
-
-            // Handle Referral Code in URL
-            const urlParams = new URL(window.location.href).searchParams;
-            const refCode = urlParams.get('ref');
-            if (refCode) {
-                sessionStorage.setItem('referralCode', refCode);
-            }
-
-            if (user) {
-                // Create user document if it doesn't exist
-                const userRef = doc(db, 'users', user.uid);
-                const userSnap = await getDoc(userRef);
-
-                if (!userSnap.exists()) {
-                    let referredBy = null;
-                    const savedRefCode = sessionStorage.getItem('referralCode');
-
-                    // If referred, credit the referrer
-                    if (savedRefCode) {
-                        try {
-                            // Treat savedRefCode as the Referrer's UID directly
-                            const referrerRef = doc(db, 'users', savedRefCode);
-                            const referrerSnap = await getDoc(referrerRef);
-
-                            if (referrerSnap.exists()) {
-                                // Credit ₹50 to referrer
-                                await updateDoc(referrerRef, {
-                                    walletBalance: increment(50)
-                                });
-                                referredBy = savedRefCode;
-                            }
-                        } catch (e) {
-                            console.error("Error processing referral:", e);
-                        }
-                    }
-
-                    // Create New User
-                    await setDoc(userRef, {
-                        email: user.email,
-                        displayName: user.displayName,
-                        createdAt: new Date().toISOString(),
-                        walletBalance: 0,
-                        referralCode: user.uid, // Store UID as referral code for consistency
-                        referredBy
-                    });
-                }
-            }
+        // Safety Timeout: Force loading=false if Auth takes too long (e.g. network issues)
+        const safetyTimer = setTimeout(() => {
             setLoading(false);
+        }, 3000);
+
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            clearTimeout(safetyTimer); // Clear timeout if auth responds
+            try {
+                setCurrentUser(user);
+                // ... (rest of logic is inside try/catch) ...
+
+
+                // Handle Referral Code in URL
+                const urlParams = new URL(window.location.href).searchParams;
+                const refCode = urlParams.get('ref');
+                if (refCode) {
+                    sessionStorage.setItem('referralCode', refCode);
+                }
+
+                if (user) {
+                    // Create user document if it doesn't exist
+                    const userRef = doc(db, 'users', user.uid);
+
+                    try {
+                        const userSnap = await getDoc(userRef);
+
+                        if (!userSnap.exists()) {
+                            let referredBy = null;
+                            const savedRefCode = sessionStorage.getItem('referralCode');
+
+                            // If referred, credit the referrer
+                            if (savedRefCode) {
+                                try {
+                                    const referrerRef = doc(db, 'users', savedRefCode);
+                                    const referrerSnap = await getDoc(referrerRef);
+
+                                    if (referrerSnap.exists()) {
+                                        await updateDoc(referrerRef, {
+                                            walletBalance: increment(50)
+                                        });
+                                        referredBy = savedRefCode;
+                                    }
+                                } catch (e) {
+                                    console.error("Error processing referral:", e);
+                                }
+                            }
+
+                            // Create New User
+                            await setDoc(userRef, {
+                                email: user.email,
+                                displayName: user.displayName,
+                                createdAt: new Date().toISOString(),
+                                walletBalance: 0,
+                                referralCode: user.uid,
+                                referredBy
+                            });
+                        }
+                    } catch (firestoreError) {
+                        console.error("Firestore access failed:", firestoreError);
+                    }
+                }
+            } catch (error) {
+                console.error("Auth State Check Failed:", error);
+            } finally {
+                setLoading(false);
+            }
         });
         return unsubscribe;
     }, []);

@@ -1,0 +1,143 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #111;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.intro {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.conflictGroup {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.flagHeader {
+    margin-bottom: 1rem;
+}
+
+.flagTitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ef4444;
+    letter-spacing: 0.5px;
+}
+
+.flagMsg {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.9rem;
+    color: #334155;
+}
+
+.inputRow {
+    margin-bottom: 1rem;
+}
+
+.inputRow label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.inputRow input {
+    width: 100%;
+}
+
+.valLabel {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-top: 0.25rem;
+}
+
+.footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background: #f9fafb;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.cancelBtn {
+    background: none;
+    border: 1px solid #e5e7eb;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.saveBtn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.saveBtn:hover {
+    background: #1d4ed8;
+}

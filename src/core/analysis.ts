@@ -6,6 +6,7 @@ export interface ConsistencyFlag {
     item1Id: string;
     item2Id: string;
     message: string;
+    title?: string;
     severity: 'Medium' | 'High';
 }
 
@@ -15,41 +16,47 @@ export interface ConsistencyFlag {
 // We need to know the specific IDs and expected relationship.
 // Based on user request examples:
 const consistencyChecks = [
+    // 1. The "Altruistic Strategist" (Hypocrisy Check)
+    // Help Others (Q14) vs Use Others (Q9)
+    // Contradiction: High Help (4/5) AND High Use (4/5)
     {
-        // "Leave a mess in my room" (ID 70, keyed -1) vs "Leave my belongings around" (ID 100, keyed -1)
-        // Actually, let's look at the content.
-        // ID 70: "Leave a mess in my room" (Keyed -1 for Conscientiousness Orderliness)
-        // If user says Strongly Disagree (1) -> They DO NOT leave a mess -> High Orderliness behavior.
-        // ID 100: "Leave my belongings around" (Keyed -1)
-        // If user says Strongly Agree (5) -> They DO leave belongings -> Low Orderliness behavior.
-        // Contradiction: (1 on "Leave mess") AND (5 on "Leave belongings").
-        idA: "70",
-        idB: "100",
-        condition: (a: number, b: number) => (a <= 2 && b >= 4) || (a >= 4 && b <= 2),
-        message: "You indicated being very tidy ('Leave a mess': Disagree) but also admitted to leaving belongings around ('Leave belongings': Agree)."
-    },
-    {
-        // "Like to tidy up" (ID 10, Keyed 1) vs "Leave a mess in my room" (ID 70, Keyed -1)
-        // ID 10: High means Tidy.
-        // ID 70: High means Messy (User agrees they leave a mess).
-        // Contradiction: High on 10 (Love to tidy) AND High on 70 (Leave a mess).
-        idA: "10",
-        idB: "70",
+        idA: "14", // Love to help others
+        idB: "9",  // Use others for my own ends
         condition: (a: number, b: number) => (a >= 4 && b >= 4),
-        message: "You reported loving to tidy up, but also agreed that you often leave a mess in your room."
+        message: "You express a strong desire to **help others**, yet you also admit to **using people for your own ends**. This suggests you may view relationships as transactional—helping others primarily when it builds your own status.",
+        title: "The Altruistic Strategist"
     },
+    // 2. The "Social Paradox" (Reactive Social Skills)
+    // Make Friends (Q2) vs Hard to Approach (Q16)
+    // Contradiction: High Friends (4/5) AND High Difficulty Approaching (4/5)
     {
-        // "Get angry easily" (ID 6, Keyed 1) vs "Rarely get irritated" (ID 96, Keyed -1)
-        // ID 6: High = Angry.
-        // ID 96: High = Not Irritated (User agrees they rarely get irritated).
-        // Contradiction: High on 6 (Angry) AND High on 96 (Rarely irritated).
-        idA: "6",
-        idB: "96",
+        idA: "2",  // Make friends easily
+        idB: "16", // Find it difficult to approach others
         condition: (a: number, b: number) => (a >= 4 && b >= 4),
-        message: "You mentioned getting angry easily, but elsewhere stated you rarely get irritated."
+        message: "You feel you **make friends easily**, yet you also find it **hard to approach people**. This suggests 'Reactive Social Skills'—you are warm and engaging *once* a conversation starts, but you struggle to break the ice yourself.",
+        title: "The Social Paradox"
+    },
+    // 3. The "Ego Conflict" (Defensive Confidence)
+    // Better than others (Q24) vs Dislike myself (Q41)
+    // Contradiction: High Arrogance (4/5) AND High Self-Dislike (3/4/5 - any non-disagreement)
+    {
+        idA: "24", // Believe I am better than others
+        idB: "41", // Dislike myself
+        condition: (a: number, b: number) => (a >= 4 && b >= 3),
+        message: "You admitted to feeling **better than others**, but also indicated you **do not like yourself**. This often signals 'Defensive Confidence'—projecting superiority to protect a fragile sense of self-esteem.",
+        title: "The Ego Conflict"
+    },
+    // 4. The "Impulsive Achiever" (Speed vs Precision)
+    // Excel (Q35) vs Rash Decisions (Q60)
+    // Contradiction: High Excel (4/5) AND High Rashness (4/5)
+    {
+        idA: "35", // Excel in what I do
+        idB: "60", // Make rash decisions
+        condition: (a: number, b: number) => (a >= 4 && b >= 4),
+        message: "You rate your ability to **excel** highly, but also admit to making **rash decisions**. You have a high-performance engine but weak brakes. You move fast and break things, which can be a strength in entrepreneurship but a risk in operations.",
+        title: "The Impulsive Achiever"
     }
 ];
-
 
 export const checkConsistency = (answers: UserAnswers): ConsistencyFlag[] => {
     const flags: ConsistencyFlag[] = [];
@@ -58,12 +65,18 @@ export const checkConsistency = (answers: UserAnswers): ConsistencyFlag[] => {
         const valA = answers[check.idA];
         const valB = answers[check.idB];
 
+        // DEBUG LOGGING
+        if (check.idA === '14' && check.idB === '9') {
+            console.log(`DEBUG: Checking Altruism (14 vs 9). Val 14: ${valA}, Val 9: ${valB}. Condition Met: ${check.condition(valA, valB)}`);
+        }
+
         if (valA !== undefined && valB !== undefined) {
             if (check.condition(valA, valB)) {
                 flags.push({
                     item1Id: check.idA,
                     item2Id: check.idB,
                     message: check.message,
+                    title: (check as any).title, // Type assertion for now until interface update
                     severity: 'High'
                 });
             }

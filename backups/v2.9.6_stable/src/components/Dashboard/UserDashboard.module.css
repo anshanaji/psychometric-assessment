@@ -1,0 +1,96 @@
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 2rem;
+}
+
+.logoutBtn {
+    background: transparent;
+    border: 1px solid #cbd5e0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #4a5568;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.reportCard {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.reportCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.tagMbti {
+    background: #e9d8fd;
+    color: #6b46c1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.tagBig5 {
+    background: #bee3f8;
+    color: #2b6cb0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.viewBtn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 8px;
+    background: #edf2f7;
+    color: #4a5568;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 4rem;
+    color: #718096;
+}
+
+.startBtn {
+    margin-top: 1rem;
+    background: #4fd1c5;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -1,18 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SmartCareerGrid } from './SmartCareerGrid';
 import { useAssessment } from '../../context/AssessmentContext';
 // import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import html2canvas from 'html2canvas';
-import { pdf } from '@react-pdf/renderer';
 import PaymentModal from '../Payment/PaymentModal';
-
 
 import Chart from 'chart.js/auto';
 
 import allCareers from '../../data/all_careers.json';
 import facetsText from '../../data/facets_text.json';
 import styles from './ResultsDashboard.module.css';
-import PDFDocument from '../Report/PDFReport'; // Renamed import to avoid visual confusion, though file is PDFReport.tsx
-import { HiddenCharts } from '../Report/HiddenCharts';
 import bigFiveInsights from '../../data/big_five_insights.json';
 import itemsData from '../../data/items.json';
 import { getLevel } from '../../core/scoring';
@@ -20,18 +17,53 @@ import { translations } from '../../data/translations';
 import type { Domain } from '../../types';
 
 import { db } from '../../firebase';
+import { Download } from 'lucide-react';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../../context/AuthContext';
 import { generateAIAnalysis } from '../../services/gemini';
 import ReactMarkdown from 'react-markdown';
 import { deriveMotivationDrivers, deriveExcellenceProfile, identifySynergies, deriveLearningStyle, evaluateBroadCareerCategories, deriveFlowState, deriveConflictStyle, deriveBurnoutTriggers, deriveCommunicationGuide, deriveLeadershipArchetype } from '../../core/advancedInsights';
 
+import { SelfPerceptionSection } from './SelfPerceptionSection';
+import { calculateMatchScore, getRankedCareersV2 } from '../../core/careerMatching';
+
+
+import ConsistencyAlert from './ConsistencyAlert';
+import ConflictResolutionModal from './ConflictResolutionModal';
+import type { UserAnswers } from '../../types';
+
+
 const ResultsDashboard: React.FC = () => {
-    const { results, resetAssessment, currentCareer, isGenerating, language, userDetails, setResults, hasPaid, setHasPaid } = useAssessment();
-    const { currentUser } = useAuth(); // Add auth context
+    // Hooks MUST be at top level
+    const [showResolveModal, setShowResolveModal] = useState(false);
+
+    const { results, resetAssessment, currentCareer, isGenerating, language, userDetails, setResults, hasPaid, setHasPaid, setAnswer, finishAssessment, answers } = useAssessment();
+
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
     const [isSaving, setIsSaving] = useState(false);
     const [saveStatus, setSaveStatus] = useState<'idle' | 'saved' | 'error'>('idle');
     const [showPayment, setShowPayment] = useState(false);
+
+
+
+
+
+    const handleSaveFixedAnswers = (newAnswers: UserAnswers) => {
+        // Create complete updated answers object
+        const updatedAnswers = { ...answers, ...newAnswers };
+
+        // Update state
+        Object.entries(newAnswers).forEach(([id, val]) => {
+            setAnswer(id, (val as number));
+        });
+
+        // Close modal
+        setShowResolveModal(false);
+
+        // Regenerate report with IMMEDIATE effect using updated answers
+        finishAssessment(updatedAnswers);
+    };
 
     // AI State
     const [aiAnalysis, setAiAnalysis] = useState<string | null>(null);
@@ -40,11 +72,18 @@ const ResultsDashboard: React.FC = () => {
 
     const t = translations[language].results;
 
-    const hiddenChartsRef = useRef<HTMLDivElement>(null);
-    const [isPreparingPdf, setIsPreparingPdf] = useState(false);
+
 
     // Advanced Insights
     const drivers = results?.domains ? deriveMotivationDrivers(results.domains, language) : [];
+
+    // DEBUG: Inspect Consistency Flags
+    useEffect(() => {
+        if (results) {
+            console.log("DEBUG: Results Object:", results);
+            console.log("DEBUG: Consistency Flags:", results.consistencyFlags);
+        }
+    }, [results]);
     const synergies = results?.domains ? identifySynergies(results.domains, language) : [];
     const hero = results?.domains ? deriveExcellenceProfile(results.domains) : null;
     const learningStyle = results?.domains ? deriveLearningStyle(results.domains, language) : null;
@@ -73,48 +112,115 @@ const ResultsDashboard: React.FC = () => {
         const ctx = chartRef.current.getContext('2d');
         if (!ctx) return;
 
+        // Destroy previous chart if it exists
         const existingChart = Chart.getChart(chartRef.current);
         if (existingChart) existingChart.destroy();
 
-        const labels = results.domains ? Object.keys(results.domains).map(d => {
-            const domain = d as Domain;
-            // @ts-ignore
-            return language === 'ml' ? bigFiveInsights[domain].name_ml : bigFiveInsights[domain].name;
-        }) : [];
-
-        const data = results.domains ? Object.values(results.domains).map(r => r.percentile) : [];
+        // Prepare Data for Radar
+        const labels = Object.keys(results.domains || {});
+        const data = Object.values(results.domains || {}).map((d: any) => d.percentile);
 
         new Chart(ctx, {
             type: 'radar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: language === 'ml' ? 'നിങ്ങളുടെ സ്കോർ' : 'Your Score',
+                    label: 'Trait Strength',
                     data: data,
-                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                    borderColor: 'rgba(99, 102, 241, 1)',
-                    pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                    fill: true,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
                     pointBorderColor: '#fff',
                     pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(99, 102, 241, 1)'
+                    pointHoverBorderColor: 'rgb(54, 162, 235)'
                 }]
             },
             options: {
+                elements: {
+                    line: { borderWidth: 3 }
+                },
                 scales: {
                     r: {
-                        angleLines: { color: 'rgba(0,0,0,0.1)' },
-                        grid: { color: 'rgba(0,0,0,0.1)' },
+                        angleLines: { display: false },
                         suggestedMin: 0,
-                        suggestedMax: 100,
-                        ticks: { backdropColor: 'transparent' }
+                        suggestedMax: 100
                     }
-                },
-                plugins: {
-                    legend: { display: false }
                 }
             }
         });
-    }, [results, language]);
+
+    }, [results]);
+
+
+    // Auto-generate AI analysis on mount if not present
+    // Auto-generate AI analysis on mount if not present
+    useEffect(() => {
+        let isCurrent = true;
+
+        const autoGenerate = async () => {
+            // Force generation if results exist but no analysis in results object
+            // checking !aiAnalysis prevented updates on recalculate
+            // CRITICAL CHANGE: Only generate if hasPaid is true
+            if (results && !results.aiAnalysis && !isAnalyzing && !analysisError && hasPaid) {
+
+                if (isCurrent) {
+                    setIsAnalyzing(true);
+                    setAiAnalysis(null); // Clear stale analysis from previous run
+                }
+                try {
+                    console.log("Auto-generating AI Analysis (PAID USER)...");
+                    const analysis = await generateAIAnalysis(results, userDetails, language);
+
+                    if (isCurrent) {
+                        setAiAnalysis(analysis);
+
+                        const updatedResults = { ...results, aiAnalysis: analysis };
+
+                        if (setResults) {
+                            setResults(updatedResults);
+                        }
+                    }
+
+                } catch (err: any) {
+                    console.error("Auto-generation failed", err);
+                    if (isCurrent) setAnalysisError(err.message || "Could not generate analysis.");
+                } finally {
+                    if (isCurrent) setIsAnalyzing(false);
+                }
+            } else if (results && results.aiAnalysis) {
+                // If already in results (e.g. loaded from DB), use it
+                if (isCurrent) setAiAnalysis(results.aiAnalysis);
+            }
+        };
+
+        autoGenerate();
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [results, userDetails, language, hasPaid]); // Added hasPaid dependency
+
+
+    // Career Match Calculation - MOVED to core/careerMatching.ts
+    const safeAllCareers = Array.isArray(allCareers) ? allCareers : [];
+
+    // Calculate ranked careers early
+    const { topCareers, bottomCareers } = React.useMemo(() => {
+        if (!results) return { topCareers: [], bottomCareers: [] };
+
+        // Use granular riasec scores if available, otherwise fallback to top code string
+        const matchInput = results.riasec || results.topRiasec || '';
+
+        const { top25, bottom25 } = getRankedCareersV2(
+            safeAllCareers,
+            matchInput,
+            results.riskFlags,
+            userDetails?.profession || ''
+        );
+
+        return { topCareers: top25, bottomCareers: bottom25 };
+    }, [results, safeAllCareers, userDetails]);
 
 
     if (isGenerating) {
@@ -127,6 +233,11 @@ const ResultsDashboard: React.FC = () => {
     }
 
     if (!results) return null;
+
+    // ... (existing code skipped, targeting the Table replacement)
+
+    // Old Full Career Map removed
+
 
     // const domainColors = {
     //     O: '#4361ee',
@@ -151,42 +262,7 @@ const ResultsDashboard: React.FC = () => {
     // const primaryCode = results.topRiasec ? results.topRiasec.charAt(0) as keyof typeof careerIntelligence : 'R';
 
 
-    // Auto-generate AI analysis on mount if not present
-    useEffect(() => {
-        const autoGenerate = async () => {
-            if (results && !results.aiAnalysis && !aiAnalysis && !isAnalyzing && !analysisError) {
 
-                setIsAnalyzing(true);
-                try {
-                    console.log("Auto-generating AI Analysis...");
-                    const analysis = await generateAIAnalysis({
-                        scores: results.domains,
-                        type: results.mbti?.type,
-                        career: currentCareer
-                    }, userDetails, language);
-
-                    setAiAnalysis(analysis);
-
-                    const updatedResults = { ...results, aiAnalysis: analysis };
-
-                    if (setResults) {
-                        setResults(updatedResults);
-                    }
-
-                } catch (err: any) {
-                    console.error("Auto-generation failed", err);
-                    setAnalysisError(err.message || "Could not generate analysis.");
-                } finally {
-                    setIsAnalyzing(false);
-                }
-            } else if (results && results.aiAnalysis) {
-                // If already in results (e.g. loaded from DB), use it
-                setAiAnalysis(results.aiAnalysis);
-            }
-        };
-
-        autoGenerate();
-    }, [results, userDetails, language]);
 
     const saveResult = async () => {
         if (!currentUser || !results) return;
@@ -215,115 +291,18 @@ const ResultsDashboard: React.FC = () => {
         }
     };
 
-    const handleDownloadReport = async () => {
-        setIsPreparingPdf(true);
-        try {
-            let imgData = null;
-            // 1. Generate Chart Image
-            if (hiddenChartsRef.current) {
-                try {
-                    // Wait a brief moment to ensure rendering
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    const canvas = await html2canvas(hiddenChartsRef.current, {
-                        scale: 2,
-                        logging: false,
-                        useCORS: true
-                    });
-                    imgData = canvas.toDataURL('image/png');
-                } catch (imgErr) {
-                    console.warn("Chart image generation failed, proceeding without chart.", imgErr);
-                }
-            }
 
-            // 2. Generate PDF Blob
-            const blob = await pdf(
-                <PDFDocument
-                    results={results}
-                    chartImage={imgData}
-                    language={language}
-                    rolesToAvoid={rolesToAvoid}
-                    allCareers={sortedCareers}
-                    userName={userDetails?.name}
-                />
-            ).toBlob();
 
-            // 3. Trigger Download
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `personality_report_${language}_${Date.now()}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-        } catch (error) {
-            console.error("PDF Generation failed:", error);
-            alert(`Failed to generate PDF: ${error instanceof Error ? error.message : String(error)}`);
-        } finally {
-            setIsPreparingPdf(false);
-        }
+    const handleDownloadReport = () => {
+        window.print();
     };
 
 
-    const calculateMatchScore = (userCode: string, careerCode: string, careerTitle: string): number => {
-        if (!userCode || !careerCode) return 20;
 
-        const userPrimary = userCode.charAt(0);
-        const userSecondary = userCode.charAt(1);
-        const userTertiary = userCode.charAt(2);
-
-        const careerPrimary = careerCode.charAt(0);
-        const careerSecondary = careerCode.charAt(1) || '';
-        const careerTertiary = careerCode.charAt(2) || '';
-
-        let score = 10; // Start low to allow for 10%
-
-        // Primary Code Logic (Weight: High)
-        if (careerPrimary === userPrimary) score += 45;
-        else if (careerPrimary === userSecondary) score += 30;
-        else if (careerPrimary === userTertiary) score += 15;
-
-        // Secondary Code Logic (Weight: Medium)
-        if (careerSecondary === userSecondary) score += 25;
-        else if (careerSecondary === userPrimary) score += 20;
-        else if (careerSecondary === userTertiary) score += 10;
-
-        // Tertiary Code Logic (Weight: Low)
-        if (careerTertiary === userTertiary) score += 15;
-        else if (careerTertiary === userPrimary) score += 10;
-        else if (careerTertiary === userSecondary) score += 10;
-
-        const isExecutive = /Chief|Executive|Manager|Director|Lead|Head|Owner|Founder/i.test(careerTitle);
-
-        if (isExecutive && results.domains && results.facets) {
-            const cPercentile = results.domains.C.percentile;
-            const nAnger = results.facets['N2']?.percentile || 50;
-            const cIndustriousness = results.facets['C4']?.percentile || 50;
-
-            if (cPercentile < 40) score -= 20;
-            if (cIndustriousness < 30) score -= 15;
-            if (nAnger > 70) score -= 15;
-        }
-
-        return Math.min(99, Math.max(10, score));
-    };
-
-    const safeAllCareers = Array.isArray(allCareers) ? allCareers : [];
-
-    const calculatedScoredCareers = safeAllCareers.map(career => ({
-        ...career,
-        matchScore: calculateMatchScore(results.topRiasec || '', career.code, career.title)
-    }));
-
-    const sortedCareers = [...calculatedScoredCareers].sort((a, b) => b.matchScore - a.matchScore);
 
     // const topMatches = sortedCareers.slice(0, 10); // Removed as we show all now
 
-    const rolesToAvoid = [...sortedCareers]
-        .reverse() // Lowest matches
-        .slice(0, 5) // Top 5 lowest
-        .map(c => ({ ...c, burnoutRisk: 100 - c.matchScore }));
+
 
 
     let currentCareerFit = 0;
@@ -332,7 +311,8 @@ const ResultsDashboard: React.FC = () => {
             // Try to find exact match first if we don't have code
             const match = safeAllCareers.find(c => c.title.toLowerCase() === currentCareer.toLowerCase());
             if (match) {
-                currentCareerFit = calculateMatchScore(results.topRiasec || '', match.code, match.title);
+                const matchInput = results.riasec || results.topRiasec || '';
+                currentCareerFit = calculateMatchScore(matchInput, match.code, match.title);
             } else {
                 currentCareerFit = 50; // Default if not found
             }
@@ -375,151 +355,209 @@ const ResultsDashboard: React.FC = () => {
         );
     }
 
+
+
+
+
     return (
         <div className={styles.dashboardContainer}>
-            <HiddenCharts ref={hiddenChartsRef} results={results} />
 
-            <header className={styles.header}>
-                <div>
-                    <h1 className={styles.title}>
-                        {t.hero_title}
+            <header className={styles.heroBanner}>
+                {/* Hero Content */}
+                <div style={{ position: 'relative', zIndex: 2 }}>
+                    <div className={styles.heroCodeBadge}>
+                        {isMbti ? results.mbti?.type : results.topRiasec}
+                    </div>
+
+                    <h1 className={styles.heroTitle}>
+                        {userDetails?.name || 'Your Profile'}
                     </h1>
-                    {userDetails?.name && (
-                        <p className={styles.subtitle}>Prepared for <strong style={{ color: '#0f172a' }}>{userDetails.name}</strong> • {userDetails.profession || 'Professional'}</p>
-                    )}
-                </div>
 
-                <div className={styles.btnGroup}>
-                    {currentUser ? (
-                        <button
-                            className="btn btn-secondary"
-                            onClick={saveResult}
-                            disabled={isSaving || saveStatus === 'saved'}
-                        >
-                            {isSaving ? 'Saving...' : saveStatus === 'saved' ? 'Saved ✓' : 'Save Result'}
-                        </button>
-                    ) : (
-                        <button
-                            className="btn btn-secondary"
-                            onClick={() => window.location.href = '/login'}
-                        >
-                            Login to Save
-                        </button>
-                    )}
+                    <p className={styles.heroSubtitle}>
+                        {userDetails?.profession ? `${userDetails.profession} • ` : ''}
+                        {isMbti ? results.mbti?.details.name : 'Career Personality Profile'}
+                    </p>
 
-                    <button
-                        className="btn btn-primary"
-                        onClick={handleDownloadReport}
-                        disabled={isPreparingPdf}
-                        style={{ minWidth: '160px' }}
-                    >
-                        {isPreparingPdf ? (
-                            <>Generating...</>
+                    {/* Glass Action Bar */}
+                    <div className={styles.actionGlassBar}>
+                        {currentUser ? (
+                            <button
+                                className="btn btn-secondary"
+                                onClick={saveResult}
+                                disabled={isSaving || saveStatus === 'saved'}
+                                style={{ background: 'transparent', border: 'none', color: '#1e293b' }}
+                            >
+                                {isSaving ? 'Saving...' : saveStatus === 'saved' ? 'Saved ✓' : 'Save Result'}
+                            </button>
                         ) : (
-                            <>
-                                <span style={{ marginRight: '8px' }}>⬇</span>
-                                {t.download_pdf || 'Download Report'}
-                            </>
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => navigate('/login')}
+                                style={{ background: 'transparent', border: 'none', color: '#1e293b' }}
+                            >
+                                Login to Save
+                            </button>
                         )}
-                    </button>
+
+
+                        <div style={{ width: '1px', background: 'rgba(0,0,0,0.1)' }}></div>
+
+                        {/* Last Updated Indicator */}
+                        {results?.timestamp && (
+                            <div style={{ fontSize: '0.75rem', color: '#64748b', display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.2 }}>
+                                <span>Last Updated</span>
+                                <span style={{ fontWeight: 600 }}>{new Date(results.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+                            </div>
+                        )}
+
+                        <div style={{ width: '1px', background: 'rgba(0,0,0,0.1)' }}></div>
+
+                        {hasPaid ? (
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleDownloadReport}
+                                style={{
+                                    background: 'transparent',
+                                    border: 'none',
+                                    color: '#2563eb',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    fontWeight: 600,
+                                    padding: '0.5rem 1rem',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease'
+                                }}
+                            >
+                                <Download size={18} />
+                                {(t as any).download_btn || 'Download Report'}
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => setShowPayment(true)}
+                                style={{
+                                    background: 'transparent',
+                                    border: 'none',
+                                    color: '#2563eb',
+                                    fontWeight: 700,
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Unlock Report (₹99) 🔒
+                            </button>
+                        )}
+                    </div>
                 </div>
             </header>
 
-            {currentCareer && (
-                <div className={styles.section}>
-                    <div className={styles.card} style={{ borderLeft: `6px solid ${currentCareerFit > 70 ? '#22c55e' : '#eab308'}` }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-                            <div>
-                                <p className={styles.textMuted} style={{ textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '0.5rem' }}>
-                                    {t.assessing_for || "Role Fit Analysis"}
-                                </p>
-                                <h3 className={styles.title} style={{ fontSize: '2rem', margin: 0 }}>{currentCareer}</h3>
-                            </div>
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontSize: '3rem', fontWeight: 800, color: currentCareerFit > 70 ? '#16a34a' : '#ca8a04', lineHeight: 1 }}>
-                                    {currentCareerFit}%
-                                </div>
-                                <span className={styles.textMuted}>{t.fit_score_label || "Match Score"}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Consistency Alert (Top) */}
+            {
+                results?.consistencyFlags && results.consistencyFlags.length > 0 && (
+                    <ConsistencyAlert
+                        flags={results.consistencyFlags}
+                        onFix={() => setShowResolveModal(true)}
+                    />
+                )
+            }
 
+            {/* FREE CONTENT: Career Fit & Radar Chart */}
+            {
+                currentCareer && (
+                    <div className={styles.section}>
+                        <div className={styles.card} style={{ borderLeft: `6px solid ${currentCareerFit > 70 ? '#22c55e' : '#eab308'}` }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
+                                <div>
+                                    <p className={styles.textMuted} style={{ textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '0.5rem' }}>
+                                        {t.assessing_for || "Role Fit Analysis"}
+                                    </p>
+                                    <h3 className={styles.title} style={{ fontSize: '2rem', margin: 0 }}>{currentCareer}</h3>
+                                </div>
+                                <div style={{ textAlign: 'right' }}>
+                                    <div style={{ fontSize: '3rem', fontWeight: 800, color: currentCareerFit > 70 ? '#16a34a' : '#ca8a04', lineHeight: 1 }}>
+                                        {currentCareerFit}%
+                                    </div>
+                                    <span className={styles.textMuted}>{t.fit_score_label || "Match Score"}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* Profile Shape (Free Preview) */}
             <div className={styles.section}>
-                {isMbti && results.mbti ? (
-                    <div className={styles.heroCard}>
-                        <div className={styles.codeCircle} style={{ background: 'linear-gradient(135deg, #7c3aed, #6d28d9)', boxShadow: '0 10px 20px rgba(124, 58, 237, 0.3)' }}>
-                            <span className={styles.codeValue} style={{ fontSize: '2.5rem' }}>{results.mbti.type}</span>
+                <h2 className={styles.sectionTitle}>{t.profile_domains || "Profile Overview"}</h2>
+                <div className={styles.grid}>
+                    {results.domains && (
+                        <div className={styles.chartCard} style={{ gridColumn: 'span 2' }}>
+                            <h3>{t.profile_shape || "Personality Radar"}</h3>
+                            <canvas ref={chartRef} style={{ maxHeight: '350px' }}></canvas>
                         </div>
-                        <div className={styles.heroContent}>
-                            <h2 className={styles.title} style={{ marginBottom: '0.5rem' }}>{results.mbti.details.name}</h2>
-                            <p className={styles.textMuted} style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                                {results.mbti.details.description}
-                            </p>
-                        </div>
-                    </div>
-                ) : (
-                    // Big5 Hero
-                    <div className={styles.heroCard}>
-                        <div className={styles.codeCircle} style={{ background: 'linear-gradient(135deg, #2563eb, #1e40af)', boxShadow: '0 10px 20px rgba(37, 99, 235, 0.3)' }}>
-                            <span className={styles.codeValue} style={{ fontSize: '2.5rem' }}>{results.topRiasec}</span>
-                        </div>
-                        <div className={styles.heroContent}>
-                            <h2 className={styles.title} style={{ marginBottom: '0.5rem' }}>Career Personality Profile</h2>
-                            <p className={styles.textMuted} style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
-                                Based on the Five Factor Model your profile indicates a strong alignment with <strong>{results.topRiasec}</strong> traits.
-                                See the detailed breakdown below for more insights.
-                            </p>
-                        </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
 
-            {showPayment && (
-                <PaymentModal
-                    onPaymentSuccess={() => {
-                        setHasPaid(true);
-                        setShowPayment(false);
-                    }}
-                    onCancel={() => setShowPayment(false)}
-                />
-            )}
+            {
+                showPayment && (
+                    <PaymentModal
+                        onPaymentSuccess={() => {
+                            setHasPaid(true);
+                            setShowPayment(false);
+                        }}
+                        onCancel={() => setShowPayment(false)}
+                    />
+                )
+            }
 
+            {
+                showResolveModal && results?.consistencyFlags && (
+                    <ConflictResolutionModal
+                        flags={results.consistencyFlags}
+                        currentAnswers={answers}
+                        onSave={handleSaveFixedAnswers}
+                        onClose={() => setShowResolveModal(false)}
+                    />
+                )
+            }
+
+            {/* PREMIUM CONTENT CONTAINER */}
             <div style={{ position: 'relative' }}>
                 {!hasPaid && (
                     <div style={{
                         position: 'absolute',
                         top: 0, left: 0, right: 0, bottom: 0,
                         zIndex: 10,
-                        background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 15%, rgba(255,255,255,1) 100%)',
+                        background: 'linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,1) 100%)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'flex-start',
-                        paddingTop: '150px'
+                        paddingTop: '100px'
                     }}>
                         <div style={{ background: 'white', padding: '2.5rem', borderRadius: '16px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)', textAlign: 'center', maxWidth: '500px', width: '90%', border: '1px solid #e2e8f0' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔒</div>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem', color: '#1e293b' }}>Unlock Your Full Report</h3>
+                            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💎</div>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem', color: '#1e293b' }}>Unlock Deep Insights</h3>
                             <p style={{ color: '#64748b', marginBottom: '2rem', lineHeight: '1.6' }}>
-                                You've scratched the surface! Get immediate access to:
+                                Assess your true potential. Unlock the full scientific analysis:
                                 <ul style={{ textAlign: 'left', margin: '1rem auto', display: 'inline-block', color: '#475569' }}>
                                     <li>✨ Detailed Personality Breakdown</li>
-                                    <li>🚀 Top Career Matches & Compatibility</li>
-                                    <li>💡 Personalized Growth Areas</li>
-                                    <li>🤖 AI-Powered Career Coach Analysis</li>
+                                    <li>🚀 Advanced Psychological Capital</li>
+                                    <li>💡 Hidden Synergies & Blindspots</li>
+                                    <li>🤖 Personal AI Career Coach Report</li>
                                 </ul>
                             </p>
                             <button onClick={() => setShowPayment(true)} className="btn btn-primary" style={{ width: '100%', fontSize: '1.1rem', padding: '1rem', fontWeight: 700 }}>
-                                Unlock Now • ₹100
+                                Unlock Full Report • ₹99
                             </button>
-                            <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#94a3b8' }}>One-time payment for lifetime access</p>
+                            <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#94a3b8' }}>One-time payment. Instant Access.</p>
                         </div>
                     </div>
                 )}
 
-                <div style={{ filter: !hasPaid ? 'blur(8px)' : 'none', opacity: !hasPaid ? 0.4 : 1, pointerEvents: !hasPaid ? 'none' : 'auto', userSelect: !hasPaid ? 'none' : 'auto', transition: 'all 0.5s ease' }}>
+                <div style={{ filter: !hasPaid ? 'blur(12px)' : 'none', opacity: !hasPaid ? 0.4 : 1, pointerEvents: !hasPaid ? 'none' : 'auto', userSelect: !hasPaid ? 'none' : 'auto', transition: 'all 0.5s ease', paddingBottom: '2rem' }}>
+
+
+
                     {isMbti && results.mbti && (
                         <div className={styles.grid}>
                             <div className={styles.card}>
@@ -564,41 +602,16 @@ const ResultsDashboard: React.FC = () => {
                         </div>
                     )}
 
-                    {results.consistencyFlags && results.consistencyFlags.length > 0 && (
-                        <div className={styles.section}>
-                            <div className={styles.alert}>
-                                <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    ⚠️ {t.consistency_title}
-                                </h3>
-                                <p style={{ margin: 0, fontSize: '0.95rem', opacity: 0.9 }}>
-                                    {t.consistency_desc}
-                                </p>
-                                <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    {results.consistencyFlags.map((flag, idx) => (
-                                        <div key={idx} style={{ background: 'rgba(255,255,255,0.5)', padding: '0.5rem', borderRadius: '4px' }}>
-                                            <strong>{t.potential_contradiction}:</strong> {flag.message}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    )}
+
 
                     <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>{t.profile_domains}</h2>
+                        <h2 className={styles.sectionTitle}>{t.detailed_breakdown || "Deep Dive Analysis"}</h2>
                         <div className={styles.grid}>
-                            {/* Only show Radar for Big5 or if desired for all? It uses results.domains which Mbti might not have */}
-                            {results.domains && (
-                                <div className={styles.chartCard} style={{ gridColumn: isBig5 ? 'span 2' : 'span 1' }}>
-                                    <h3>{t.profile_shape}</h3>
-                                    <canvas ref={chartRef} style={{ maxHeight: '350px' }}></canvas>
-                                </div>
-                            )}
+                            {/* We moved the Radar Chart to the Free Section. Remove it from here to avoid dup. */}
 
-
-                            <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-                                <h3 className={styles.sectionTitle} style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>{t.detailed_breakdown}</h3>
-                                <div className={styles.grid} style={{ marginTop: '1rem' }}>
+                            <div className={styles.card} style={{ gridColumn: '1 / -1', border: 'none', padding: 0, boxShadow: 'none' }}>
+                                {/* <h3 className={styles.sectionTitle} style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>{t.detailed_breakdown}</h3> */}
+                                <div className={styles.facetGrid}>
                                     {results.domains && Object.entries(results.domains).map(([key, value]) => {
                                         const d = key as Domain;
                                         const level = getLevel(value.percentile).toLowerCase() as 'low' | 'average' | 'high';
@@ -609,16 +622,27 @@ const ResultsDashboard: React.FC = () => {
                                             ? results.nuancedInsights[d]
                                             : (language === 'ml' ? insight[level + '_ml'] : insight[level]);
 
-                                        const isHigh = level === 'high';
-                                        const badgeClass = isHigh ? styles.badgePrimary : level === 'low' ? styles.badgeWarning : styles.badgeSecondary;
+                                        const color = d === 'O' ? '#4f46e5' : d === 'C' ? '#0ea5e9' : d === 'E' ? '#eab308' : d === 'A' ? '#22c55e' : '#ef4444';
+                                        const bg = d === 'O' ? '#eef2ff' : d === 'C' ? '#e0f2fe' : d === 'E' ? '#fefce8' : d === 'A' ? '#f0fdf4' : '#fef2f2';
 
                                         return (
-                                            <div key={key} style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                                    <h4 style={{ color: '#1e293b', margin: 0, fontWeight: 700 }}>{name}</h4>
-                                                    <span className={`${styles.badge} ${badgeClass}`}>
+                                            <div key={key} className={styles.facetCard} style={{ borderTop: `4px solid ${color}` }}>
+                                                <div className={styles.facetHeader}>
+                                                    <h4 className={styles.facetTitle}>{name}</h4>
+                                                    <span style={{
+                                                        background: bg,
+                                                        color: color,
+                                                        padding: '0.25rem 0.75rem',
+                                                        borderRadius: '9999px',
+                                                        fontSize: '0.75rem',
+                                                        fontWeight: 700,
+                                                        textTransform: 'uppercase'
+                                                    }}>
                                                         {t.levels[level] || level}
                                                     </span>
+                                                </div>
+                                                <div style={{ height: '6px', width: '100%', background: '#f1f5f9', borderRadius: '3px' }}>
+                                                    <div style={{ width: `${value.percentile}%`, height: '100%', background: color, borderRadius: '3px' }}></div>
                                                 </div>
                                                 <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{description}</p>
                                             </div>
@@ -675,18 +699,21 @@ const ResultsDashboard: React.FC = () => {
                         </div>
                     )}
 
+
                     {/* NEW: Learning Style */}
                     {learningStyle && (
                         <div className={styles.section}>
                             <h2 className={styles.sectionTitle}>{t.advanced_insights.learning_title}</h2>
-                            <div className={styles.card} style={{ background: 'linear-gradient(135deg, #fffbeb, #fef3c7)', borderLeft: '6px solid #f59e0b' }}>
-                                <h3 style={{ color: '#92400e', marginBottom: '0.5rem' }}>{learningStyle.style}</h3>
-                                <p style={{ color: '#78350f', lineHeight: '1.6', marginBottom: '1rem' }}>{learningStyle.description}</p>
-                                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                            <div className={styles.learningCard}>
+                                <h3 className={styles.learningTitle}>{learningStyle.style}</h3>
+                                <p style={{ fontSize: '1.1rem', color: '#78350f', lineHeight: '1.6', maxWidth: '800px' }}>
+                                    {learningStyle.description}
+                                </p>
+                                <div className={styles.learningTips}>
                                     {learningStyle.tips.map((tip, i) => (
-                                        <span key={i} style={{ background: 'rgba(255,255,255,0.6)', padding: '0.25rem 0.75rem', borderRadius: '12px', fontSize: '0.85rem', color: '#92400e', fontWeight: 600 }}>
-                                            {tip}
-                                        </span>
+                                        <div key={i} className={styles.learningTip}>
+                                            💡 {tip}
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -714,75 +741,14 @@ const ResultsDashboard: React.FC = () => {
                     )}
 
                     {/* Expert Strategy Section */}
-                    <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>🏆 Expert Strategy Profile</h2>
-                        <div className={styles.aiGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
 
-                            {/* Flow State */}
-                            {flowState && (
-                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #3b82f6' }}>
-                                    <h3 className={styles.aiCardTitle}>🌊 Flow State Trigger</h3>
-                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#1e40af', marginBottom: '0.5rem' }}>{flowState.trigger}</h4>
-                                    <p style={{ fontSize: '0.95rem', color: '#475569' }}>{flowState.description}</p>
-                                </div>
-                            )}
 
-                            {/* Leadership */}
-                            {leadershipStyle && (
-                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #8b5cf6' }}>
-                                    <h3 className={styles.aiCardTitle}>👑 Leadership Archetype</h3>
-                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#5b21b6', marginBottom: '0.5rem' }}>{leadershipStyle.archetype}</h4>
-                                    <p style={{ fontSize: '0.95rem', color: '#475569' }}>{leadershipStyle.description}</p>
-                                </div>
-                            )}
-
-                            {/* Conflict Style */}
-                            {conflictStyle && (
-                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #f97316' }}>
-                                    <h3 className={styles.aiCardTitle}>⚔️ Conflict Style</h3>
-                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#c2410c', marginBottom: '0.5rem' }}>{conflictStyle.style}</h4>
-                                    <p style={{ fontSize: '0.95rem', color: '#475569', marginBottom: '0.5rem' }}>{conflictStyle.description}</p>
-                                    <div style={{ background: '#fff7ed', padding: '0.5rem', borderRadius: '4px', fontSize: '0.85rem', color: '#9a3412', fontStyle: 'italic' }}>
-                                        <strong>Strategy:</strong> {conflictStyle.strategy}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Burnout Trigger */}
-                            {burnoutTrigger && (
-                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #ef4444' }}>
-                                    <h3 className={styles.aiCardTitle}>🛡️ Burnout Trigger</h3>
-                                    <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#b91c1c', marginBottom: '0.5rem' }}>{burnoutTrigger.trigger}</h4>
-                                    <div style={{ background: '#fef2f2', padding: '0.5rem', borderRadius: '4px', fontSize: '0.85rem', color: '#991b1b' }}>
-                                        <strong>Prevention:</strong> {burnoutTrigger.prevention}
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Communication Guide */}
-                            {commGuide && (
-                                <div className={styles.aiCard} style={{ borderLeft: '4px solid #10b981', gridColumn: '1 / -1' }}>
-                                    <h3 className={styles.aiCardTitle}>🗣️ Communication User Manual</h3>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                        <div style={{ background: '#ecfdf5', padding: '1rem', borderRadius: '8px' }}>
-                                            <h4 style={{ color: '#047857', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>DO THIS ✅</h4>
-                                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                                {commGuide.dos.map(d => <li key={d} style={{ fontSize: '0.85rem', color: '#065f46', marginBottom: '0.25rem' }}>{d}</li>)}
-                                            </ul>
-                                        </div>
-                                        <div style={{ background: '#fef2f2', padding: '1rem', borderRadius: '8px' }}>
-                                            <h4 style={{ color: '#b91c1c', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>AVOID THIS ❌</h4>
-                                            <ul style={{ paddingLeft: '1.2rem', margin: 0 }}>
-                                                {commGuide.donts.map(d => <li key={d} style={{ fontSize: '0.85rem', color: '#991b1b', marginBottom: '0.25rem' }}>{d}</li>)}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
+                    {/* 7. Self-Perception & Conflicts (New Section) */}
+                    {results.consistencyFlags && (
+                        <div id="self-perception-section">
+                            <SelfPerceptionSection flags={results.consistencyFlags} />
                         </div>
-                    </div>
-
+                    )}
 
                     {/* Broad Career Categories */}
                     {broadCategories.length > 0 && (
@@ -790,35 +756,44 @@ const ResultsDashboard: React.FC = () => {
                             <h2 className={styles.sectionTitle}>{t.advanced_insights.broad_career_title || "Broad Career Paths"}</h2>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
                                 {broadCategories.map((cat: any) => (
-                                    <div key={cat.id} className={styles.card} style={{ alignItems: 'center', textAlign: 'center', padding: '2rem', transition: 'all 0.3s ease', cursor: 'default' }}>
-                                        <div style={{ fontSize: '3rem', marginBottom: '1rem', background: '#f8fafc', padding: '1rem', borderRadius: '50%', width: '80px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                            {cat.id === 'entrepreneur' && '🚀'}
-                                            {cat.id === 'corporate' && '💼'}
-                                            {cat.id === 'academia' && '🎓'}
-                                            {cat.id === 'creative' && '🎨'}
-                                            {cat.id === 'social' && '🤝'}
-                                            {cat.id === 'tech' && '💻'}
+                                    <div key={cat.id} className={styles.careerCard}>
+                                        <div className={styles.careerHeader}>
+                                            <div style={{ fontSize: '3rem', background: '#f8fafc', padding: '1rem', borderRadius: '50%', width: '80px', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '1rem' }}>
+                                                {cat.id === 'entrepreneur' && '🚀'}
+                                                {cat.id === 'corporate' && '💼'}
+                                                {cat.id === 'academia' && '🎓'}
+                                                {cat.id === 'creative' && '🎨'}
+                                                {cat.id === 'social' && '🤝'}
+                                                {cat.id === 'tech' && '💻'}
+                                            </div>
+                                            <h4 className={styles.careerTitle}>{cat.name}</h4>
                                         </div>
-                                        <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1e293b', marginBottom: '0.5rem' }}>{cat.name}</h4>
-                                        <span className={styles.badge} style={{
-                                            marginBottom: '1rem',
+
+                                        <span className={styles.fitBadge} style={{
                                             background: cat.fit === 'High' ? '#dcfce7' : cat.fit === 'Medium' ? '#fef3c7' : '#fee2e2',
                                             color: cat.fit === 'High' ? '#166534' : cat.fit === 'Medium' ? '#b45309' : '#b91c1c',
-                                            padding: '0.5rem 1rem',
-                                            fontSize: '0.9rem'
                                         }}>
                                             {cat.fit === 'High' ? (t.advanced_insights.fit_high || "High Fit") :
                                                 cat.fit === 'Medium' ? (t.advanced_insights.fit_med || "Medium Fit") :
                                                     (t.advanced_insights.fit_low || "Low Fit")}
                                         </span>
-                                        <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: '1.6', margin: 0 }}>{cat.reason}</p>
+
+                                        <p className={styles.careerDesc}>{cat.reason}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     )}
 
-                    <div className={styles.section}>
+
+
+
+
+                    <div className={styles.actions}>
+                        <div style={{ textAlign: 'right' }}>
+                            <span className={styles.badge}>Status: Complete</span>
+                            <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.9rem', opacity: 0.8 }}>{new Date().toLocaleDateString()}</p>
+                        </div>
                         <div className={styles.aiSection} style={{ textAlign: 'left' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                                 <div style={{ fontSize: '2rem' }}>✨</div>
@@ -851,115 +826,146 @@ const ResultsDashboard: React.FC = () => {
 
 
                             {aiAnalysis && (
-                                <div className={styles.aiGrid}>
+                                <div className={styles.premiumGrid}>
                                     {(() => {
+                                        // 1. Parse the AI Response
                                         const sections = aiAnalysis.split(/##\s+/).filter(Boolean);
-                                        return sections.map((section, idx) => {
-                                            const lines = section.trim().split('\n');
-                                            const title = lines[0].replace(/^\d+\.\s*/, '').trim();
+                                        const data: any = {};
+
+                                        sections.forEach(s => {
+                                            const lines = s.trim().split('\n');
+                                            // Extract core title (remove "1. ", numbers, etc)
+                                            const rawTitle = lines[0].replace(/^\d+\.\s*/, '').trim().toLowerCase();
                                             const content = lines.slice(1).join('\n').trim();
 
-                                            return (
-                                                <div key={idx} className={styles.aiCard} style={{ textAlign: 'left' }}>
-                                                    <h3 className={styles.aiCardTitle} style={{ textAlign: 'left' }}>
-                                                        {idx === 0 ? '💡' : idx === 1 ? '🚀' : idx === 2 ? '⚠️' : idx === 3 ? '🎯' : '🛡️'} {title}
-                                                    </h3>
-                                                    <div className={styles.markdownContent} style={{ padding: 0, background: 'none', boxShadow: 'none', border: 'none', textAlign: 'left' }}>
-                                                        <ReactMarkdown>{content}</ReactMarkdown>
-                                                    </div>
-                                                </div>
-                                            );
+                                            if (rawTitle.includes('truth')) data.truth = content;
+                                            else if (rawTitle.includes('advantages')) data.advantages = content;
+                                            else if (rawTitle.includes('reality') || rawTitle.includes('growth')) data.reality = content;
+                                            else if (rawTitle.includes('action')) data.action = content;
+                                            else if (rawTitle.includes('survival') || rawTitle.includes('strategy')) data.strategy = content;
                                         });
+
+                                        // Helper to parse bullet points into objects {title, desc}
+                                        const parseListToCards = (text: string) => {
+                                            if (!text) return [];
+                                            const items: any[] = [];
+                                            // Split by bullet points (* or -)
+                                            const rawItems = text.split(/\n\s*[\*\-]\s+/).filter(Boolean);
+
+                                            rawItems.forEach(item => {
+                                                // Try to split bold title "**Title**:" from description
+                                                const parts = item.split('**:');
+                                                if (parts.length > 1) {
+                                                    items.push({
+                                                        title: parts[0].replace(/\*\*/g, '').trim(),
+                                                        desc: parts[1].trim()
+                                                    });
+                                                } else {
+                                                    // Fallback for non-bold bullets
+                                                    items.push({ title: '', desc: item.trim() });
+                                                }
+                                            });
+                                            return items;
+                                        };
+
+                                        return (
+                                            <>
+                                                {/* 1. The Raw Truth (Quote Style) */}
+                                                {data.truth && (
+                                                    <div className={styles.truthCard}>
+                                                        <h3 className={styles.truthTitle}>💡 The Raw Truth</h3>
+                                                        <div style={{ fontSize: '1.4rem', lineHeight: '1.6', fontStyle: 'italic', fontWeight: 300, position: 'relative', zIndex: 1 }}>
+                                                            "{data.truth.replace(/"/g, '')}"
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* 2. Unfair Advantages (Grid Cards) */}
+                                                {data.advantages && (
+                                                    <div>
+                                                        <h3 style={{ fontSize: '1.5rem', color: '#166534', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                            🚀 Your Unfair Advantages
+                                                        </h3>
+                                                        <div className={styles.advantageGrid}>
+                                                            {parseListToCards(data.advantages).map((item, idx) => (
+                                                                <div key={idx} className={styles.advantageCardItem}>
+                                                                    <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>💎</div>
+                                                                    {item.title && <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1e293b', marginBottom: '0.5rem' }}>{item.title}</h4>}
+                                                                    <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: '1.6', margin: 0 }}>{item.desc}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                        {/* Fallback if parsing failed (text is plain paragraph) */}
+                                                        {parseListToCards(data.advantages).length === 0 && (
+                                                            <div className={styles.advantageCardItem}>
+                                                                <ReactMarkdown>{data.advantages}</ReactMarkdown>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                {/* 3. Harsh Reality (Warning Grid) */}
+                                                {data.reality && (
+                                                    <div>
+                                                        <h3 style={{ fontSize: '1.5rem', color: '#b45309', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                            ⚠️ The Harsh Reality
+                                                        </h3>
+                                                        <div className={styles.realityGrid}>
+                                                            {parseListToCards(data.reality).map((item, idx) => (
+                                                                <div key={idx} className={styles.realityCardItem}>
+                                                                    <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🚩</div>
+                                                                    {item.title && <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#92400e', marginBottom: '0.5rem' }}>{item.title}</h4>}
+                                                                    <p style={{ fontSize: '0.95rem', color: '#92400e', lineHeight: '1.6', margin: 0 }}>{item.desc}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                        {parseListToCards(data.reality).length === 0 && (
+                                                            <div className={styles.realityCardItem}>
+                                                                <ReactMarkdown>{data.reality}</ReactMarkdown>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                {/* 4. Action Plan (Checklist Card) */}
+                                                {data.action && (
+                                                    <div className={styles.actionCard}>
+                                                        <h3 style={{ fontSize: '1.5rem', color: '#1e40af', fontWeight: 800, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                            🎯 Immediate Action Plan
+                                                        </h3>
+                                                        <div style={{ fontSize: '1.1rem', color: '#1e3a8a' }}>
+                                                            <ReactMarkdown components={{ p: ({ node, ...props }) => <p style={{ lineHeight: 1.8 }} {...props} /> }}>
+                                                                {data.action}
+                                                            </ReactMarkdown>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* 5. Survival Strategy (Blueprint) */}
+                                                {data.strategy && (
+                                                    <div className={`${styles.premiumCard} ${styles.strategyCardAI}`}>
+                                                        <h3 className={styles.strategyTitle}>🛡️ Survival Strategy</h3>
+                                                        <div className={styles.strategyContent}>
+                                                            {/* Explicitly Style Markdown content to be dark/legible */}
+                                                            <ReactMarkdown components={{
+                                                                p: ({ node, ...props }) => <p style={{ margin: '0 0 1rem 0', color: '#475569' }} {...props} />,
+                                                                strong: ({ node, ...props }) => <strong style={{ color: '#1e293b', fontWeight: 700 }} {...props} />,
+                                                                li: ({ node, ...props }) => <li style={{ marginBottom: '0.5rem', color: '#475569' }} {...props} />
+                                                            }}>
+                                                                {data.strategy}
+                                                            </ReactMarkdown>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
+                                        );
                                     })()}
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>{t.career_intelligence.title}</h2>
-                        <div className={styles.comparisonGrid} style={{ marginTop: '2rem', display: 'block' }}>
-                            <h3 className={styles.cardTitle} style={{ marginBottom: '1.5rem', borderBottom: '2px solid #e2e8f0', paddingBottom: '1rem' }}>
-                                Comprehensive Role Analysis (Ranked by Fit)
-                            </h3>
-
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))',
-                                gap: '0.5rem'
-                            }}>
-                                {sortedCareers.map((career: any, idx: number) => {
-                                    const score = career.matchScore;
-                                    let color = '#475569';
-                                    let bg = '#f1f5f9';
-                                    let border = '#cbd5e1';
-
-                                    if (score >= 90) {
-                                        color = '#15803d'; // Deep Green
-                                        bg = '#dcfce7';
-                                        border = '#22c55e';
-                                    } else if (score >= 80) {
-                                        color = '#0d9488'; // Teal
-                                        bg = '#ccfbf1';
-                                        border = '#14b8a6';
-                                    } else if (score >= 70) {
-                                        color = '#0369a1'; // Blue
-                                        bg = '#e0f2fe';
-                                        border = '#38bdf8';
-                                    } else if (score >= 50) {
-                                        color = '#b45309'; // Amber
-                                        bg = '#fef3c7';
-                                        border = '#fcd34d';
-                                    } else {
-                                        color = '#b91c1c'; // Red
-                                        bg = '#fee2e2';
-                                        border = '#f87171';
-                                    }
-
-                                    return (
-                                        <div key={idx} style={{
-                                            backgroundColor: 'white',
-                                            border: `1px solid ${border}`,
-                                            borderTop: `3px solid ${color}`,
-                                            borderRadius: '4px',
-                                            padding: '0.5rem',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            justifyContent: 'space-between',
-                                            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                                            minHeight: '80px'
-                                        }}>
-                                            <div>
-                                                <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '0.7rem', color: '#1e293b', lineHeight: 1.2, wordBreak: 'break-word' }}>{career.title}</h4>
-                                            </div>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
-                                                <span style={{
-                                                    fontSize: '0.6rem',
-                                                    fontWeight: 600,
-                                                    textTransform: 'uppercase',
-                                                    color: color,
-                                                    display: 'none' // Hide label to save space on tiny cards? Or keep barely visible.
-                                                }}>
-                                                    {/* {label} - Hide label for density */}
-                                                </span>
-                                                <span style={{
-                                                    fontSize: '0.8rem',
-                                                    fontWeight: 800,
-                                                    color: color,
-                                                    background: bg,
-                                                    padding: '1px 4px',
-                                                    borderRadius: '3px',
-                                                    marginLeft: 'auto' // Align right
-                                                }}>
-                                                    {score}%
-                                                </span>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
+                    {/* Redundant Full Career Map removed */}
 
                     <div className={styles.resultsCard}>
                         <h3>{t.detailed_facet_analysis.title}</h3>
@@ -1029,6 +1035,120 @@ const ResultsDashboard: React.FC = () => {
                         })}
                     </div>
 
+                    {/* Expert Strategy Section (Moved to Bottom) */}
+                    <div className={styles.section}>
+                        <h2 className={styles.sectionTitle}>🏆 Expert Strategy Profile</h2>
+                        <div className={styles.strategyGrid}>
+                            {flowState && (
+                                <div className={styles.strategyCard}>
+                                    <div className={styles.strategyHeader}>
+                                        <div className={styles.strategyIcon} style={{ background: '#eff6ff', color: '#3b82f6' }}>🌊</div>
+                                        <div>
+                                            <div style={{ fontSize: '0.85rem', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Flow State</div>
+                                            <h3 style={{ fontSize: '1.25rem', color: '#1e293b', margin: 0 }}>{flowState.trigger}</h3>
+                                        </div>
+                                    </div>
+                                    <p style={{ color: '#64748b', lineHeight: '1.6' }}>{flowState.description}</p>
+                                </div>
+                            )}
+                            {leadershipStyle && (
+                                <div className={styles.strategyCard}>
+                                    <div className={styles.strategyHeader}>
+                                        <div className={styles.strategyIcon} style={{ background: '#f5f3ff', color: '#8b5cf6' }}>👑</div>
+                                        <div>
+                                            <div style={{ fontSize: '0.85rem', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Leadership Archetype</div>
+                                            <h3 style={{ fontSize: '1.25rem', color: '#1e293b', margin: 0 }}>{leadershipStyle.archetype}</h3>
+                                        </div>
+                                    </div>
+                                    <p style={{ color: '#64748b', lineHeight: '1.6' }}>{leadershipStyle.description}</p>
+                                </div>
+                            )}
+                            {conflictStyle && (
+                                <div className={styles.strategyCard}>
+                                    <div className={styles.strategyHeader}>
+                                        <div className={styles.strategyIcon} style={{ background: '#fff7ed', color: '#f97316' }}>⚔️</div>
+                                        <div>
+                                            <div style={{ fontSize: '0.85rem', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Conflict Style</div>
+                                            <h3 style={{ fontSize: '1.25rem', color: '#1e293b', margin: 0 }}>{conflictStyle.style}</h3>
+                                        </div>
+                                    </div>
+                                    <p style={{ color: '#64748b', lineHeight: '1.6', marginBottom: 'auto' }}>{conflictStyle.description}</p>
+                                    <div className={styles.adviceBox} style={{ background: '#fff7ed', color: '#c2410c' }}>
+                                        <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.25rem' }}>STRATEGY TIP</div>
+                                        {conflictStyle.strategy}
+                                    </div>
+                                </div>
+                            )}
+                            {burnoutTrigger && (
+                                <div className={styles.strategyCard}>
+                                    <div className={styles.strategyHeader}>
+                                        <div className={styles.strategyIcon} style={{ background: '#fef2f2', color: '#ef4444' }}>🛡️</div>
+                                        <div>
+                                            <div style={{ fontSize: '0.85rem', color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase' }}>Burnout Trigger</div>
+                                            <h3 style={{ fontSize: '1.25rem', color: '#1e293b', margin: 0 }}>{burnoutTrigger.trigger}</h3>
+                                        </div>
+                                    </div>
+                                    <p style={{ color: '#64748b', lineHeight: '1.6', marginBottom: 'auto' }}>Risk Factors identified in your profile.</p>
+                                    <div className={styles.adviceBox} style={{ background: '#fef2f2', color: '#b91c1c' }}>
+                                        <div style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.25rem' }}>PREVENTION</div>
+                                        {burnoutTrigger.prevention}
+                                    </div>
+                                </div>
+                            )}
+                            {commGuide && (
+                                <div className={styles.section} style={{ gridColumn: '1 / -1', marginBottom: 0 }}>
+                                    <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                        <span style={{ fontSize: '2rem' }}>🗣️</span> Communication Manual
+                                    </h3>
+                                    <div className={styles.manualGrid}>
+                                        <div className={styles.manualColumn}>
+                                            <h4 style={{ color: '#166534' }}>
+                                                <span style={{ padding: '0.25rem', background: '#dcfce7', borderRadius: '4px' }}>✅</span>
+                                                DO THIS
+                                            </h4>
+                                            <ul className={styles.manualList}>
+                                                {commGuide.dos.map((d, i) => (
+                                                    <li key={i} className={styles.manualItem}>
+                                                        <span style={{ color: '#166534', fontWeight: 800 }}>✓</span>
+                                                        <span style={{ color: '#166534' }}>{d}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className={styles.manualColumn} style={{ borderLeft: '1px solid #e2e8f0', paddingLeft: '2rem' }}>
+                                            <h4 style={{ color: '#991b1b' }}>
+                                                <span style={{ padding: '0.25rem', background: '#fee2e2', borderRadius: '4px' }}>❌</span>
+                                                AVOID THIS
+                                            </h4>
+                                            <ul className={styles.manualList}>
+                                                {commGuide.donts.map((d, i) => (
+                                                    <li key={i} className={styles.manualItem}>
+                                                        <span style={{ color: '#991b1b', fontWeight: 800 }}>✕</span>
+                                                        <span style={{ color: '#991b1b' }}>{d}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+
+                    {/* Career Intelligence (Moved to Bottom) */}
+                    <div className={styles.section}>
+                        <h2 className={styles.sectionTitle}>{t.career_intelligence.title || "Top Career Matches"}</h2>
+                        <p style={{ marginBottom: '1rem', color: '#64748b' }}>Based on your profile, these are your top 25 matches.</p>
+                        {topCareers && <SmartCareerGrid careers={topCareers} />}
+                    </div>
+
+                    <div className={styles.section} style={{ marginTop: '3rem' }}>
+                        <h2 className={styles.sectionTitle} style={{ color: '#b45309' }}>Least Compatible Careers</h2>
+                        <p style={{ marginBottom: '1rem', color: '#64748b' }}>Careers that might lead to burnout or frustration for your profile type.</p>
+                        {bottomCareers && <SmartCareerGrid careers={bottomCareers} />}
+                    </div>
+
                     {results.answers && (
                         <div className={styles.section}>
                             <h2 className={styles.sectionTitle}>{t.detailed_response_analysis.title}</h2>
@@ -1047,8 +1167,8 @@ const ResultsDashboard: React.FC = () => {
                                             const item = itemsData.find(i => i.id === itemId);
                                             return (
                                                 <tr key={itemId} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                                                    <td style={{ padding: '1rem', color: '#334155' }}>{item ? (language === 'ml' ? item.text_ml : item.text) : `${t.detailed_response_analysis.question_label} ${index + 1}`}</td>
-                                                    <td style={{ padding: '1rem' }}>
+                                                    <td className={styles.tableCell} data-label={t.detailed_response_analysis.question_header} style={{ padding: '1rem', color: '#334155' }}>{item ? (language === 'ml' ? item.text_ml : item.text) : `${t.detailed_response_analysis.question_label} ${index + 1}`}</td>
+                                                    <td className={styles.tableCell} data-label={t.detailed_response_analysis.your_answer_header} style={{ padding: '1rem' }}>
                                                         <span style={{
                                                             padding: '0.25rem 0.75rem',
                                                             borderRadius: '12px',
@@ -1062,7 +1182,7 @@ const ResultsDashboard: React.FC = () => {
                                                                         Number(value) === 4 ? 'Agree' : 'Strongly Agree'}
                                                         </span>
                                                     </td>
-                                                    <td style={{ padding: '1rem', color: '#64748b' }}>
+                                                    <td className={styles.tableCell} data-label={t.detailed_response_analysis.trait_header} style={{ padding: '1rem', color: '#64748b' }}>
                                                         {item ? (language === 'ml' ? (bigFiveInsights as any)[item.domain]?.name_ml : (bigFiveInsights as any)[item.domain]?.name || item.domain) : '-'}
                                                     </td>
                                                 </tr>

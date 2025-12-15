@@ -1,0 +1,302 @@
+{
+    "N1": {
+        "name": "Anxiety",
+        "name_ml": "ഉത്കണ്ഠ (Anxiety)",
+        "High": "You often feel tense, jittery, and fearful. You may worry about things that might go wrong.",
+        "High_ml": "നിങ്ങൾക്ക് പലപ്പോഴും പിരിമുറുക്കവും പേടിയും അനുഭവപ്പെടുന്നു. കാര്യങ്ങൾ തെറ്റായി പോകുമോ എന്ന് നിങ്ങൾ ഭയപ്പെടുന്നു.",
+        "Average": "You generally feel calm, but can experience anxiety in stressful situations.",
+        "Average_ml": "നിങ്ങൾ പൊതുവെ ശാന്തനാണ്, എന്നാൽ സമ്മർദ്ദമുള്ള സാഹചര്യങ്ങളിൽ ഉത്കണ്ഠ അനുഭവപ്പെടാം.",
+        "Low": "You are calm, fearless, and not easily rattled. You rarely worry about the future.",
+        "Low_ml": "നിങ്ങൾ ശാന്തനും നിർഭയനുമാണ്. ഭാവിയെക്കുറിച്ച് നിങ്ങൾ അധികം ആശങ്കപ്പെടാറില്ല."
+    },
+    "N2": {
+        "name": "Anger",
+        "name_ml": "ദേഷ്യം (Anger)",
+        "High": "You have a tendency to feel angry or bitter. You may be quick to take offense.",
+        "High_ml": "നിങ്ങൾക്ക് പെട്ടെന്ന് ദേഷ്യം വരാറുണ്ട്. മറ്റുള്ളവരുടെ പെരുമാറ്റം നിങ്ങളെ വേഗത്തിൽ പ്രകോപിപ്പിച്ചേക്കാം.",
+        "Average": "You get angry occasionally when provoked, but it passes relatively quickly.",
+        "Average_ml": "പ്രകോപനമുണ്ടായാൽ നിങ്ങൾക്ക് ദേഷ്യം വരാറുണ്ട്, എങ്കിലും അത് വേഗത്തിൽ മാാറും.",
+        "Low": "You are slow to anger and rarely hold grudges. You are generally easygoing.",
+        "Low_ml": "നിങ്ങൾക്ക് അപൂർവ്വമായേ ദേഷ്യം വരാറുള്ളൂ. നിങ്ങൾ കാര്യങ്ങളെ ലഘുവായി കാണുന്നു."
+    },
+    "N3": {
+        "name": "Depression",
+        "name_ml": "വിഷാദം (Depression)",
+        "High": "You tend to feel sad, dejected, and discouraged. You may lack energy and motivation.",
+        "High_ml": "നിങ്ങൾക്ക് പലപ്പോഴും സങ്കടവും നിരാശയും അനുഭവപ്പെടാറുണ്ട്. ഊർജ്ജവും ഉത്സാഹവും കുറവായിരിക്കാം.",
+        "Average": "You have ups and downs in mood, but generally feel content.",
+        "Average_ml": "നിങ്ങളുടെ മാനസികാവസ്ഥയിൽ മാറ്റങ്ങളുണ്ടാകാറുണ്ടെങ്കിലും പൊതുവെ നിങ്ങൾ സംതൃപ്തനാണ്.",
+        "Low": "You are generally cheerful, optimistic, and free from depressive feelings.",
+        "Low_ml": "നിങ്ങൾ പൊതുവെ സന്തോഷവാനും ശുഭാപ്തിവിശ്വാസിയുമാണ്."
+    },
+    "N4": {
+        "name": "Self-Consciousness",
+        "name_ml": "സ്വയം അവബോധം (Self-Consciousness)",
+        "High": "You are sensitive about what others think of you. You may feel awkward in social situations.",
+        "High_ml": "മറ്റുള്ളവർ നിങ്ങളെക്കുറിച്ച് എന്ത് ചിന്തിക്കുന്നു എന്നോർത്ത് നിങ്ങൾ വിഷമിക്കാറുണ്ട്. സാമൂഹിക സാഹചര്യങ്ങളിൽ നിങ്ങൾക്ക് അസ്വസ്ഥത അനുഭവപ്പെടാം.",
+        "Average": "You are reasonably comfortable in social situations, though you may feel shy occasionally.",
+        "Average_ml": "സാമൂഹിക സാഹചര്യങ്ങളിൽ നിങ്ങൾ സാമാന്യം കംഫർട്ടബിൾ ആണ്, എങ്കിലും ചിലപ്പോൾ നാണം തോന്നാം.",
+        "Low": "You are confident and not easily embarrassed. You don't worry much about social judgment.",
+        "Low_ml": "നിങ്ങൾ ആത്മവിശ്വാസമുള്ളയാളാണ്. മറ്റുള്ളവരുടെ അഭിപ്രായങ്ങളെക്കുറിച്ച് നിങ്ങൾ അധികം ആശങ്കപ്പെടാറില്ല."
+    },
+    "N5": {
+        "name": "Immoderation",
+        "name_ml": "നിയന്ത്രണമില്ലായ്മ (Immoderation)",
+        "High": "You may have difficulty resisting temptations and cravings. You might overindulge at times.",
+        "High_ml": "പ്രലോഭനങ്ങളെ ചെറുക്കാൻ നിങ്ങൾക്ക് പ്രയാസമാണ്. ചിലപ്പോൾ നിങ്ങൾ അമിതമായി ആസക്തികൾക്ക് വഴങ്ങാം.",
+        "Average": "You can resist temptations most of the time, but may give in occasionally.",
+        "Average_ml": "മിക്കപ്പോഴും നിങ്ങൾക്ക് പ്രലോഭനങ്ങളെ നിയന്ത്രിക്കാൻ കഴിയും.",
+        "Low": "You have high self-control and can easily resist temptations and cravings.",
+        "Low_ml": "നിങ്ങൾക്ക് ഉയർന്ന ആത്മനിയന്ത്രണമുണ്ട്. പ്രലോഭനങ്ങളെ എളുപ്പത്തിൽ ചെറുക്കാൻ കഴിയും."
+    },
+    "N6": {
+        "name": "Vulnerability",
+        "name_ml": "വൈകാരിക ക്ഷീണം (Vulnerability)",
+        "High": "You feel overwhelmed by stress and pressure. You may panic in emergency situations.",
+        "High_ml": "സമ്മർദ്ദം വരുമ്പോൾ നിങ്ങൾ തളർന്നുപോകുന്നു. അടിയന്തിര സാഹചര്യങ്ങളിൽ നിങ്ങൾ പരിഭ്രാന്തരായേക്കാം.",
+        "Average": "You handle stress reasonably well, though major crises can be difficult.",
+        "Average_ml": "സമ്മർദ്ദത്തെ നിങ്ങൾ സാമാന്യം നന്നായി കൈകാര്യം ചെയ്യുന്നു.",
+        "Low": "You are resilient and handle stress and pressure with grace. You are 'cool under fire'.",
+        "Low_ml": "നിങ്ങൾ സമ്മർദ്ദത്തെ ധീരമായി നേരിടുന്നു. പ്രതിസന്ധികളിൽ നിങ്ങൾ തളരാറില്ല."
+    },
+    "E1": {
+        "name": "Friendliness",
+        "name_ml": "സൗഹൃദ മനോഭാവം (Friendliness)",
+        "High": "You are genuinely interested in others and make friends easily. You are warm and affectionate.",
+        "High_ml": "നിങ്ങൾക്ക് മറ്റുള്ളവരുമായി എളുപ്പത്തിൽ സൗഹൃദത്തിലാകാൻ കഴിയും. നിങ്ങൾ സ്നേഹമുള്ള പ്രകൃതക്കാരനാണ്.",
+        "Average": "You are friendly but not overly demonstrative. You have a few close friends.",
+        "Average_ml": "നിങ്ങൾ സൗഹൃദപരമായി പെരുമാറുന്നയാളാണ്, എന്നാൽ അധികം അടുപ്പം കാണിക്കാറില്ല.",
+        "Low": "You are reserved and distant. You may not seek out close relationships.",
+        "Low_ml": "നിങ്ങൾ അകലം പാലിക്കുന്ന പ്രകൃതക്കാരനാണ്. അടുത്ത ബന്ധങ്ങൾ സ്ഥാപിക്കാൻ നിങ്ങൾ അധികം ശ്രമിക്കാറില്ല."
+    },
+    "E2": {
+        "name": "Gregariousness",
+        "name_ml": "സാമൂഹികത (Gregariousness)",
+        "High": "You love the company of others and find social gatherings stimulating.",
+        "High_ml": "ആളുകളുടെ കൂടെയായിരിക്കാൻ നിങ്ങൾ ഇഷ്ടപ്പെടുന്നു. പാർട്ടികളും ഒത്തുചേരലുകളും നിങ്ങൾക്ക് ഊർജ്ജം നൽകുന്നു.",
+        "Average": "You enjoy social occasions but also value your privacy and alone time.",
+        "Average_ml": "നിങ്ങൾ സാമൂഹിക കൂടിച്ചേരലുകൾ ആസ്വദിക്കുന്നുണ്ടെങ്കിലും സ്വകാര്യതയും ആഗ്രഹിക്കുന്നു.",
+        "Low": "You prefer to be alone or with a few close friends. You find crowds draining.",
+        "Low_ml": "ഒറ്റയ്ക്കായിരിക്കാനോ കുറച്ച് സുഹൃത്തുക്കളോടൊപ്പമായിരിക്കാനോ ആണ് നിങ്ങൾക്കിഷ്ടം."
+    },
+    "E3": {
+        "name": "Assertiveness",
+        "name_ml": "നിശ്ചയദാർഢ്യം (Assertiveness)",
+        "High": "You are dominant, forceful, and comfortable taking charge. You are a natural leader.",
+        "High_ml": "നിങ്ങൾ കാര്യങ്ങൾ നിയന്ത്രിക്കാൻ ഇഷ്ടപ്പെടുന്നു. നേതൃത്വം വഹിക്കാൻ നിങ്ങൾക്ക് താൽപ്പര്യമുണ്ട്.",
+        "Average": "You can take charge when necessary, but don't constantly seek leadership roles.",
+        "Average_ml": "ആവശ്യമുള്ളപ്പോൾ നിങ്ങൾക്ക് നേതൃത്വം നൽകാൻ കഴിയും.",
+        "Low": "You prefer to stay in the background and let others lead. You are quiet and unassuming.",
+        "Low_ml": "മറ്റുള്ളവർ നയിക്കട്ടെ എന്ന് കരുതുന്നയാളാണ് നിങ്ങൾ. നിങ്ങൾ ഒതുങ്ങിനിൽക്കാൻ ആഗ്രഹിക്കുന്നു."
+    },
+    "E4": {
+        "name": "Activity Level",
+        "name_ml": "കർമ്മനിരത (Activity Level)",
+        "High": "You lead a fast-paced, busy life. You are energetic and always on the go.",
+        "High_ml": "നിങ്ങൾ വളരെ തിരക്കുള്ള, ഊർജ്ജസ്വലമായ ജീവിതം നയിക്കുന്നു. നിങ്ങൾ എപ്പോഴും കർമ്മനിരതനാണ്.",
+        "Average": "You have a moderate energy level. You can be busy but also enjoy relaxing.",
+        "Average_ml": "നിങ്ങൾക്ക് സാമാന്യം ഊർജ്ജമുണ്ട്. തിരക്കിനിടയിലും വിശ്രമിക്കാൻ നിങ്ങൾ സമയം കണ്ടെത്തും.",
+        "Low": "You prefer a slower, more leisurely pace. You are not hurried or energetic.",
+        "Low_ml": "നിങ്ങൾ സാവധാനത്തിലുള്ള ജീവിതം ഇഷ്ടപ്പെടുന്നു. തിടുക്കപ്പെട്ട് കാര്യങ്ങൾ ചെയ്യാൻ നിങ്ങൾക്കിഷ്ടമല്ല."
+    },
+    "E5": {
+        "name": "Excitement-Seeking",
+        "name_ml": "ആവേശം തേടൽ (Excitement-Seeking)",
+        "High": "You crave excitement, adventure, and stimulation. You may take risks for the thrill.",
+        "High_ml": "നിങ്ങൾ ആവേശവും സാഹസികതയും ഇഷ്ടപ്പെടുന്നു. ത്രില്ലിന് വേണ്ടി റിസ്ക് എടുക്കാൻ നിങ്ങൾ തയ്യാറാണ്.",
+        "Average": "You enjoy some excitement but also appreciate safety and stability.",
+        "Average_ml": "നിങ്ങൾ ഇടയ്ക്ക് ആവേശം ആഗ്രഹിക്കുന്നുണ്ടെങ്കിലും സുരക്ഷിതത്വത്തിനാണ് പ്രാധാന്യം നൽകുന്നത്.",
+        "Low": "You prefer a safe, predictable life. You avoid risks and loud, thrilling activities.",
+        "Low_ml": "സുരക്ഷിതമായ ജീവിതമാണ് നിങ്ങൾക്കിഷ്ടം. സാഹസികതകൾ നിങ്ങൾ ഒഴിവാക്കുന്നു."
+    },
+    "E6": {
+        "name": "Cheerfulness",
+        "name_ml": "പ്രസന്നത (Cheerfulness)",
+        "High": "You are typically full of joy, happiness, and positive energy.",
+        "High_ml": "നിങ്ങൾ എപ്പോഴും സന്തോഷവാനും പോസിറ്റീവ് എനർജി ഉള്ളയാളുമാണ്.",
+        "Average": "You are generally in a good mood, but not constantly exuberant.",
+        "Average_ml": "നിങ്ങൾ പൊതുവെ നല്ല മൂഡിലായിരിക്കും.",
+        "Low": "You are not typically exuberant or high-spirited. You may be serious or reserved.",
+        "Low_ml": "നിങ്ങൾ അധികം ഉന്മേഷം പ്രകടിപ്പിക്കാറില്ല. ഗൗരവക്കാരനായി കാണപ്പെട്ടേക്കാം."
+    },
+    "O1": {
+        "name": "Imagination",
+        "name_ml": "ഭാവന (Imagination)",
+        "High": "You have a vivid imagination and enjoy fantasy. You are creative and original.",
+        "High_ml": "നിങ്ങൾക്ക് നല്ല ഭാവനാശേഷിയുണ്ട്. നിങ്ങൾ സർഗ്ഗാത്മകമായി ചിന്തിക്കുന്നയാളാണ്.",
+        "Average": "You have a normal imagination but prefer the real world to fantasy.",
+        "Average_ml": "നിങ്ങൾക്ക് സാമാന്യമായ ഭാവനയുണ്ട്, എങ്കിലും യാഥാർത്ഥ്യത്തിനാണ് നിങ്ങൾ പ്രാധാന്യം നൽകുന്നത്.",
+        "Low": "You are practical and down-to-earth. You prefer facts to fantasy.",
+        "Low_ml": "നിങ്ങൾ പ്രായോഗികമായി ചിന്തിക്കുന്നു. ഭാവനയേക്കാൾ വസ്തുതകളെ നിങ്ങൾ വിശ്വസിക്കുന്നു."
+    },
+    "O2": {
+        "name": "Artistic Interests",
+        "name_ml": "കലാപരമായ താൽപ്പര്യം (Artistic Interests)",
+        "High": "You love beauty in art and nature. You are easily moved by poetry, music, or art.",
+        "High_ml": "കലയും പ്രകൃതിഭംഗിയും നിങ്ങൾ ആസ്വദിക്കുന്നു. സംഗീതവും കവിതയും നിങ്ങളെ സ്വാധീനിക്കുന്നു.",
+        "Average": "You appreciate art and beauty but are not deeply absorbed by it.",
+        "Average_ml": "നിങ്ങൾ കലയെ ആസ്വദിക്കുന്നുണ്ടെങ്കിലും അതിൽ മുഴുകാറില്ല.",
+        "Low": "You are not particularly interested in art or aesthetic experiences.",
+        "Low_ml": "നിങ്ങൾക്ക് കലയിലോ സൗന്ദര്യ ആസ്വാദനത്തിലോ വലിയ താൽപ്പര്യമില്ല."
+    },
+    "O3": {
+        "name": "Emotionality",
+        "name_ml": "വൈകാരികത (Emotionality)",
+        "High": "You are aware of your own feelings and experience emotions intensely.",
+        "High_ml": "നിങ്ങളുടെ വികാരങ്ങളെക്കുറിച്ച് നിങ്ങൾക്ക് നല്ല ബോധമുണ്ട്. വികാരങ്ങൾ തീവ്രമായി അനുഭവപ്പെടുന്നു.",
+        "Average": "You experience a normal range of emotions but are not overwhelmed by them.",
+        "Average_ml": "നിങ്ങൾക്ക് സാധാരണ രീതിയിലുള്ള വികാരങ്ങൾ അനുഭവപ്പെടുന്നു.",
+        "Low": "You do not pay much attention to your feelings. Your emotions are somewhat blunted.",
+        "Low_ml": "നിങ്ങൾ സ്വന്തം വികാരങ്ങൾക്ക് അധികം പ്രാധാന്യം നൽകുന്നില്ല."
+    },
+    "O4": {
+        "name": "Adventurousness",
+        "name_ml": "സാഹസികത (Adventurousness)",
+        "High": "You are eager to try new activities, travel to new places, and experience different things.",
+        "High_ml": "പുതിയ കാര്യങ്ങൾ പരീക്ഷിക്കാനും യാത്ര ചെയ്യാനും നിങ്ങൾക്ക് വലിയ ആഗ്രഹമാണ്.",
+        "Average": "You enjoy some variety but also like your familiar routines.",
+        "Average_ml": "നിങ്ങൾ മാറ്റങ്ങൾ ഇഷ്ടപ്പെടുന്നുണ്ടെങ്കിലും പഴയ ശീലങ്ങളും തുടരാൻ ആഗ്രഹിക്കുന്നു.",
+        "Low": "You prefer the familiar and predictable. You are uncomfortable with change.",
+        "Low_ml": "പരിചിതമായ വഴികളിലൂടെ പോകാനാണ് നിങ്ങൾക്കിഷ്ടം. മാറ്റങ്ങൾ നിങ്ങൾക്ക് അസ്വസ്ഥതയുണ്ടാക്കാം."
+    },
+    "O5": {
+        "name": "Intellect",
+        "name_ml": "ബുദ്ധിപരമായ താൽപ്പര്യം (Intellect)",
+        "High": "You love to play with ideas. You are open-minded and enjoy intellectual challenges.",
+        "High_ml": "പുതിയ ആശയങ്ങൾ പഠിക്കാൻ നിങ്ങൾക്കിഷ്ടമാണ്. ബുദ്ധിപരമായ വെല്ലുവിളികൾ നിങ്ങൾ ആസ്വദിക്കുന്നു.",
+        "Average": "You are intellectually curious but not constantly seeking complex puzzles.",
+        "Average_ml": "നിങ്ങൾക്ക് കാര്യങ്ങൾ അറിയാൻ താൽപ്പര്യമുണ്ട്.",
+        "Low": "You prefer dealing with people or things rather than abstract ideas.",
+        "Low_ml": "സങ്കീർണ്ണമായ ആശയങ്ങളേക്കാൾ പ്രായോഗികമായ കാര്യങ്ങളാണ് നിങ്ങൾക്കിഷ്ടം."
+    },
+    "O6": {
+        "name": "Liberalism",
+        "name_ml": "ലിബറലിസം (Liberalism)",
+        "High": "You are ready to challenge authority and convention. You value freedom and diversity.",
+        "High_ml": "അധികാരത്തെയും പഴയ നടപ്പുകളെയും നിങ്ങൾ ചോദ്യം ചെയ്തേക്കാം. സ്വാതന്ത്ര്യത്തിന് നിങ്ങൾ വിലനൽകുന്നു.",
+        "Average": "You hold a mix of traditional and progressive views.",
+        "Average_ml": "നിങ്ങൾക്ക് പാരമ്പര്യത്തിലും പുരോഗമന ആശയങ്ങളിലും വിശ്വാസമുണ്ട്.",
+        "Low": "You are conservative and value tradition. You prefer established ways of doing things.",
+        "Low_ml": "നിങ്ങൾ പാരമ്പര്യങ്ങളെ മാനിക്കുന്നു. പഴയ രീതികൾ തുടരാനാണ് നിങ്ങൾക്കിഷ്ടം."
+    },
+    "A1": {
+        "name": "Trust",
+        "name_ml": "വിശ്വാസം (Trust)",
+        "High": "You believe that most people are honest and well-intentioned.",
+        "High_ml": "ഭൂരിഭാഗം ആളുകളും സത്യസന്ധരും നല്ലവരുമാണെന്ന് നിങ്ങൾ വിശ്വസിക്കുന്നു.",
+        "Average": "You are generally trusting but not naive. You are cautious when necessary.",
+        "Average_ml": "നിങ്ങൾ ആളുകളെ വിശ്വസിക്കുന്നു, എന്നാൽ ആവശ്യമുള്ളപ്പോൾ ജാഗ്രത പാലിക്കുന്നു.",
+        "Low": "You are cynical and skeptical. You assume people may be dishonest or dangerous.",
+        "Low_ml": "മറ്റുള്ളവരെ വിശ്വസിക്കാൻ നിങ്ങൾക്ക് പ്രയാസമാണ്. ആളുകൾ വഞ്ചിച്ചേക്കാമെന്ന് നിങ്ങൾ കരുതുന്നു."
+    },
+    "A2": {
+        "name": "Morality",
+        "name_ml": "ധാർമ്മികത (Morality)",
+        "High": "You are frank, sincere, and candid. You would never use deception.",
+        "High_ml": "നിങ്ങൾ തുറന്ന പെരുമാറ്റക്കാരനും സത്യസന്ധനുമാണ്. നിങ്ങൾ ഒരിക്കലും വഞ്ചന കാണിക്കില്ല.",
+        "Average": "You are generally honest, but may be guarded or diplomatic when needed.",
+        "Average_ml": "നിങ്ങൾ പൊതുവെ സത്യസന്ധനാണ്, എന്നാൽ സാഹചര്യത്തിനനുസരിച്ച് പെരുമാറുന്നു.",
+        "Low": "You are willing to use deception or manipulation if it serves your purpose.",
+        "Low_ml": "ആവശ്യമെങ്കിൽ കാര്യങ്ങൾ സാധിക്കാൻ നിങ്ങൾ തന്ത്രങ്ങൾ പ്രയോഗിച്ചേക്കാം."
+    },
+    "A3": {
+        "name": "Altruism",
+        "name_ml": "പരോപകാരം (Altruism)",
+        "High": "You find helping others genuinely rewarding. You are generous and considerate.",
+        "High_ml": "മറ്റുള്ളവരെ സഹായിക്കുന്നത് നിങ്ങൾക്ക് സന്തോഷം നൽകുന്നു. നിങ്ങൾ ഉദാരമനസ്കനാണ്.",
+        "Average": "You are willing to help others, but not at the expense of your own needs.",
+        "Average_ml": "മറ്റുള്ളവരെ സഹായിക്കാൻ നിങ്ങൾ തയ്യാറാണ്, എന്നാൽ സ്വന്തം കാര്യങ്ങൾ മാറ്റി വെക്കില്ല.",
+        "Low": "You are somewhat self-centered and reluctant to get involved in others' problems.",
+        "Low_ml": "മറ്റുള്ളവരുടെ പ്രശ്നങ്ങളിൽ ഇടപെടാൻ നിങ്ങൾക്ക് താൽപ്പര്യമില്ല. സ്വന്തം കാര്യങ്ങളിൽ മാത്രമാണ് ശ്രദ്ധ."
+    },
+    "A4": {
+        "name": "Cooperation",
+        "name_ml": "സഹകരണം (Cooperation)",
+        "High": "You dislike confrontation. You are willing to compromise to get along with others.",
+        "High_ml": "തർക്കങ്ങൾ നിങ്ങൾ ഇഷ്ടപ്പെടുന്നില്ല. മറ്റുള്ളവരുമായി യോജിച്ച് പോകാൻ വിട്ടുവീഴ്ചകൾ ചെയ്യും.",
+        "Average": "You can compromise, but will stand up for your needs if pushed.",
+        "Average_ml": "വിട്ടുവീഴ്ച ചെയ്യാൻ തയ്യാറാണെങ്കിലും സ്വന്തം നിലപാടുകൾക്കായി നിങ്ങൾ വാദിക്കും.",
+        "Low": "You are aggressive and competitive. You prefer to win rather than compromise.",
+        "Low_ml": "വിട്ടുവീഴ്ച ചെയ്യുന്നതിനേക്കാൾ ജയിക്കാനാണ് നിങ്ങൾക്കിഷ്ടം. നിങ്ങൾ മത്സരബുദ്ധിയുള്ളയാളാണ്."
+    },
+    "A5": {
+        "name": "Modesty",
+        "name_ml": "വിനയം (Modesty)",
+        "High": "You are humble and self-effacing. You do not like to brag.",
+        "High_ml": "നിങ്ങൾ വിനയമുള്ളയാളാണ്. സ്വന്തം നേട്ടങ്ങളെക്കുറിച്ച് വീമ്പിളക്കാൻ നിങ്ങൾ ഇഷ്ടപ്പെടുന്നില്ല.",
+        "Average": "You have a healthy self-esteem but are not arrogant.",
+        "Average_ml": "നിങ്ങൾക്ക് ആത്മവിശ്വാസമുണ്ട്, എന്നാൽ അഹങ്കാരമില്ല.",
+        "Low": "You think highly of yourself and may be seen as arrogant or conceited.",
+        "Low_ml": "നിങ്ങളെക്കുറിച്ച് നിങ്ങൾക്ക് വലിയ മതിപ്പാണ്. അത് ചിലപ്പോൾ അഹങ്കാരമായി തോന്നാം."
+    },
+    "A6": {
+        "name": "Sympathy",
+        "name_ml": "അനുകമ്പ (Sympathy)",
+        "High": "You are tender-hearted and compassionate. You feel others' pain.",
+        "High_ml": "നിങ്ങൾ ദയയുള്ളയാളാണ്. മറ്റുള്ളവരുടെ വേദന നിങ്ങളെ സ്പർശിക്കുന്നു.",
+        "Average": "You are sympathetic but try to remain objective.",
+        "Average_ml": "നിങ്ങൾക്ക് സഹതാപം തോന്നാറുണ്ടെങ്കിലും വികാരങ്ങൾക്ക് അടിപ്പെടാറില്ല.",
+        "Low": "You are hard-headed and tough-minded. You are not easily moved by pity.",
+        "Low_ml": "നിങ്ങൾ കർക്കശക്കാരനാണ്. സഹതാപം നിങ്ങളെ പെട്ടെന്ന് സ്വാധീനിക്കില്ല."
+    },
+    "C1": {
+        "name": "Self-Efficacy",
+        "name_ml": "സ്വയമപ്രാപ്തി (Self-Efficacy)",
+        "High": "You feel prepared to deal with life. You are confident in your ability to succeed.",
+        "High_ml": "ജീവിതത്തെ നേരിടാൻ നിങ്ങൾ തയ്യാറാണ്. വിജയത്തിൽ നിങ്ങൾക്ക് ആത്മവിശ്വാസമുണ്ട്.",
+        "Average": "You feel reasonably capable, though you may doubt yourself at times.",
+        "Average_ml": "നിങ്ങൾക്ക് കഴിവിനെക്കുറിച്ച് ബോധ്യമുണ്ട്, എങ്കിലും ചിലപ്പോൾ സംശയം തോന്നാം.",
+        "Low": "You feel ineffective and unprepared. You may lack confidence in your abilities.",
+        "Low_ml": "നിങ്ങൾക്ക് കഴിവിൽ ആത്മവിശ്വാസം കുറവാണ്. പലപ്പോഴും തയ്യാറെടുപ്പില്ലാത്തതായി തോന്നാം."
+    },
+    "C2": {
+        "name": "Orderliness",
+        "name_ml": "ചിട്ട (Orderliness)",
+        "High": "You are extremely well-organized, neat, and tidy. You live by schedules.",
+        "High_ml": "നിങ്ങൾ എല്ലാം ചിട്ടയോടെയും വൃത്തിയായും സൂക്ഷിക്കുന്നയാളാണ്.",
+        "Average": "You are generally organized but can be messy at times.",
+        "Average_ml": "നിങ്ങൾ പൊതുവെ ചിട്ടയുള്ളയാളാണ്, എങ്കിലും എപ്പോഴും അങ്ങനെയാകണമെന്നില്ല.",
+        "Low": "You are unorganized and unmethodical. You may leave things in a mess.",
+        "Low_ml": "നിങ്ങൾക്ക് ചിട്ട കുറവാണ്. സാധനങ്ങൾ വലിച്ചുവാരിയിടുന്ന ശീലം ഉണ്ടാകാം."
+    },
+    "C3": {
+        "name": "Dutifulness",
+        "name_ml": "കടമബോധം (Dutifulness)",
+        "High": "You have a strong sense of moral obligation. You always keep your promises.",
+        "High_ml": "നിങ്ങൾക്ക് ഉയർന്ന ധാർമ്മിക ബോധമുണ്ട്. വാഗ്ദാനങ്ങൾ നിങ്ങൾ പാലിക്കും.",
+        "Average": "You are dependable and reliable, but not rigidly so.",
+        "Average_ml": "നിങ്ങൾ വിശ്വസിക്കാൻ കൊള്ളാവുന്നയാളാണ്.",
+        "Low": "You find rules and regulations confining. You may be unreliable at times.",
+        "Low_ml": "നിയമങ്ങൾ പാലിക്കാൻ നിങ്ങൾക്ക് മടിയാണ്. ചിലപ്പോൾ ഉത്തരവാദിത്തം കാണിക്കില്ല."
+    },
+    "C4": {
+        "name": "Achievement-Striving",
+        "name_ml": "വിജയതൃഷ്ണ (Achievement-Striving)",
+        "High": "You strive hard to achieve excellence. You have high aspirations.",
+        "High_ml": "മികവ് പുലർത്താൻ നിങ്ങൾ കഠിനമായി പരിശ്രമിക്കുന്നു. നിങ്ങൾക്ക് വലിയ ലക്ഷ്യങ്ങളുണ്ട്.",
+        "Average": "You work hard but are not a workaholic. You have a balanced approach.",
+        "Average_ml": "നിങ്ങൾ കഠിനാധ്വാനം ചെയ്യും, എന്നാൽ ജോലിയിൽ മാത്രം മുഴുകുന്നയാളല്ല.",
+        "Low": "You are content with getting by. You are not driven by ambition.",
+        "Low_ml": "ലഭിക്കുന്നതുകൊണ്ട് നിങ്ങൾ സംതൃപ്തനാണ്. വലിയ മോഹങ്ങൾ നിങ്ങളെ ഭരിക്കുന്നില്ല."
+    },
+    "C5": {
+        "name": "Self-Discipline",
+        "name_ml": "ആത്മനിയന്ത്രണം (Self-Discipline)",
+        "High": "You have the willpower to persist at difficult or unpleasant tasks.",
+        "High_ml": "ബുദ്ധിമുട്ടുള്ള ജോലികൾ തീർക്കാൻ നിങ്ങൾക്ക് ഇച്ഛാശക്തിയുണ്ട്.",
+        "Average": "You can get work done, but may procrastinate on difficult tasks.",
+        "Average_ml": "ജോലികൾ ചെയ്യാറുണ്ടെങ്കിലും, പ്രയാസമുള്ളവ മാറ്റിവെച്ചേക്കാം.",
+        "Low": "You tend to procrastinate and have poor follow-through. You are easily distracted.",
+        "Low_ml": "നിങ്ങൾ കാര്യങ്ങൾ നീട്ടിവെക്കുന്ന പ്രകൃതക്കാരനാണ്. പെട്ടെന്ന് ശ്രദ്ധ മാറിപ്പോകും."
+    },
+    "C6": {
+        "name": "Cautiousness",
+        "name_ml": "ജാഗ്രത (Cautiousness)",
+        "High": "You are deliberate and think carefully before acting. You avoid mistakes.",
+        "High_ml": "എന്തും ചെയ്യുന്നതിന് മുൻപ് നിങ്ങൾ നന്നായി ചിന്തിക്കും. തെറ്റുകൾ ഒഴിവാക്കാൻ ശ്രമിക്കും.",
+        "Average": "You usually think before acting, but can be spontaneous.",
+        "Average_ml": "പൊതുവെ ചിന്തിച്ചേ പ്രവർത്തിക്കൂ എങ്കിലും ചിലപ്പോൾ പെട്ടെന്ന് തീരുമാനങ്ങളെടുക്കും.",
+        "Low": "You are hasty and impulsive. You often act without thinking of the consequences.",
+        "Low_ml": "നിങ്ങൾ എടുത്തുചാട്ടം ഉള്ളയാളാണ്. വരുംവരായ്കകളെക്കുറിച്ച് ചിന്തിക്കാറില്ല."
+    }
+}
